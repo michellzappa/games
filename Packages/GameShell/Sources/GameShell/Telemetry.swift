@@ -316,11 +316,18 @@ public enum ESTTelemetry {
     }
 
     public static func record(_ event: Event) {
+        record(key: event.rawValue)
+    }
+
+    /// Counts one activity key. A game defines its own key enum and calls
+    /// this; the Worker whitelists keys per product, so an unknown key is
+    /// dropped there, never stored.
+    public static func record(key: String) {
         guard enabled else { return }
         let period = currentPeriod()
         var state = currentActivity(for: period)
-        let count = state.counts[event.rawValue, default: 0]
-        state.counts[event.rawValue] = min(count + 1, 999_999)
+        let count = state.counts[key, default: 0]
+        state.counts[key] = min(count + 1, 999_999)
         saveActivity(state)
     }
 

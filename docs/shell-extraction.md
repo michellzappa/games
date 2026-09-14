@@ -230,3 +230,15 @@ enum, and whether `SupportView` copy references cards. Both surface in Phase
   best, stars, unlock), `SeededGenerator` and `Seed` (SplitMix64, daily
   and per-level seeds). `BoardGridView`, `PartyGameView` and
   `NetworkPartyGameView` read their cell size from `GridLayout`.
+- Phase 7: done, first build. `SEEP` target, scheme, entitlements, StoreKit
+  config, three icons (`scripts/generate-seep-icon.swift` draws the base,
+  the hue-shift script makes Orchard and Dusk). Models: `FloodBoard`
+  (flood, region, greedy solver), `FloodGame` (moves, undo, par, limit,
+  stars, hint), `FloodPack` Pool/Lake/Ocean 10/14/18 with 4/5/6 colors,
+  30 seeded levels each, `FloodLevel.daily()`, `FloodPalette`,
+  `SEEPStats` over `LevelStore`, `SEEPLeaderboard` (pack totals, hinted
+  levels excluded), `SEEPEvent`. Views: title, level grid, game, tutorial
+  (5 steps on 6x6), explainer (BFS wave, greedy vs exact search), play
+  style, settings, leaderboards. The shell gained `TutorialFrame`,
+  `TutorialText` and `ESTTelemetry.record(key:)`; EST's tutorial uses them.
+  Not yet: SEEP screenshots, App Store record, listing (Phase 8).

@@ -195,6 +195,33 @@ iPhone and iPad are both mandatory while TARGETED_DEVICE_FAMILY is "1,2".
   `ESTSettingsView.swift` now holds one `VStack` and a `Phase` enum, and the
   `.task` sits on the stable container.
 
+## SEEP
+
+The second app, a flood-fill puzzle. `SEEP/` mirrors `EST/`: `App/`,
+`Models/`, `Views/`, `Resources/`. Build:
+
+```
+xcodebuild -project EST.xcodeproj -scheme SEEP -destination 'generic/platform=iOS Simulator' build CODE_SIGNING_ALLOWED=NO
+```
+
+- `FloodBoard` owns the one move (flood the corner region) and the greedy
+  solver. `FloodGame` owns a round: par is the greedy move count, the limit
+  is par + 3, stars are 3 at par, 2 one over, 1 for a finish. Do not put
+  rules in views.
+- A level is a seed: `Seed.level(pack:index:)`. Changing a pack id, the
+  level count, or `FloodBoard.generate` changes every board players have
+  already seen. Add a new pack instead.
+- The daily is `Seed.daily(salt: "seep")` on the UTC day, 14 by 14, five
+  colors. No daily leaderboard; the streak is local.
+- Leaderboards `seep.pool.moves`, `seep.lake.moves`, `seep.ocean.moves`:
+  total best moves over all 30 boards, submitted only when every board is
+  done and none was hinted. Integer, ascending. Create them in App Store
+  Connect with these ids.
+- Telemetry keys are `SEEPEvent`; the Worker whitelists them under `seep`.
+  Adding a key means editing both.
+- Icons: `swift scripts/generate-seep-icon.swift <AppIcon png>` then
+  `generate-app-icons.swift orchard|dusk` for the alternates.
+
 ## App Store Connect
 
 The app record is `6806817604`. The App Store name is `EST - Card Trios`. The

@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		071004AD1A86A69D435CC149 /* SEEPTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5781C78C6B9D572A5318E30 /* SEEPTelemetry.swift */; };
 		125DC9139719C4CB8E45CE0A /* FeedbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2C9E562A51E177A5F5E58 /* FeedbackTests.swift */; };
 		173FAD4D384AB24A359FFEBE /* ESTSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF21CDFB2EE84BEFB88CC4 /* ESTSettingsView.swift */; };
+		17F0F6A248CCA159BB9C073D /* FloodGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3347B508AE62480F0DDCBE7 /* FloodGame.swift */; };
+		18BFD6D44A715516674879BF /* SEEPIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFA11ADAD05F997FB497308 /* SEEPIdentity.swift */; };
+		1C5AE7DFCEEDCC7CBEF2FE36 /* FloodBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A413F9675BAF0D04D492D91 /* FloodBoard.swift */; };
+		26FF394A6BD3A8E6A6D32765 /* GridKit in Frameworks */ = {isa = PBXBuildFile; productRef = 35FCFA880A6981551D94891E /* GridKit */; };
 		272C76944CA31B9085571EED /* PilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F58ECE893660C9BEABFEB /* PilesView.swift */; };
 		2BAABEFD4BABA40A79640CD6 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F124673A85426DAE3666DC /* ScreenshotTests.swift */; };
 		34D5EEDF027658B338D7B528 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2477202E22AC8D7CB6C56AC /* TitleView.swift */; };
@@ -16,27 +21,43 @@
 		3AABDEB0CEC2DD196C930785 /* NetMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3799FD9463E030E3027C6 /* NetMessages.swift */; };
 		455AB690FC27BD6421FE1B68 /* PlayStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F1379D58115CE598C68C6B /* PlayStyleView.swift */; };
 		45D5DE849C1F9A54C925D4D8 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F37FAA2DCF8DD1E0761D68 /* TutorialView.swift */; };
+		4619120236EE10ECECB2F9E1 /* LevelGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1806A20E0E31070593D2A3A /* LevelGridView.swift */; };
 		47498A00BB03030965C9D6F5 /* GameShell in Frameworks */ = {isa = PBXBuildFile; productRef = BDC72FF9BC0A7E4BCA44A678 /* GameShell */; };
 		4C0A8911E947E1CE42E9AF30 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA5395FBC02CCAA2D6D1A92 /* GameEngine.swift */; };
 		502878AE04236BCDC64899DB /* CardAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491E1589F5431E45353C2B89 /* CardAppearance.swift */; };
 		557AF9134BAE985870096E8F /* ClaimRace.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05FD8C31FB384CB9A02C591 /* ClaimRace.swift */; };
+		577AAB9F2D793C42076BD6B0 /* FloodExplainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49460DC9BFE51056FD8AF5 /* FloodExplainerView.swift */; };
 		5ECD3365B2D09F4AFC428759 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EBEEB06BF708F78BF96466 /* Card.swift */; };
 		64C9C8127644B6F9AA91CA12 /* SoloRunStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3BD29BD181969572CF2ED /* SoloRunStore.swift */; };
 		65BEE9643473223B5DAE5863 /* ClaimRaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF873213F2ACB61C1E665CF7 /* ClaimRaceTests.swift */; };
 		65C403C001A51B16E9AE77FC /* PartySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BE598B03AA0E6BB445B6A9 /* PartySession.swift */; };
+		66347E420E6FFE90BBBCEE7D /* SEEPLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8738BF91871F8C6DD7E3E625 /* SEEPLeaderboard.swift */; };
+		720972D4C54B5FA44AE2A332 /* GameShell in Frameworks */ = {isa = PBXBuildFile; productRef = 3D879C8C385BE1FE7336BDDC /* GameShell */; };
+		73C322FD11336C7DEF2292D4 /* SEEPTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53369896F7CC147FCABF261B /* SEEPTitleView.swift */; };
+		7473FD892F0BBFE431C3CD72 /* SEEPStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D529FCEA4358D6E81655BE8 /* SEEPStats.swift */; };
 		7572C9FF33C4245181D5FE3B /* ESTIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3ED26E018BAA9AC59D2EB /* ESTIdentity.swift */; };
 		8548D34517850306510158AC /* NetworkPartyGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */; };
+		8583257B09911904EA99BED8 /* SEEPSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5154078AC72BEF12A6EEBE22 /* SEEPSettingsView.swift */; };
+		996AFACF2C8CE80698797BA6 /* FloodLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B744AAA01DC649A191241 /* FloodLevels.swift */; };
+		9BF555561709F86D73A26DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BD502B04D8360619FD2C601 /* Assets.xcassets */; };
 		A236671F0BB4C9015A66C7B8 /* PartySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5816BABD18A4F7F6E2296F2D /* PartySessionTests.swift */; };
 		A7430579CA5981FECF598754 /* FourDimensionalProjectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DAB9099E4CA8F529837603 /* FourDimensionalProjectionView.swift */; };
 		A8D040A4698E0B208BF5D8E7 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14A00FCA84303D9FE935EE /* MatchmakerView.swift */; };
 		B05057B7F00E573E83C3769D /* MathVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F02BA8AC44B573528AA6140 /* MathVisualizerView.swift */; };
+		B07B6169EEC578EAFB1EC9F4 /* FloodTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6245A28B44CBA278406DCC /* FloodTutorialView.swift */; };
+		B5FA59E4C52A0DBF75F221ED /* FloodGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5356E6186FD8ABC175125A8 /* FloodGameView.swift */; };
 		B751729340CEC69F505EB537 /* SoloGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */; };
 		BD1AC9C9AE7C289DAACF9AFB /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F96389609C870D53F7E6C /* PlayerStats.swift */; };
+		BF39AF1CDD050E76CBB74253 /* SEEPLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512910976F522D084670220 /* SEEPLeaderboardView.swift */; };
+		C4F16DF39EC08E21D4DA2D0E /* SEEPApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801992911A81E1DBE1EED74E /* SEEPApp.swift */; };
 		C5DE2CAFCE70371D04F67B07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3476586C0851F24E8E653AB /* Assets.xcassets */; };
 		CA7533AB0C33C1E5348505A1 /* CardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5400937214F675381D17D03 /* CardTests.swift */; };
+		CB6BF56010E6C67529F3F06E /* FloodBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F316A1A39AB2610A00CF89 /* FloodBoardView.swift */; };
 		CD34675CC61385270B94C5F4 /* GridKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0086D76F460C8F977F203BC /* GridKit */; };
+		CD4687EB304273B6B1437C80 /* SEEPPlayStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F6A0ED7D87CF0CB62F7D0 /* SEEPPlayStyleView.swift */; };
 		D455D64693145D8727C9C13E /* ESTLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5BB501A834D29F5AC96B7B /* ESTLeaderboardView.swift */; };
 		E098F3D6429EF8218C641740 /* ESTLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9B8C15E0FAE232F72B6B9 /* ESTLeaderboard.swift */; };
+		E755D31CE0B809F5A275FD04 /* FloodPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6B332E699B04FDF33FEC32 /* FloodPalette.swift */; };
 		F4E47310C18E6EF77B70EAD8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472C464CD1AE63569E3EA136 /* CardView.swift */; };
 		F836FE52727B691059860707 /* NetworkPartySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4EA5D54ED04662EB126AE /* NetworkPartySession.swift */; };
 		FB7FEFF55B4BE791F4FDE614 /* ESTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFECB55E89D60D1B4C57ED9 /* ESTApp.swift */; };
@@ -66,27 +87,45 @@
 		16F37FAA2DCF8DD1E0761D68 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		1BDF21CDFB2EE84BEFB88CC4 /* ESTSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTSettingsView.swift; sourceTree = "<group>"; };
 		299F58ECE893660C9BEABFEB /* PilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilesView.swift; sourceTree = "<group>"; };
+		2A413F9675BAF0D04D492D91 /* FloodBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodBoard.swift; sourceTree = "<group>"; };
 		2B10BBBD73B61C9E649C8A41 /* EST.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EST.entitlements; sourceTree = "<group>"; };
 		315EDDEAAD8AC89CBE742294 /* EST.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = EST.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		37C7ADDBE35F1CE8D088AA66 /* SEEP.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SEEP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F6245A28B44CBA278406DCC /* FloodTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodTutorialView.swift; sourceTree = "<group>"; };
 		41A1D2288F1C5BD10CE53315 /* PartyGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyGameView.swift; sourceTree = "<group>"; };
 		4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloGameView.swift; sourceTree = "<group>"; };
 		472C464CD1AE63569E3EA136 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		491E1589F5431E45353C2B89 /* CardAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAppearance.swift; sourceTree = "<group>"; };
 		491F96389609C870D53F7E6C /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
+		4BD502B04D8360619FD2C601 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4D529FCEA4358D6E81655BE8 /* SEEPStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPStats.swift; sourceTree = "<group>"; };
+		5154078AC72BEF12A6EEBE22 /* SEEPSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPSettingsView.swift; sourceTree = "<group>"; };
+		53369896F7CC147FCABF261B /* SEEPTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPTitleView.swift; sourceTree = "<group>"; };
 		5816BABD18A4F7F6E2296F2D /* PartySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartySessionTests.swift; sourceTree = "<group>"; };
 		5DB2C9E562A51E177A5F5E58 /* FeedbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTests.swift; sourceTree = "<group>"; };
 		66EBEEB06BF708F78BF96466 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		67FBC0BB05BEB30933DC7A6F /* ESTTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ESTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B6B332E699B04FDF33FEC32 /* FloodPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodPalette.swift; sourceTree = "<group>"; };
+		715B744AAA01DC649A191241 /* FloodLevels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodLevels.swift; sourceTree = "<group>"; };
 		76F1379D58115CE598C68C6B /* PlayStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayStyleView.swift; sourceTree = "<group>"; };
 		7F02BA8AC44B573528AA6140 /* MathVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathVisualizerView.swift; sourceTree = "<group>"; };
+		801992911A81E1DBE1EED74E /* SEEPApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPApp.swift; sourceTree = "<group>"; };
+		8738BF91871F8C6DD7E3E625 /* SEEPLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPLeaderboard.swift; sourceTree = "<group>"; };
 		90BE598B03AA0E6BB445B6A9 /* PartySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartySession.swift; sourceTree = "<group>"; };
+		9512910976F522D084670220 /* SEEPLeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPLeaderboardView.swift; sourceTree = "<group>"; };
 		9BD4BD80BED4CEF44FCE3563 /* GameShell */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GameShell; path = Packages/GameShell; sourceTree = SOURCE_ROOT; };
 		A05FD8C31FB384CB9A02C591 /* ClaimRace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRace.swift; sourceTree = "<group>"; };
+		A3347B508AE62480F0DDCBE7 /* FloodGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodGame.swift; sourceTree = "<group>"; };
+		A5356E6186FD8ABC175125A8 /* FloodGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodGameView.swift; sourceTree = "<group>"; };
 		A5400937214F675381D17D03 /* CardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTests.swift; sourceTree = "<group>"; };
+		AD49460DC9BFE51056FD8AF5 /* FloodExplainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodExplainerView.swift; sourceTree = "<group>"; };
 		AF5BB501A834D29F5AC96B7B /* ESTLeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTLeaderboardView.swift; sourceTree = "<group>"; };
+		B13F6A0ED7D87CF0CB62F7D0 /* SEEPPlayStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPPlayStyleView.swift; sourceTree = "<group>"; };
 		B3476586C0851F24E8E653AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B7F316A1A39AB2610A00CF89 /* FloodBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodBoardView.swift; sourceTree = "<group>"; };
 		C1DAB9099E4CA8F529837603 /* FourDimensionalProjectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourDimensionalProjectionView.swift; sourceTree = "<group>"; };
 		C4E3799FD9463E030E3027C6 /* NetMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetMessages.swift; sourceTree = "<group>"; };
+		C5781C78C6B9D572A5318E30 /* SEEPTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPTelemetry.swift; sourceTree = "<group>"; };
 		CFFECB55E89D60D1B4C57ED9 /* ESTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTApp.swift; sourceTree = "<group>"; };
 		D2F4EA5D54ED04662EB126AE /* NetworkPartySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPartySession.swift; sourceTree = "<group>"; };
 		D5F124673A85426DAE3666DC /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
@@ -95,7 +134,10 @@
 		DDA5395FBC02CCAA2D6D1A92 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		DF873213F2ACB61C1E665CF7 /* ClaimRaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRaceTests.swift; sourceTree = "<group>"; };
 		E48C5C1346BE0394E6087B18 /* BoardGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardGridView.swift; sourceTree = "<group>"; };
+		E6ACBE43FB6B60ABD0E74DFD /* SEEP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SEEP.entitlements; sourceTree = "<group>"; };
 		E9B3BD29BD181969572CF2ED /* SoloRunStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloRunStore.swift; sourceTree = "<group>"; };
+		ECFA11ADAD05F997FB497308 /* SEEPIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPIdentity.swift; sourceTree = "<group>"; };
+		F1806A20E0E31070593D2A3A /* LevelGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelGridView.swift; sourceTree = "<group>"; };
 		F2477202E22AC8D7CB6C56AC /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		F8E3ED26E018BAA9AC59D2EB /* ESTIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTIdentity.swift; sourceTree = "<group>"; };
 		FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPartyGameView.swift; sourceTree = "<group>"; };
@@ -111,9 +153,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FD6576408DB93FABB2095E63 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				720972D4C54B5FA44AE2A332 /* GameShell in Frameworks */,
+				26FF394A6BD3A8E6A6D32765 /* GridKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		06116E1A356C944AAEB0374D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B7F316A1A39AB2610A00CF89 /* FloodBoardView.swift */,
+				AD49460DC9BFE51056FD8AF5 /* FloodExplainerView.swift */,
+				A5356E6186FD8ABC175125A8 /* FloodGameView.swift */,
+				3F6245A28B44CBA278406DCC /* FloodTutorialView.swift */,
+				F1806A20E0E31070593D2A3A /* LevelGridView.swift */,
+				9512910976F522D084670220 /* SEEPLeaderboardView.swift */,
+				B13F6A0ED7D87CF0CB62F7D0 /* SEEPPlayStyleView.swift */,
+				5154078AC72BEF12A6EEBE22 /* SEEPSettingsView.swift */,
+				53369896F7CC147FCABF261B /* SEEPTitleView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		23CC4356B0E650C000976EC9 /* EST */ = {
 			isa = PBXGroup;
 			children = (
@@ -160,12 +227,39 @@
 			path = App;
 			sourceTree = "<group>";
 		};
+		6DCAD8AB3901A6AD73FD6AFC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2A413F9675BAF0D04D492D91 /* FloodBoard.swift */,
+				A3347B508AE62480F0DDCBE7 /* FloodGame.swift */,
+				715B744AAA01DC649A191241 /* FloodLevels.swift */,
+				6B6B332E699B04FDF33FEC32 /* FloodPalette.swift */,
+				8738BF91871F8C6DD7E3E625 /* SEEPLeaderboard.swift */,
+				4D529FCEA4358D6E81655BE8 /* SEEPStats.swift */,
+				C5781C78C6B9D572A5318E30 /* SEEPTelemetry.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		71A823DCA7C35DE382D1ECEB /* SEEP */ = {
+			isa = PBXGroup;
+			children = (
+				E6ACBE43FB6B60ABD0E74DFD /* SEEP.entitlements */,
+				C03A4EDB24D81F531B8DE369 /* App */,
+				6DCAD8AB3901A6AD73FD6AFC /* Models */,
+				CDFBC5427893E158EA7BE309 /* Resources */,
+				06116E1A356C944AAEB0374D /* Views */,
+			);
+			path = SEEP;
+			sourceTree = "<group>";
+		};
 		7B20878442E81F7C3DE5BF1D /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				315EDDEAAD8AC89CBE742294 /* EST.app */,
 				67FBC0BB05BEB30933DC7A6F /* ESTTests.xctest */,
 				16EFDB671FA1F6A886409C17 /* ESTUITests.xctest */,
+				37C7ADDBE35F1CE8D088AA66 /* SEEP.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -177,6 +271,23 @@
 				7F02BA8AC44B573528AA6140 /* MathVisualizerView.swift */,
 			);
 			path = Math;
+			sourceTree = "<group>";
+		};
+		C03A4EDB24D81F531B8DE369 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				801992911A81E1DBE1EED74E /* SEEPApp.swift */,
+				ECFA11ADAD05F997FB497308 /* SEEPIdentity.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CDFBC5427893E158EA7BE309 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4BD502B04D8360619FD2C601 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		D14A5D93F4DE9E7DA8E11BD3 /* Packages */ = {
@@ -215,6 +326,7 @@
 				F8EBBDE99F9A137EA0A86A5D /* ESTTests */,
 				2E2DB43C271B4724AD92761D /* ESTUITests */,
 				D14A5D93F4DE9E7DA8E11BD3 /* Packages */,
+				71A823DCA7C35DE382D1ECEB /* SEEP */,
 				7B20878442E81F7C3DE5BF1D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -306,6 +418,27 @@
 			productReference = 67FBC0BB05BEB30933DC7A6F /* ESTTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F5A87F3CB0F05EBADACA38AB /* SEEP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24C3FF71AADF421D0FE661BF /* Build configuration list for PBXNativeTarget "SEEP" */;
+			buildPhases = (
+				C781C66C1917223F6A3B2805 /* Sources */,
+				7487FCFF89C32ADED5D7729F /* Resources */,
+				FD6576408DB93FABB2095E63 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SEEP;
+			packageProductDependencies = (
+				3D879C8C385BE1FE7336BDDC /* GameShell */,
+				35FCFA880A6981551D94891E /* GridKit */,
+			);
+			productName = SEEP;
+			productReference = 37C7ADDBE35F1CE8D088AA66 /* SEEP.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -325,6 +458,9 @@
 					E5A720E62EDB5B9AB9C21F0C = {
 						ProvisioningStyle = Automatic;
 						TestTargetID = 5588DC9F0D158AC0C978EB6E;
+					};
+					F5A87F3CB0F05EBADACA38AB = {
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -349,11 +485,20 @@
 				5588DC9F0D158AC0C978EB6E /* EST */,
 				E5A720E62EDB5B9AB9C21F0C /* ESTTests */,
 				B28694EB21EB968C12B1FF78 /* ESTUITests */,
+				F5A87F3CB0F05EBADACA38AB /* SEEP */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7487FCFF89C32ADED5D7729F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9BF555561709F86D73A26DD2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1B77275963D16A3EA39226E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -406,6 +551,31 @@
 				64C9C8127644B6F9AA91CA12 /* SoloRunStore.swift in Sources */,
 				34D5EEDF027658B338D7B528 /* TitleView.swift in Sources */,
 				45D5DE849C1F9A54C925D4D8 /* TutorialView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C781C66C1917223F6A3B2805 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C5AE7DFCEEDCC7CBEF2FE36 /* FloodBoard.swift in Sources */,
+				CB6BF56010E6C67529F3F06E /* FloodBoardView.swift in Sources */,
+				577AAB9F2D793C42076BD6B0 /* FloodExplainerView.swift in Sources */,
+				17F0F6A248CCA159BB9C073D /* FloodGame.swift in Sources */,
+				B5FA59E4C52A0DBF75F221ED /* FloodGameView.swift in Sources */,
+				996AFACF2C8CE80698797BA6 /* FloodLevels.swift in Sources */,
+				E755D31CE0B809F5A275FD04 /* FloodPalette.swift in Sources */,
+				B07B6169EEC578EAFB1EC9F4 /* FloodTutorialView.swift in Sources */,
+				4619120236EE10ECECB2F9E1 /* LevelGridView.swift in Sources */,
+				C4F16DF39EC08E21D4DA2D0E /* SEEPApp.swift in Sources */,
+				18BFD6D44A715516674879BF /* SEEPIdentity.swift in Sources */,
+				66347E420E6FFE90BBBCEE7D /* SEEPLeaderboard.swift in Sources */,
+				BF39AF1CDD050E76CBB74253 /* SEEPLeaderboardView.swift in Sources */,
+				CD4687EB304273B6B1437C80 /* SEEPPlayStyleView.swift in Sources */,
+				8583257B09911904EA99BED8 /* SEEPSettingsView.swift in Sources */,
+				7473FD892F0BBFE431C3CD72 /* SEEPStats.swift in Sources */,
+				071004AD1A86A69D435CC149 /* SEEPTelemetry.swift in Sources */,
+				73C322FD11336C7DEF2292D4 /* SEEPTitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,7 +720,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 161;
+				CURRENT_PROJECT_VERSION = 162;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
 				INFOPLIST_KEY_ESTFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
@@ -570,6 +740,33 @@
 			};
 			name = Release;
 		};
+		A61CB639F5F88D17D9B9E8A7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconOrchard AppIconDusk";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SEEP/SEEP.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SEEP;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_SEEPFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
+				INFOPLIST_KEY_SEEPTelemetryEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/batches";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centaur-labs.seep";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		B1F9710A9741C629351F4142 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -577,7 +774,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 161;
+				CURRENT_PROJECT_VERSION = 162;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
 				INFOPLIST_KEY_ESTFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
@@ -613,6 +810,33 @@
 				TEST_TARGET_NAME = EST;
 			};
 			name = Debug;
+		};
+		C69123A8A43EBDDCC72F7A2F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconOrchard AppIconDusk";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SEEP/SEEP.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SEEP;
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_SEEPFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
+				INFOPLIST_KEY_SEEPTelemetryEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/batches";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centaur-labs.seep";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
 		};
 		D704FC1743748D2FFC0D3087 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -681,6 +905,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		24C3FF71AADF421D0FE661BF /* Build configuration list for PBXNativeTarget "SEEP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A61CB639F5F88D17D9B9E8A7 /* Debug */,
+				C69123A8A43EBDDCC72F7A2F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		60E995F4F5F67B35224E1417 /* Build configuration list for PBXNativeTarget "EST" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -731,6 +964,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		35FCFA880A6981551D94891E /* GridKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GridKit;
+		};
+		3D879C8C385BE1FE7336BDDC /* GameShell */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GameShell;
+		};
 		BDC72FF9BC0A7E4BCA44A678 /* GameShell */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GameShell;

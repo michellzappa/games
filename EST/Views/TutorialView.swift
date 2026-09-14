@@ -22,7 +22,6 @@ struct TutorialView: View {
     @State private var practiceVerdict: [Card] = []
     @State private var practiceSolved = false
     @State private var practiceHint: Set<Int> = []
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
     private static let stepCount = 6
     /// Every card the tutorial draws is this size, on every step. A card that
@@ -31,89 +30,25 @@ struct TutorialView: View {
     private static let cardGap: CGFloat = 10
 
     var body: some View {
-        VStack(spacing: 0) {
-            header
-            ScrollView {
-                content
-                    .padding(.horizontal, 24)
-                    .padding(.top, 8)
-                    .padding(.bottom, 24)
-            }
-            footer
-        }
-        .background(Appearance.shared.gameBackground)
-    }
-
-    // MARK: - Chrome
-
-    private var header: some View {
-        HStack {
-            HStack(spacing: 6) {
-                ForEach(0..<Self.stepCount, id: \.self) { index in
-                    Capsule()
-                        .fill(index == step ? Color.primary : Color.primary.opacity(0.18))
-                        .frame(width: index == step ? 18 : 6, height: 6)
+        TutorialFrame(
+            stepCount: Self.stepCount,
+            step: $step,
+            canAdvance: step != 4 || practiceSolved,
+            blockedHint: "Find the set to continue, or use a hint.",
+            onFinish: onFinish
+        ) {
+            content
+        } extra: {
+            if step == 4 {
+                Button {
+                    revealPracticeHint()
+                } label: {
+                    Label("Hint", systemImage: "lightbulb")
                 }
-            }
-            .animation(.spring(duration: 0.3), value: step)
-
-            Spacer()
-
-            Button("Skip", action: onFinish)
-                .buttonStyle(.game(.quiet, size: .inline))
-        }
-        .padding(.horizontal, 24)
-        .padding(.top, 20)
-        .padding(.bottom, 8)
-    }
-
-    private var footer: some View {
-        VStack(spacing: 8) {
-            if step == 4, !practiceSolved {
-                Text("Find the set to continue, or use a hint.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-            if dynamicTypeSize.isAccessibilitySize {
-                VStack(spacing: 12) {
-                    footerControls
-                }
-            } else {
-                HStack(spacing: 12) {
-                    footerControls
-                }
+                .buttonStyle(.game(.secondary, tint: .third, size: .large))
+                .disabled(practiceSolved)
             }
         }
-        .padding(.horizontal, 24)
-        .padding(.bottom, 24)
-    }
-
-    @ViewBuilder
-    private var footerControls: some View {
-        if step > 0 {
-            Button("Back") {
-                withAnimation(.spring(duration: 0.35)) { step -= 1 }
-            }
-            .buttonStyle(.game(.quiet, size: .large))
-        }
-        if step == 4 {
-            Button {
-                revealPracticeHint()
-            } label: {
-                Label("Hint", systemImage: "lightbulb")
-            }
-            .buttonStyle(.game(.secondary, tint: .third, size: .large))
-            .disabled(practiceSolved)
-        }
-        Button(step == Self.stepCount - 1 ? "Play" : "Next") {
-            if step == Self.stepCount - 1 {
-                onFinish()
-            } else {
-                withAnimation(.spring(duration: 0.35)) { step += 1 }
-            }
-        }
-        .buttonStyle(.game(.primary, tint: .second, size: .large))
-        .disabled(step == 4 && !practiceSolved)
     }
 
     // MARK: - Steps
@@ -145,14 +80,14 @@ struct TutorialView: View {
                 .textCase(.uppercase)
                 .foregroundStyle(.secondary)
 
-            paragraph("Every card carries four traits. Three cards form a set when each trait is the same on all three cards or different on all three. There is no middle case.")
-            paragraph("That is the rule. The next few steps unpack it.")
+            TutorialText.paragraph("Every card carries four traits. Three cards form a set when each trait is the same on all three cards or different on all three. There is no middle case.")
+            TutorialText.paragraph("That is the rule. The next few steps unpack it.")
         }
     }
 
     private var traitsStep: some View {
         VStack(alignment: .leading, spacing: 20) {
-            heading("Four traits", "Each card has a count, a color, a shape, and a fill. Each trait has exactly three values.")
+            TutorialText.heading("Four traits", "Each card has a count, a color, a shape, and a fill. Each trait has exactly three values.")
 
             traitRow(
                 "Count",
@@ -177,13 +112,13 @@ struct TutorialView: View {
                 }
             )
 
-            paragraph("Each row above is already a valid set: one trait runs through all three values, and the other three traits hold still.")
+            TutorialText.paragraph("Each row above is already a valid set: one trait runs through all three values, and the other three traits hold still.")
         }
     }
 
     private var validStep: some View {
         VStack(spacing: 18) {
-            heading("A set passes all four checks", "Check the traits one at a time. Each one must be all the same or all different.")
+            TutorialText.heading("A set passes all four checks", "Check the traits one at a time. Each one must be all the same or all different.")
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             cardRow(validExample)
@@ -192,7 +127,7 @@ struct TutorialView: View {
                 .padding(16)
                 .glassPanel(cornerRadius: 18)
 
-            paragraph("All four pass, so these cards make a set. In a game, tap them to collect them.")
+            TutorialText.paragraph("All four pass, so these cards make a set. In a game, tap them to collect them.")
 
             rerollButton("Another example") {
                 validExample = Card.randomValidSet()
@@ -202,7 +137,7 @@ struct TutorialView: View {
 
     private var nearMissStep: some View {
         VStack(spacing: 18) {
-            heading("One failed trait is enough", "These cards look close, but one trait fails. Check them the same way as before.")
+            TutorialText.heading("One failed trait is enough", "These cards look close, but one trait fails. Check them the same way as before.")
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             cardRow(nearMissExample)
@@ -211,8 +146,8 @@ struct TutorialView: View {
                 .padding(16)
                 .glassPanel(cornerRadius: 18)
 
-            paragraph("A trait can only fail one way: two cards agree and the third does not. Two and one is never a set.")
-            paragraph("The game shows this message whenever a pick fails, so you can see why.")
+            TutorialText.paragraph("A trait can only fail one way: two cards agree and the third does not. Two and one is never a set.")
+            TutorialText.paragraph("The game shows this message whenever a pick fails, so you can see why.")
 
             rerollButton("Another example") {
                 nearMissExample = Card.nearMissTrio()
@@ -222,7 +157,7 @@ struct TutorialView: View {
 
     private var practiceStep: some View {
         VStack(spacing: 16) {
-            heading("Your turn", "Exactly one set hides in these six cards. Tap three cards to pick them.")
+            TutorialText.heading("Your turn", "Exactly one set hides in these six cards. Tap three cards to pick them.")
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             // Fixed cells rather than flexible ones: the board sits inside a
@@ -258,7 +193,7 @@ struct TutorialView: View {
                     .glassPanel(cornerRadius: 18)
                     .transition(.opacity)
             } else {
-                paragraph("Pick a pair first. Any two cards have exactly one card that completes them, so you are always hunting for one specific card.")
+                TutorialText.paragraph("Pick a pair first. Any two cards have exactly one card that completes them, so you are always hunting for one specific card.")
             }
         }
         .animation(.spring(duration: 0.3), value: practiceSolved)
@@ -266,15 +201,15 @@ struct TutorialView: View {
 
     private var tableStep: some View {
         VStack(alignment: .leading, spacing: 20) {
-            heading("At the table", "These are the board rules.")
+            TutorialText.heading("At the table", "These are the board rules.")
 
-            ruleRow("square.grid.3x3", "Start with 12 cards", "Tap three that make a set. Replacements take their place.")
-            ruleRow("plus.rectangle.on.rectangle", "No set on the table?", "The game deals three more cards until a set appears.")
-            ruleRow("timer", "Solo 81", "Clear the deck against the clock. Hints keep the run off the leaderboard.")
-            ruleRow("bolt.fill", "Quick 27", "Play the 27 solid cards. The fill never changes, so you check three traits.")
-            ruleRow("person.2.fill", "Duel", "On one phone or two, buzz first and then tap the three cards within \(Int(ClaimRace<Int>.Configuration.standard.claimWindow)) seconds. Miss and you lose a point and sit out briefly.")
+            TutorialText.ruleRow("square.grid.3x3", "Start with 12 cards", "Tap three that make a set. Replacements take their place.")
+            TutorialText.ruleRow("plus.rectangle.on.rectangle", "No set on the table?", "The game deals three more cards until a set appears.")
+            TutorialText.ruleRow("timer", "Solo 81", "Clear the deck against the clock. Hints keep the run off the leaderboard.")
+            TutorialText.ruleRow("bolt.fill", "Quick 27", "Play the 27 solid cards. The fill never changes, so you check three traits.")
+            TutorialText.ruleRow("person.2.fill", "Duel", "On one phone or two, buzz first and then tap the three cards within \(Int(ClaimRace<Int>.Configuration.standard.claimWindow)) seconds. Miss and you lose a point and sit out briefly.")
 
-            paragraph("At the end, the remaining cards are simply the ones nobody claimed.")
+            TutorialText.paragraph("At the end, the remaining cards are simply the ones nobody claimed.")
         }
     }
 
@@ -350,24 +285,6 @@ struct TutorialView: View {
 
     // MARK: - Pieces
 
-    private func heading(_ title: String, _ subtitle: String) -> some View {
-        VStack(alignment: .leading, spacing: 6) {
-            Text(title)
-                .font(.title2.bold())
-            Text(subtitle)
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
-        }
-    }
-
-    private func paragraph(_ text: String) -> some View {
-        Text(text)
-            .font(.subheadline)
-            .foregroundStyle(.secondary)
-            .multilineTextAlignment(.leading)
-            .frame(maxWidth: .infinity, alignment: .leading)
-    }
-
     private func cardRow(_ cards: [Card]) -> some View {
         HStack(spacing: Self.cardGap) {
             ForEach(cards) { card in
@@ -393,22 +310,6 @@ struct TutorialView: View {
                     CardView(card: card)
                         .frame(width: Self.cardSide, height: Self.cardSide)
                 }
-            }
-        }
-    }
-
-    private func ruleRow(_ icon: String, _ title: String, _ text: String) -> some View {
-        HStack(alignment: .top, spacing: 12) {
-            Image(systemName: icon)
-                .font(.title3)
-                .frame(width: 28)
-                .foregroundStyle(.secondary)
-            VStack(alignment: .leading, spacing: 3) {
-                Text(title)
-                    .font(.subheadline.weight(.semibold))
-                Text(text)
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
             }
         }
     }

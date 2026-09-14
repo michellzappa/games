@@ -207,8 +207,8 @@ enum ESTTelemetry {
     /// The first-party EST target reports to the dedicated EST Worker. Forks
     /// can replace this with the Info.plist or UserDefaults override.
     static let defaultEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/batches"
-    static let sourceURL = URL(string: "https://github.com/michellzappa/est/blob/main/EST/Models/Telemetry.swift")!
-    static let privacyURL = URL(string: "https://github.com/michellzappa/est/blob/main/PRIVACY.md")!
+    static let sourceURL = URL(string: "https://github.com/michellzappa/games/blob/main/EST/Models/Telemetry.swift")!
+    static let privacyURL = URL(string: "https://github.com/michellzappa/games/blob/main/PRIVACY.md")!
 
     private static let activityKey = "estTelemetryActivity"
     private static let installSecretService = "com.centaur-labs.est.telemetry"

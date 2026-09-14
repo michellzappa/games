@@ -305,7 +305,7 @@ struct SettingsView: View {
         }
     }
 
-    private static let sourceCodeURL = URL(string: "https://github.com/michellzappa/est")!
+    private static let sourceCodeURL = URL(string: "https://github.com/michellzappa/games")!
 
     private static var marketingVersion: String {
         Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "0"

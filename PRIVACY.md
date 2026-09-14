@@ -47,7 +47,7 @@ under its privacy policy. EST does not ask for access to your contacts, photos,
 location, health data, microphone, or camera.
 
 For support, use **Send feedback** in Settings or open an issue in the [EST
-GitHub repository](https://github.com/michellzappa/est/issues).
+GitHub repository](https://github.com/michellzappa/games/issues).
 This policy may change if the app's data practices change.
 
 Last updated: 2026-08-30.

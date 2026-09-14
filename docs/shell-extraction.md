@@ -1,7 +1,7 @@
 # Shell extraction plan
 
 Goal: a small library of polished, simple mobile games that share one shell.
-EST is the first consumer. Flood-It (working name) is the second.
+EST is the first consumer. SEEP, a flood-fill game, is the second.
 
 ## Layout
 
@@ -12,7 +12,7 @@ app target per game.
 Packages/GameShell/       chrome, settings, audio, telemetry, feedback, support, Game Center, run store
 Packages/GridKit/         grid layout + board view, level store, seeded random
 EST/                      unchanged path; table code (engine, party, network) stays here
-FloodIt/                  second app target
+SEEP/                     second app target (flood-fill game)
 appstore/<app>/           per-app listing, screenshots, review notes
 scripts/appstore.sh       takes an app name
 ```
@@ -121,41 +121,43 @@ New code, no moves:
   `Seed.daily()`. Every board generator takes a generator, so a daily puzzle
   is a seed and nothing else.
 
-### Phase 7. Flood-It app
+### Phase 7. SEEP app
 
-- `project.yml`: target `FloodIt`, bundle `com.centaur-labs.floodit`, scheme,
-  entitlements with Game Center, `FloodIt/Resources/Assets.xcassets`.
-- `FloodIt/Models/FloodBoard.swift`: `cells: [[Int]]`, `colors: Int`,
+- `project.yml`: target `SEEP`, bundle `com.centaur-labs.seep`, scheme,
+  entitlements with Game Center, `SEEP/Resources/Assets.xcassets`.
+- `SEEP/Models/FloodBoard.swift`: `cells: [[Int]]`, `colors: Int`,
   `flood(to:)` via BFS from the origin, `isSolved`, `moves`, `par` (greedy
   solver at generation, then padded). Undo is a stack of boards.
-- `FloodIt/Models/FloodLevels.swift`: three packs by board size (10, 14, 18)
+- `SEEP/Models/FloodLevels.swift`: three packs by board size (10, 14, 18)
   and color count (4, 5, 6). Every level is a seed, so a pack is a formula.
 - Views: `FloodGameView` (grid, move counter, color buttons through
   `.buttonStyle(.game(...))`, undo and restart in the chrome row),
   `LevelGridView`, `FloodTutorialView` (three steps on a live 6x6 board),
   title screen using the shell frame.
-- Game Center: `floodit.pack.<size>.moves` leaderboards, `BEST_SCORE`
+- Game Center: `seep.pack.<size>.moves` leaderboards, `BEST_SCORE`
   ascending. Stats: solved per pack, best moves, current streak.
 - Icon: parameterize `scripts/generate-app-icons.swift` by app.
 
 ### Phase 8. Scripts and listing
 
-`scripts/appstore.sh` reads `APP` (`est` or `floodit`) and takes `BUNDLE_ID`,
+`scripts/appstore.sh` reads `APP` (`est` or `seep`) and takes `BUNDLE_ID`,
 app record id, leaderboard list and product id from
 `appstore/<app>/app.json`. `appstore/devices.mjs` stays shared.
 `appstore/appstore.md` and `metadata.mjs` move under `appstore/est/`.
-`capture.sh` and `ScreenshotTests` take the scheme name. Flood-It needs its
-own `ScreenshotTests` target.
+`capture.sh` and `ScreenshotTests` take the scheme name. SEEP needs its own
+`ScreenshotTests` target.
 
-## Open decisions (before Phase 3)
+## Decisions (MZ, 2026-09-14)
 
-1. Telemetry for the second app: same Worker with an `app` field, a second
-   Worker, or none. The Worker is in another repo.
-2. Support purchase in every game, or EST only. If every game, the product id
-   pattern is `<prefix>.support`.
-3. Repo name. `ios-est` holding `FloodIt/` reads wrong. A GitHub rename keeps
-   redirects; `Telemetry.sourceURL` needs an update.
-4. Flood-It's real name. "Flood-It!" is a live app.
+1. Telemetry: one Worker for every game. The batch schema gains an `app`
+   string (`"est"`, `"seep"`). The Worker repo needs the matching change
+   before SEEP ships; EST keeps sending without the field until then.
+2. Support purchase in every game. Product id pattern `<prefix>.support`.
+   Each app needs its own IAP record and review screenshot.
+3. GitHub repo renamed `michellzappa/est` -> `michellzappa/games`. Old URLs
+   redirect. The local folder is still `ios-est`; MZ renames it.
+4. The flood game is **SEEP**. Target `SEEP`, folder `SEEP/`, bundle
+   `com.centaur-labs.seep`, defaults prefix `seep`, product `seep.support`.
 
 ## Touch list
 
@@ -167,7 +169,7 @@ own `ScreenshotTests` target.
 | 4 | 14 | every caller, for `public` and `import GameShell` | none |
 | 5 | 0 | `SettingsView`, `ESTApp` | `CardAppearance` |
 | 6 | 0 | `BoardGridView`, `PartyGameView` | 4 GridKit files |
-| 7 | 0 | `project.yml`, icon script | ~10 Flood-It files |
+| 7 | 0 | `project.yml`, icon script | ~10 SEEP files |
 | 8 | `appstore/*` under `appstore/est/` | `appstore.sh`, `capture.sh`, `metadata.mjs` | `app.json` per app |
 
 Unknowns: how much of `Telemetry` assumes EST event names in its `Event`

@@ -19,4 +19,4 @@ identifiers. Settings also includes a privacy-thresholded Community Pulse
 summary from the first-party endpoint. Forks can disable or replace that
 endpoint. The source code and privacy policy are
 available at:
-https://github.com/michellzappa/est
+https://github.com/michellzappa/games

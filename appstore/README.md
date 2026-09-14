@@ -137,7 +137,7 @@ Supporter operations remain deliberately personal and opt-in:
 - Add supporters to an early-access TestFlight group manually when a build is
   ready; the app cannot assign Apple TestFlight groups itself.
 
-The scripts use `https://github.com/michellzappa/est` for the public repository.
+The scripts use `https://github.com/michellzappa/games` for the public repository.
 If the repository moves, update `appstore/appstore.md`, `PRIVACY.md`, and the
 setup script before uploading.
 

@@ -58,15 +58,15 @@ First release. Solo 81 and Quick 27 against the clock, Duel on one phone or acro
 
 ### support_url
 
-https://github.com/michellzappa/est/issues
+https://github.com/michellzappa/games/issues
 
 ### marketing_url
 
-https://github.com/michellzappa/est
+https://github.com/michellzappa/games
 
 ### privacy_url
 
-https://github.com/michellzappa/est/blob/main/PRIVACY.md
+https://github.com/michellzappa/games/blob/main/PRIVACY.md
 
 ### copyright
 

@@ -118,7 +118,7 @@ setup_app() {
     --locale en-US \
     --name "EST - Card Trios" \
     --subtitle "A game of patterns." \
-    --privacy-policy-url "https://github.com/michellzappa/est/blob/main/PRIVACY.md"
+    --privacy-policy-url "https://github.com/michellzappa/games/blob/main/PRIVACY.md"
   # Apple models "Games / Puzzle" as a primary category plus subcategories.
   # PUZZLE is not a top-level category, so it cannot be --secondary.
   asc app-setup categories set \

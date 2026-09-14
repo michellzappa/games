@@ -156,7 +156,7 @@ struct RootView: View {
             .ignoresSafeArea()
         }
         .sheet(isPresented: $showLeaderboards) {
-            LeaderboardView()
+            ESTLeaderboardView()
         }
         .fullScreenCover(isPresented: $showTutorial) {
             TutorialView {

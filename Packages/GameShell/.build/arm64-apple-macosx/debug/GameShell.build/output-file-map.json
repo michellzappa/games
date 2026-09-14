@@ -1,0 +1,103 @@
+{
+  "": {
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/primary.swiftdeps"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/AppIconManager.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/AppIconManager.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/AppIconManager.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/AppIconManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/AppIconManager.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/AppIconManager.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/Appearance.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Appearance.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Appearance.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Appearance~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Appearance.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Appearance.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/ButtonStyles.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ButtonStyles.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ButtonStyles.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ButtonStyles~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ButtonStyles.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ButtonStyles.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/ConfettiView.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ConfettiView.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ConfettiView.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ConfettiView~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ConfettiView.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/ConfettiView.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/Feedback.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Feedback.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Feedback.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Feedback~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Feedback.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Feedback.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/FeedbackView.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/FeedbackView.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/FeedbackView.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/FeedbackView~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/FeedbackView.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/FeedbackView.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/GameAccent.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAccent.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAccent.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAccent~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAccent.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAccent.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/GameAudio.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAudio.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAudio.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAudio~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAudio.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameAudio.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/GameCenterManager.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameCenterManager.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameCenterManager.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameCenterManager~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameCenterManager.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameCenterManager.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/GameIdentity.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameIdentity.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameIdentity.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameIdentity~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameIdentity.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GameIdentity.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/GlassHelpers.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GlassHelpers.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GlassHelpers.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GlassHelpers~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GlassHelpers.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/GlassHelpers.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/SupportStore.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportStore.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportStore.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportStore~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportStore.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportStore.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/SupportView.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportView.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportView.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportView~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportView.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/SupportView.dia"
+  },
+  "/Users/mz/Dev/_/ios-est/Packages/GameShell/Sources/GameShell/Telemetry.swift": {
+    "dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Telemetry.d",
+    "object": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Telemetry.swift.o",
+    "swiftmodule": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Telemetry~partial.swiftmodule",
+    "swift-dependencies": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Telemetry.swiftdeps",
+    "diagnostics": "/Users/mz/Dev/_/ios-est/Packages/GameShell/.build/arm64-apple-macosx/debug/GameShell.build/Telemetry.dia"
+  }
+}

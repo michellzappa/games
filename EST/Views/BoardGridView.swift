@@ -1,3 +1,4 @@
+import GameShell
 import SwiftUI
 
 /// The table: 3 columns, rows grow as the engine deals (12, 15, ...).

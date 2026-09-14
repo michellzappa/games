@@ -1,3 +1,4 @@
+import GameShell
 import SwiftUI
 
 /// A guided, hands-on introduction to the game. Six steps: the goal, the four

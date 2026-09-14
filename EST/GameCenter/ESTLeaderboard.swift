@@ -1,3 +1,4 @@
+import GameShell
 import Foundation
 
 /// EST's leaderboard contract. These identifiers, time units, and anti-cheat

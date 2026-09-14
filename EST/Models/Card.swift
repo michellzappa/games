@@ -1,3 +1,4 @@
+import GameShell
 import SwiftUI
 
 /// One card in the 81-card deck. Four attributes, three values each: 3^4 = 81.
@@ -51,7 +52,7 @@ struct Card: Identifiable, Hashable {
             switch self {
             case .solid: "solid"
             case .outline: "outline"
-            case .translucent: Appearance.shared.fillStyle == .pinstriped ? "striped" : "shaded"
+            case .translucent: CardAppearance.shared.fillStyle == .pinstriped ? "striped" : "shaded"
             }
         }
     }

@@ -13,9 +13,34 @@ xcodegen generate
 xcodebuild -project EST.xcodeproj -scheme EST -destination 'generic/platform=iOS Simulator' build CODE_SIGNING_ALLOWED=NO
 ```
 
-Run `xcodegen generate` after adding or removing a source file. A missing new
-file surfaces as misleading "has no member" errors in other files, not as
-"file not found".
+Run `xcodegen generate` after adding or removing a source file under `EST/`.
+A missing new file surfaces as misleading "has no member" errors in other
+files, not as "file not found". Files under `Packages/` are picked up by SPM
+without a regenerate.
+
+## Packages
+
+`docs/shell-extraction.md` is the plan and the progress log. The repo is
+becoming a monorepo for a small library of games; EST is the first.
+
+- `Packages/GameShell`: chrome, `Appearance`, `GameAccent`, buttons, glass,
+  audio, confetti, telemetry, feedback, support purchase, Game Center,
+  `LeaderboardView`, `RunStore`, `GameIdentity`. No game logic, no `Card`.
+- `Packages/GridKit`: grid primitives for square-cell puzzle games (Phase 6).
+- Everything the app reaches must be `public`, including memberwise inits,
+  which Swift never makes public: write the `init` by hand. A missing
+  `public` shows as "inaccessible due to 'internal' protection level", or,
+  inside a large SwiftUI expression, as "unable to type-check this
+  expression in reasonable time". Extract the row into a function first, and
+  the real error appears.
+- `GameIdentity.install(_:)` runs in the `App` initializer, before any shell
+  code. Every persisted key, Info.plist key, header and product id derives
+  from `GameIdentity.current.product`, so EST's stored keys did not change.
+- Shell views take game content as parameters: `SupportView(confetti:)`,
+  `LeaderboardView(boards:onOpen:)`, `ConfettiView(colors:shape:)`. EST's
+  versions are `ConfettiView.cards()` and `ESTLeaderboardView`.
+- Card-only look settings live in `CardAppearance` (fill style), not in the
+  shell `Appearance`.
 
 Versioning: `MARKETING_VERSION` and `CURRENT_PROJECT_VERSION` live in
 `project.yml`. Before every agent validation/build, bump
@@ -139,9 +164,10 @@ iPhone and iPad are both mandatory while TARGETED_DEVICE_FAMILY is "1,2".
   not flexible grid columns, because a `CardView` inside a `ScrollView` has no
   reliable height to grow into, and a card that changes size between steps
   reads as a different kind of thing.
-- Look settings live in `Appearance.shared` (fill style, color theme).
-  `Card.Tint.color` delegates to the active theme; never hardcode card colors
-  in views. The icon generator script keeps its own baked colors.
+- Look settings live in `Appearance.shared` (theme, motion, contrast) and
+  `CardAppearance.shared` (fill style). `Card.Tint.color` delegates to the
+  active theme through `GameAccent`; never hardcode card colors in views.
+  The icon generator script keeps its own baked colors.
 - Signing is automatic with no team hardcoded in `project.yml`, so forks can
   choose their own Apple Developer account. App Store archive scripts require
   `EST_TEAM_ID`; simulator builds still need `CODE_SIGNING_ALLOWED=NO`.

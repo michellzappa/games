@@ -1,3 +1,4 @@
+import GameShell
 import XCTest
 @testable import EST
 

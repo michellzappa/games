@@ -1,3 +1,4 @@
+import GameShell
 import XCTest
 
 /// Raw App Store screenshots from stable, local-only app surfaces.

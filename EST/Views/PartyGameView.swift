@@ -1,3 +1,4 @@
+import GameShell
 import SwiftUI
 
 /// Local multiplayer on one device. A two-player game keeps the compact

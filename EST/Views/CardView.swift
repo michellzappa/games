@@ -1,3 +1,4 @@
+import GameShell
 import Foundation
 import SwiftUI
 
@@ -12,9 +13,9 @@ enum CardChrome {
         RoundedRectangle(cornerRadius: side * cornerFraction, style: .continuous)
     }
 
-    static var surface: Color { Appearance.shared.theme.cardSurface }
-    static var border: Color { Appearance.shared.theme.cardBorder }
-    static var slotBorder: Color { Appearance.shared.theme.cardSlotBorder }
+    static var surface: Color { Appearance.shared.theme.surface }
+    static var border: Color { Appearance.shared.theme.border }
+    static var slotBorder: Color { Appearance.shared.theme.slotBorder }
 }
 
 /// A square card. Symbol placement by count: 1 centered, 2 side by side,
@@ -214,7 +215,7 @@ struct SymbolView: View {
                 case .outline:
                     shape.stroke(tint.color, lineWidth: lineWidth)
                 case .translucent:
-                    if Appearance.shared.fillStyle == .pinstriped {
+                    if CardAppearance.shared.fillStyle == .pinstriped {
                         DiagonalStripes(color: tint.color)
                             .clipShape(shape)
                     } else {

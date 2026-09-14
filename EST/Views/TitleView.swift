@@ -1,3 +1,4 @@
+import GameShell
 import SwiftUI
 
 /// The app's name never settles: the three letters keep shuffling through
@@ -344,7 +345,7 @@ private struct DemoCardSlot: View {
 
             if showingEdgeFrame {
                 RoundedRectangle(cornerRadius: 1)
-                    .fill(Appearance.shared.theme.cardBorder)
+                    .fill(Appearance.shared.theme.border)
                     .frame(width: 2, height: 84)
             }
         }

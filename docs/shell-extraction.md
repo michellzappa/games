@@ -147,6 +147,29 @@ app record id, leaderboard list and product id from
 `capture.sh` and `ScreenshotTests` take the scheme name. SEEP needs its own
 `ScreenshotTests` target.
 
+## Per-game onboarding checklist
+
+No game ships without every item. EST is the reference for each one.
+
+1. **Guided first play.** A tutorial with a live board, first launch only,
+   gated by `<product>.hasSeenTutorial`, replayable from a rules sheet. Steps:
+   the goal, the one action, a worked example, one worked failure, a
+   practice board the player solves, then the table rules. Five to seven
+   steps. Same board size on every step.
+2. **A "why" for every failure.** When a move is wrong or a game is lost,
+   the game says which rule broke, in one line, from the same code the
+   engine uses to judge it. Never restate the rule in a view.
+3. **One explainer screen.** The idea behind the game, hands-on, reachable
+   from Settings and the rules sheet. EST: the Math visualizer. SEEP: flood
+   fill, and why greedy is not optimal. Minesweeper: constraint logic.
+   Picross: line solving.
+4. **Hints that teach.** A hint shows the next good move and marks the run
+   as hinted, so it keeps a personal best but never enters the leaderboard.
+5. **Stats that read back.** A Play Style screen: what the player does well,
+   what they miss, in the game's own terms.
+6. **Screenshots of all of the above.** The App Store set shows the tutorial
+   and the explainer, not only the board.
+
 ## Decisions (MZ, 2026-09-14)
 
 1. Telemetry: one Worker for every game. The batch schema gains an `app`
@@ -190,3 +213,10 @@ enum, and whether `SupportView` copy references cards. Both surface in Phase
   multi-product (`PRODUCTS` table, `product` column, migration 0001
   applied, `?product=` on `/v1/community`), deployed 2026-09-14.
   `SupportStore.productID` is optional; nil hides the purchase.
+- Phase 4: done. Fourteen files moved into `GameShell` and made public.
+  `LeaderboardView` is the shell frame over `[LeaderboardBoard]`; EST's tabs
+  are `ESTLeaderboardView`. `SupportView(confetti:)` takes the game's
+  confetti. `fillStyle` moved to `CardAppearance` in EST.
+  `Theme.cardSurface/cardBorder/cardSlotBorder` are now
+  `surface/border/slotBorder`. `RunStore<Run>` replaces `SoloRunStore`'s
+  body; EST keeps a thin `SoloRunStore` wrapper with the old key.

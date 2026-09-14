@@ -1,3 +1,4 @@
+import GameShell
 import SwiftUI
 
 /// Multi-device party: every player holds their own phone. Each player's
@@ -134,13 +135,13 @@ struct NetworkPartyGameView: View {
     }
 
     private var exitButton: some View {
-        GameExitButton(action: {
+        GameExitButton(accessibilityLabel: "Leave match") {
             if session.isFinished || session.someoneLeft {
                 exit()
             } else {
                 showExitConfirm = true
             }
-        }, accessibilityLabel: "Leave match")
+        }
     }
 
     private var activePlayer: NetworkPartySession.PlayerDisplay? {

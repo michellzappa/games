@@ -1,9 +1,11 @@
+import GameShell
 import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(SupportStore.self) private var supportStore
     @Bindable private var appearance = Appearance.shared
+    @Bindable private var cardAppearance = CardAppearance.shared
     @AppStorage("soundEffectsEnabled") private var soundEffectsEnabled = true
     @AppStorage("hapticsEnabled") private var hapticsEnabled = true
     @AppStorage("immersiveGameMode") private var immersiveGameMode = true
@@ -35,8 +37,8 @@ struct SettingsView: View {
                 }
 
                 Section("Fill") {
-                    Picker("Fill style", selection: $appearance.fillStyle) {
-                        ForEach(Appearance.FillStyle.allCases, id: \.self) { style in
+                    Picker("Fill style", selection: $cardAppearance.fillStyle) {
+                        ForEach(CardAppearance.FillStyle.allCases, id: \.self) { style in
                             Text(style.name).tag(style)
                         }
                     }
@@ -53,28 +55,7 @@ struct SettingsView: View {
 
                 Section("Colors") {
                     ForEach(Appearance.Theme.allCases, id: \.self) { theme in
-                        Button {
-                            if theme == .dusk && !supportStore.isSupporter {
-                                showSupport = true
-                            } else {
-                                appearance.theme = theme
-                            }
-                        } label: {
-                            HStack(spacing: 10) {
-                                Text(theme.name)
-                                    .foregroundStyle(.primary)
-                                Spacer()
-                                ForEach(GameAccent.identity, id: \.self) { accent in
-                                    Circle()
-                                        .fill(theme.color(for: accent))
-                                        .frame(width: 16, height: 16)
-                                }
-                                Image(systemName: theme == .dusk && !supportStore.isSupporter ? "lock.fill" : "checkmark")
-                                    .font(.footnote.bold())
-                                    .foregroundStyle(theme == .dusk && !supportStore.isSupporter ? .secondary : .primary)
-                                    .opacity((theme == .dusk && !supportStore.isSupporter) || appearance.theme == theme ? 1 : 0)
-                            }
-                        }
+                        themeRow(theme)
                     }
 
                     if supportStore.isSupporter {
@@ -269,7 +250,7 @@ struct SettingsView: View {
             .toolbarBackground(Appearance.shared.gameBackground, for: .navigationBar)
             .toolbarBackground(.visible, for: .navigationBar)
             .sheet(isPresented: $showSupport) {
-                SupportView()
+                SupportView(confetti: { AnyView(ConfettiView.cards()) })
             }
             .sheet(isPresented: $showPlayStyle) {
                 PlayStyleView()
@@ -301,6 +282,33 @@ struct SettingsView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
                 }
+            }
+        }
+    }
+
+    private func themeRow(_ theme: Appearance.Theme) -> some View {
+        let locked = theme == .dusk && !supportStore.isSupporter
+        let selected = appearance.theme == theme
+        return Button {
+            if locked {
+                showSupport = true
+            } else {
+                appearance.theme = theme
+            }
+        } label: {
+            HStack(spacing: 10) {
+                Text(theme.name)
+                    .foregroundStyle(.primary)
+                Spacer()
+                ForEach(GameAccent.identity, id: \.self) { accent in
+                    Circle()
+                        .fill(theme.color(for: accent))
+                        .frame(width: 16, height: 16)
+                }
+                Image(systemName: locked ? "lock.fill" : "checkmark")
+                    .font(.footnote.bold())
+                    .foregroundStyle(locked ? .secondary : .primary)
+                    .opacity(locked || selected ? 1 : 0)
             }
         }
     }

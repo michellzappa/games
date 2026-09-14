@@ -23,6 +23,7 @@
 		3AABDEB0CEC2DD196C930785 /* NetMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3799FD9463E030E3027C6 /* NetMessages.swift */; };
 		455AB690FC27BD6421FE1B68 /* PlayStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76F1379D58115CE598C68C6B /* PlayStyleView.swift */; };
 		45D5DE849C1F9A54C925D4D8 /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16F37FAA2DCF8DD1E0761D68 /* TutorialView.swift */; };
+		47498A00BB03030965C9D6F5 /* GameShell in Frameworks */ = {isa = PBXBuildFile; productRef = BDC72FF9BC0A7E4BCA44A678 /* GameShell */; };
 		4C0A8911E947E1CE42E9AF30 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA5395FBC02CCAA2D6D1A92 /* GameEngine.swift */; };
 		557AF9134BAE985870096E8F /* ClaimRace.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05FD8C31FB384CB9A02C591 /* ClaimRace.swift */; };
 		5ECD3365B2D09F4AFC428759 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EBEEB06BF708F78BF96466 /* Card.swift */; };
@@ -44,6 +45,7 @@
 		C549C81CCF60B4E5483034C0 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6011EC1C471715E4279A1806 /* ConfettiView.swift */; };
 		C5DE2CAFCE70371D04F67B07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3476586C0851F24E8E653AB /* Assets.xcassets */; };
 		CA7533AB0C33C1E5348505A1 /* CardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5400937214F675381D17D03 /* CardTests.swift */; };
+		CD34675CC61385270B94C5F4 /* GridKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0086D76F460C8F977F203BC /* GridKit */; };
 		E098F3D6429EF8218C641740 /* ESTLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9B8C15E0FAE232F72B6B9 /* ESTLeaderboard.swift */; };
 		F0D71A9512C5D5B0D71C0843 /* SupportStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9625042566D9E00C552D8F /* SupportStore.swift */; };
 		F4E47310C18E6EF77B70EAD8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472C464CD1AE63569E3EA136 /* CardView.swift */; };
@@ -70,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D7A01961B33CE03B20D49F4 /* GridKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GridKit; path = Packages/GridKit; sourceTree = SOURCE_ROOT; };
 		16EFDB671FA1F6A886409C17 /* ESTUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ESTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F37FAA2DCF8DD1E0761D68 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		28B5BFD0B635B12A0E8D4FBC /* Telemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Telemetry.swift; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 		869CB7754FD544C955C685EF /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		90BE598B03AA0E6BB445B6A9 /* PartySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartySession.swift; sourceTree = "<group>"; };
 		96064612A09AED61D2C9827D /* Appearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Appearance.swift; sourceTree = "<group>"; };
+		9BD4BD80BED4CEF44FCE3563 /* GameShell */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GameShell; path = Packages/GameShell; sourceTree = SOURCE_ROOT; };
 		A05FD8C31FB384CB9A02C591 /* ClaimRace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRace.swift; sourceTree = "<group>"; };
 		A5400937214F675381D17D03 /* CardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTests.swift; sourceTree = "<group>"; };
 		B3476586C0851F24E8E653AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -118,6 +122,18 @@
 		F2477202E22AC8D7CB6C56AC /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPartyGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4C9A8F3F0A9FE9BC1E1CE487 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				47498A00BB03030965C9D6F5 /* GameShell in Frameworks */,
+				CD34675CC61385270B94C5F4 /* GridKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		23CC4356B0E650C000976EC9 /* EST */ = {
@@ -190,6 +206,15 @@
 			path = Math;
 			sourceTree = "<group>";
 		};
+		D14A5D93F4DE9E7DA8E11BD3 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				9BD4BD80BED4CEF44FCE3563 /* GameShell */,
+				0D7A01961B33CE03B20D49F4 /* GridKit */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
 		E9DBC3231CCA20DAE831BF88 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,6 +246,7 @@
 				23CC4356B0E650C000976EC9 /* EST */,
 				F8EBBDE99F9A137EA0A86A5D /* ESTTests */,
 				2E2DB43C271B4724AD92761D /* ESTUITests */,
+				D14A5D93F4DE9E7DA8E11BD3 /* Packages */,
 				7B20878442E81F7C3DE5BF1D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -262,6 +288,7 @@
 			buildPhases = (
 				A4AA6BFC39950352B9A6FB13 /* Sources */,
 				F1B77275963D16A3EA39226E /* Resources */,
+				4C9A8F3F0A9FE9BC1E1CE487 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -269,6 +296,8 @@
 			);
 			name = EST;
 			packageProductDependencies = (
+				BDC72FF9BC0A7E4BCA44A678 /* GameShell */,
+				D0086D76F460C8F977F203BC /* GridKit */,
 			);
 			productName = EST;
 			productReference = 315EDDEAAD8AC89CBE742294 /* EST.app */;
@@ -341,6 +370,10 @@
 			);
 			mainGroup = ED0D7F78296EE2E3546A6059;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				51AF23CEA3613D17AFD415D6 /* XCLocalSwiftPackageReference "Packages/GameShell" */,
+				C66A4E0B4CB6D946A181472C /* XCLocalSwiftPackageReference "Packages/GridKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7B20878442E81F7C3DE5BF1D /* Products */;
 			projectDirPath = "";
@@ -561,7 +594,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 154;
+				CURRENT_PROJECT_VERSION = 155;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
 				INFOPLIST_KEY_ESTFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
@@ -588,7 +621,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 154;
+				CURRENT_PROJECT_VERSION = 155;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
 				INFOPLIST_KEY_ESTFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
@@ -729,6 +762,28 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		51AF23CEA3613D17AFD415D6 /* XCLocalSwiftPackageReference "Packages/GameShell" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/GameShell;
+		};
+		C66A4E0B4CB6D946A181472C /* XCLocalSwiftPackageReference "Packages/GridKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/GridKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BDC72FF9BC0A7E4BCA44A678 /* GameShell */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GameShell;
+		};
+		D0086D76F460C8F977F203BC /* GridKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GridKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A008AEFD6655C9CF1835AB14 /* Project object */;
 }

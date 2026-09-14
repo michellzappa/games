@@ -1,3 +1,5 @@
+import GameShell
+import GridKit
 import SwiftUI
 import UIKit
 
@@ -15,6 +17,8 @@ struct ESTApp: App {
                         TelemetryCoordinator.shared.start()
                     }
                     AppIconManager.update(for: Appearance.shared.theme)
+                    // Phase 1 of the shell extraction: prove both packages link.
+                    _ = (GameShell.version, GridKit.version)
                     await supportStore.start()
                 }
         }

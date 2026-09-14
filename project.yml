@@ -12,18 +12,27 @@ settings:
     SWIFT_VERSION: "5.9"
     CODE_SIGN_STYLE: Automatic
 
+packages:
+  GameShell:
+    path: Packages/GameShell
+  GridKit:
+    path: Packages/GridKit
+
 targets:
   EST:
     type: application
     platform: iOS
     sources:
       - path: EST
+    dependencies:
+      - package: GameShell
+      - package: GridKit
     settings:
       base:
         GENERATE_INFOPLIST_FILE: true
         TARGETED_DEVICE_FAMILY: "1,2"
         MARKETING_VERSION: "1.0.0"
-        CURRENT_PROJECT_VERSION: 154
+        CURRENT_PROJECT_VERSION: 155
         INFOPLIST_KEY_UILaunchScreen_Generation: true
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait

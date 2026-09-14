@@ -184,3 +184,9 @@ enum, and whether `SupportView` copy references cards. Both surface in Phase
   `GlassHelpers`, `SupportView`, `FeedbackView`, `LeaderboardView` have no
   `Card` reference. Remaining EST-only sites: the fill preview and
   `PlayStyleView` (Phase 5).
+- Phase 3: done. `GameIdentity` lives in `GameShell`; EST installs `.est` in
+  the `App` initializer. `Telemetry`, `Feedback`, `SupportStore` derive
+  every key, header, path and product id from it. The Worker is
+  multi-product (`PRODUCTS` table, `product` column, migration 0001
+  applied, `?product=` on `/v1/community`), deployed 2026-09-14.
+  `SupportStore.productID` is optional; nil hides the purchase.

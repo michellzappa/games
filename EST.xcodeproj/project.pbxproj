@@ -31,6 +31,7 @@
 		64C9C8127644B6F9AA91CA12 /* SoloRunStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B3BD29BD181969572CF2ED /* SoloRunStore.swift */; };
 		65BEE9643473223B5DAE5863 /* ClaimRaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF873213F2ACB61C1E665CF7 /* ClaimRaceTests.swift */; };
 		65C403C001A51B16E9AE77FC /* PartySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BE598B03AA0E6BB445B6A9 /* PartySession.swift */; };
+		7572C9FF33C4245181D5FE3B /* ESTIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3ED26E018BAA9AC59D2EB /* ESTIdentity.swift */; };
 		81C48007E94B47B53940C02A /* SupportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31B78AECE33CDD83CD8B4356 /* SupportView.swift */; };
 		8548D34517850306510158AC /* NetworkPartyGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */; };
 		9B7FAE128876330A4AC34468 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3403B1A46938054B8158671C /* SettingsView.swift */; };
@@ -120,6 +121,7 @@
 		E48C5C1346BE0394E6087B18 /* BoardGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardGridView.swift; sourceTree = "<group>"; };
 		E9B3BD29BD181969572CF2ED /* SoloRunStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloRunStore.swift; sourceTree = "<group>"; };
 		F2477202E22AC8D7CB6C56AC /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		F8E3ED26E018BAA9AC59D2EB /* ESTIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTIdentity.swift; sourceTree = "<group>"; };
 		FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPartyGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,6 +185,7 @@
 			isa = PBXGroup;
 			children = (
 				CFFECB55E89D60D1B4C57ED9 /* ESTApp.swift */,
+				F8E3ED26E018BAA9AC59D2EB /* ESTIdentity.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				557AF9134BAE985870096E8F /* ClaimRace.swift in Sources */,
 				C549C81CCF60B4E5483034C0 /* ConfettiView.swift in Sources */,
 				FB7FEFF55B4BE791F4FDE614 /* ESTApp.swift in Sources */,
+				7572C9FF33C4245181D5FE3B /* ESTIdentity.swift in Sources */,
 				E098F3D6429EF8218C641740 /* ESTLeaderboard.swift in Sources */,
 				24BA02D18FFF62F16FACC2A6 /* Feedback.swift in Sources */,
 				00535095794914F1DE05923A /* FeedbackView.swift in Sources */,
@@ -594,7 +598,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 157;
+				CURRENT_PROJECT_VERSION = 158;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
 				INFOPLIST_KEY_ESTFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
@@ -621,7 +625,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 157;
+				CURRENT_PROJECT_VERSION = 158;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
 				INFOPLIST_KEY_ESTFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";

@@ -1,5 +1,6 @@
 import CryptoKit
 import Foundation
+import GameShell
 import Security
 import UIKit
 
@@ -195,23 +196,24 @@ enum ESTTelemetry {
         var counts: [String: Int]
     }
 
-    static let enabledKey = "estTelemetryEnabled"
-    static let lastSubmittedPeriodKey = "estTelemetryLastSubmittedPeriod"
-    static let endpointKey = "estTelemetryEndpoint"
-    private static let endpointInfoKey = "ESTTelemetryEndpoint"
-    private static let consentVersionKey = "estTelemetryConsentVersion"
+    private static var identity: GameIdentity { GameIdentity.current }
+    static var enabledKey: String { identity.defaultsKey("TelemetryEnabled") }
+    static var lastSubmittedPeriodKey: String { identity.defaultsKey("TelemetryLastSubmittedPeriod") }
+    static var endpointKey: String { identity.defaultsKey("TelemetryEndpoint") }
+    private static var endpointInfoKey: String { identity.infoKey("TelemetryEndpoint") }
+    private static var consentVersionKey: String { identity.defaultsKey("TelemetryConsentVersion") }
     private static let consentVersion = 2
     static let schemaVersion = 1
-    static let product = "est"
+    static var product: String { identity.product }
 
     /// The first-party EST target reports to the dedicated EST Worker. Forks
     /// can replace this with the Info.plist or UserDefaults override.
-    static let defaultEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/batches"
+    static let defaultEndpoint = GameIdentity.defaultTelemetryEndpoint
     static let sourceURL = URL(string: "https://github.com/michellzappa/games/blob/main/EST/Models/Telemetry.swift")!
     static let privacyURL = URL(string: "https://github.com/michellzappa/games/blob/main/PRIVACY.md")!
 
-    private static let activityKey = "estTelemetryActivity"
-    private static let installSecretService = "com.centaur-labs.est.telemetry"
+    private static var activityKey: String { identity.defaultsKey("TelemetryActivity") }
+    private static var installSecretService: String { identity.telemetryKeychainService }
     private static let installSecretAccount = "install-secret"
 
     /// Diagnostics are enabled by default on new installs. Existing installs
@@ -267,14 +269,15 @@ enum ESTTelemetry {
             resolvingAgainstBaseURL: false
         )
         components?.path = "/v1/community"
-        components?.query = nil
+        components?.queryItems = [URLQueryItem(name: "product", value: product)]
         components?.fragment = nil
         return components?.url
     }
 
     static var pendingURL: URL {
         FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
-            .appendingPathComponent("EST/Telemetry/pending.json")
+            .appendingPathComponent(identity.telemetryDirectory)
+            .appendingPathComponent("pending.json")
     }
 
     static func loadPendingBatch() -> ESTTelemetryBatch? {
@@ -623,7 +626,7 @@ final class TelemetryCoordinator {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue(
             String(ESTTelemetry.schemaVersion),
-            forHTTPHeaderField: "X-EST-Telemetry-Schema"
+            forHTTPHeaderField: GameIdentity.current.header("Telemetry-Schema")
         )
         request.httpBody = body
 

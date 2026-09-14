@@ -1,18 +1,21 @@
 import Foundation
+import GameShell
 import Observation
 import StoreKit
 
-/// StoreKit 2 backing for EST's optional patronage purchase.
+/// StoreKit 2 backing for a game's optional patronage purchase.
 ///
-/// The purchase unlocks no gameplay. EST stays fully playable, free, and
+/// The purchase unlocks no gameplay. The game stays fully playable, free, and
 /// ad-free; the entitlement exists only for supporter identity and cosmetics.
 @MainActor
 @Observable
 final class SupportStore {
     // App Store Connect rejects hyphens in product IDs, so this cannot mirror
     // the bundle ID (com.centaur-labs.est). It follows the same short scheme as
-    // the Game Center IDs, est.solo.completion.time and est.quick.completion.time.
-    static let productID = "est.support"
+    // the Game Center IDs: "<product>.support", so "est.support".
+    // Nil means the game ships without a support purchase; the store then
+    // loads nothing and `isSupporter` stays false.
+    static var productID: String? { GameIdentity.current.supportProductID }
 
     private(set) var product: Product?
     private(set) var isSupporter = false
@@ -34,12 +37,12 @@ final class SupportStore {
     }
 
     func loadProduct() async {
-        guard product == nil, !isLoading else { return }
+        guard let productID = Self.productID, product == nil, !isLoading else { return }
         isLoading = true
         defer { isLoading = false }
 
         do {
-            product = try await Product.products(for: [Self.productID]).first
+            product = try await Product.products(for: [productID]).first
             if product == nil {
                 message = "Support is unavailable. Try again later."
             } else {
@@ -95,7 +98,7 @@ final class SupportStore {
             try await AppStore.sync()
             await refreshEntitlement()
             if !isSupporter {
-                message = "No previous EST support purchase was found."
+                message = "No previous \(GameIdentity.current.name) support purchase was found."
             }
         } catch {
             message = "Purchases could not be restored. Try again later."

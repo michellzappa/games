@@ -1,19 +1,61 @@
-const ALLOWED_ACTIVITY = new Set([
-  "launches",
-  "games_started", "games_completed", "sets_found",
-  "full_solo_started", "full_solo_completed",
-  "quick_solo_started", "quick_solo_completed",
-  "local_duel_started", "local_duel_completed",
-  "network_duel_started", "network_duel_completed",
+// Activity and feature keys every game in the library may report.
+const CORE_ACTIVITY = [
+  "launches", "games_started", "games_completed",
   "hints_used", "tutorial_viewed", "leaderboard_viewed",
-]);
+];
+const CORE_FEATURES = [
+  "tutorial_seen", "hints_used", "sound_effects_enabled", "haptics_enabled",
+];
 
-const ALLOWED_FEATURES = new Set([
-  "tutorial_seen",
-  "quick_solo_used", "local_duel_used", "network_duel_used",
-  "hints_used", "sound_effects_enabled", "haptics_enabled",
-  "immersive_game_mode",
-]);
+// One Worker serves every game. The payload's `product` selects the entry;
+// each entry whitelists its own keys and names the totals and modes that
+// `GET /v1/community?product=` reports. An unknown product is rejected.
+const PRODUCTS = {
+  est: {
+    label: "EST",
+    activity: new Set([
+      ...CORE_ACTIVITY,
+      "sets_found",
+      "full_solo_started", "full_solo_completed",
+      "quick_solo_started", "quick_solo_completed",
+      "local_duel_started", "local_duel_completed",
+      "network_duel_started", "network_duel_completed",
+    ]),
+    features: new Set([
+      ...CORE_FEATURES,
+      "quick_solo_used", "local_duel_used", "network_duel_used",
+      "immersive_game_mode",
+    ]),
+    community: {
+      totals: ["games_started", "games_completed", "sets_found"],
+      modes: [
+        { name: "full_solo", key: "full_solo_started" },
+        { name: "quick_solo", key: "quick_solo_started" },
+        { name: "local_duel", key: "local_duel_started" },
+        { name: "network_duel", key: "network_duel_started" },
+      ],
+    },
+  },
+  seep: {
+    label: "SEEP",
+    activity: new Set([
+      ...CORE_ACTIVITY,
+      "levels_completed", "undos_used",
+    ]),
+    features: new Set(CORE_FEATURES),
+    community: {
+      totals: ["games_started", "games_completed", "levels_completed"],
+      modes: [],
+    },
+  },
+};
+const DEFAULT_PRODUCT = "est";
+
+function productConfig(value) {
+  return typeof value === "string" && Object.hasOwn(PRODUCTS, value)
+    ? PRODUCTS[value]
+    : null;
+}
 
 const ALLOWED_COHORTS = new Set(["new", "returning", "reactivated"]);
 const ALLOWED_DEVICE_FAMILIES = new Set(["iphone", "ipad"]);
@@ -68,7 +110,7 @@ function feedbackReplyEmail(value) {
 
 function sanitizeFeedback(payload) {
   if (!payload || typeof payload !== "object") return null;
-  if (payload.schema !== 1 || payload.product !== "est") return null;
+  if (payload.schema !== 1 || !productConfig(payload.product)) return null;
 
   const message = feedbackMessage(payload.message);
   const app = payload.app;
@@ -86,6 +128,7 @@ function sanitizeFeedback(payload) {
   if (!version || !build || iosMajor === null || !deviceFamily) return null;
 
   const safe = {
+    product: payload.product,
     message,
     reply_email: feedbackReplyEmail(payload.reply_email),
     app: {
@@ -107,8 +150,9 @@ async function sendFeedbackEmail(env, feedback) {
   }
 
   const { app, message, reply_email: replyEmail } = feedback;
+  const label = PRODUCTS[feedback.product].label;
   const text = [
-    "New EST feedback",
+    `New ${label} feedback`,
     "",
     `Version: ${app.version} (build ${app.build})`,
     `iOS: ${app.ios_major}`,
@@ -131,7 +175,7 @@ async function sendFeedbackEmail(env, feedback) {
         to: [FEEDBACK_RECIPIENT],
         // Replying in a mail client then reaches the player directly.
         ...(replyEmail ? { reply_to: [replyEmail] } : {}),
-        subject: `[EST feedback] ${app.version} (${app.build})`,
+        subject: `[${label} feedback] ${app.version} (${app.build})`,
         text,
       }),
     });
@@ -146,11 +190,11 @@ async function sendFeedbackEmail(env, feedback) {
   }
 }
 
-function safeActivity(value) {
+function safeActivity(value, allowed) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const result = {};
   for (const [key, count] of Object.entries(value)) {
-    if (ALLOWED_ACTIVITY.has(key)
+    if (allowed.has(key)
         && Number.isInteger(count) && count >= 0 && count <= 999999) {
       result[key] = count;
     }
@@ -158,11 +202,11 @@ function safeActivity(value) {
   return result;
 }
 
-function safeFeatures(value) {
+function safeFeatures(value, allowed) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return {};
   const result = {};
   for (const [key, enabled] of Object.entries(value)) {
-    if (ALLOWED_FEATURES.has(key) && typeof enabled === "boolean") {
+    if (allowed.has(key) && typeof enabled === "boolean") {
       result[key] = enabled;
     }
   }
@@ -171,7 +215,8 @@ function safeFeatures(value) {
 
 function sanitize(payload) {
   if (!payload || typeof payload !== "object") return null;
-  if (payload.schema !== 1 || payload.product !== "est") return null;
+  const config = productConfig(payload.product);
+  if (payload.schema !== 1 || !config) return null;
 
   const batchID = boundedString(payload.batch_id, 80);
   const period = boundedString(payload.period, 12);
@@ -204,7 +249,7 @@ function sanitize(payload) {
 
   const safe = {
     schema: 1,
-    product: "est",
+    product: payload.product,
     batch_id: batchID,
     dedupe_key: dedupeKey,
     period,
@@ -215,8 +260,8 @@ function sanitize(payload) {
       ios_major: iosMajor,
       device_family: deviceFamily,
     },
-    activity: safeActivity(payload.activity),
-    features: safeFeatures(payload.features),
+    activity: safeActivity(payload.activity, config.activity),
+    features: safeFeatures(payload.features, config.features),
   };
   return JSON.stringify(safe).length <= 16384 ? safe : null;
 }
@@ -271,10 +316,18 @@ function adoptionPercent(rows, key) {
   return Math.round((adopters / rows.length) * 100);
 }
 
-async function communityStats(env) {
+function totals(rows, keys, reportingDevices) {
+  return Object.fromEntries(keys.map((key) => [
+    key,
+    visible(activityTotal(rows, key), reportingDevices),
+  ]));
+}
+
+async function communityStats(env, product) {
+  const config = PRODUCTS[product];
   const result = await env.DB.prepare(
-    "SELECT period, payload FROM telemetry_batches ORDER BY period"
-  ).all();
+    "SELECT period, payload FROM telemetry_batches WHERE product = ? ORDER BY period"
+  ).bind(product).all();
   const rows = readAggregateRows(result);
   const periods = [...new Set(rows.map((row) => row.period))].sort();
   const periodsToShow = periods.slice(-COMMUNITY_HISTORY_WEEKS);
@@ -286,18 +339,7 @@ async function communityStats(env) {
       period,
       count: visible(periodRows.length, periodRows.length),
       in_progress: period === currentPeriod,
-      games_started: visible(
-        activityTotal(periodRows, "games_started"),
-        periodRows.length,
-      ),
-      games_completed: visible(
-        activityTotal(periodRows, "games_completed"),
-        periodRows.length,
-      ),
-      sets_found: visible(
-        activityTotal(periodRows, "sets_found"),
-        periodRows.length,
-      ),
+      ...totals(periodRows, config.community.totals, periodRows.length),
     };
   });
 
@@ -305,6 +347,7 @@ async function communityStats(env) {
   if (!latestPeriod) {
     return {
       schema: 1,
+      product,
       generated_on: new Date().toISOString(),
       privacy: { minimum_group_size: COMMUNITY_MINIMUM_GROUP_SIZE },
       weekly_active: weeklyActive,
@@ -316,6 +359,7 @@ async function communityStats(env) {
   const reportingDevices = latestRows.length;
   return {
     schema: 1,
+    product,
     generated_on: new Date().toISOString(),
     privacy: { minimum_group_size: COMMUNITY_MINIMUM_GROUP_SIZE },
     weekly_active: weeklyActive,
@@ -323,38 +367,11 @@ async function communityStats(env) {
       period: latestPeriod,
       in_progress: latestPeriod === currentPeriod,
       reporting_devices: visible(reportingDevices, reportingDevices),
-      activity: {
-        games_started: visible(
-          activityTotal(latestRows, "games_started"),
-          reportingDevices,
-        ),
-        games_completed: visible(
-          activityTotal(latestRows, "games_completed"),
-          reportingDevices,
-        ),
-        sets_found: visible(
-          activityTotal(latestRows, "sets_found"),
-          reportingDevices,
-        ),
-      },
-      modes: [
-        {
-          name: "full_solo",
-          percent: adoptionPercent(latestRows, "full_solo_started"),
-        },
-        {
-          name: "quick_solo",
-          percent: adoptionPercent(latestRows, "quick_solo_started"),
-        },
-        {
-          name: "local_duel",
-          percent: adoptionPercent(latestRows, "local_duel_started"),
-        },
-        {
-          name: "network_duel",
-          percent: adoptionPercent(latestRows, "network_duel_started"),
-        },
-      ],
+      activity: totals(latestRows, config.community.totals, reportingDevices),
+      modes: config.community.modes.map(({ name, key }) => ({
+        name,
+        percent: adoptionPercent(latestRows, key),
+      })),
     },
   };
 }
@@ -366,7 +383,12 @@ export default {
       return json({ ok: true });
     }
     if (request.method === "GET" && url.pathname === "/v1/community") {
-      return json(await communityStats(env), 200, {
+      // The 1.0.0 EST client sends no product; it keeps getting EST.
+      const product = url.searchParams.get("product") ?? DEFAULT_PRODUCT;
+      if (!productConfig(product)) {
+        return json({ error: "unknown_product" }, 404);
+      }
+      return json(await communityStats(env, product), 200, {
         "access-control-allow-origin": "*",
         "cache-control": "public, max-age=300",
       });
@@ -415,10 +437,10 @@ export default {
     const receivedAt = new Date().toISOString();
     await env.DB.prepare(
       `INSERT INTO telemetry_batches
-       (batch_id, received_at, period, dedupe_key, cohort, app_version,
+       (batch_id, received_at, product, period, dedupe_key, cohort, app_version,
         app_build, ios_major, device_family, payload)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-       ON CONFLICT(period, dedupe_key) DO UPDATE SET
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+       ON CONFLICT(product, period, dedupe_key) DO UPDATE SET
          batch_id = excluded.batch_id,
          received_at = excluded.received_at,
          cohort = excluded.cohort,
@@ -430,6 +452,7 @@ export default {
     ).bind(
       safe.batch_id,
       receivedAt,
+      safe.product,
       safe.period,
       safe.dedupe_key,
       safe.cohort,

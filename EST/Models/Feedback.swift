@@ -1,4 +1,5 @@
 import Foundation
+import GameShell
 import UIKit
 
 /// The small JSON contract used by the in-app feedback form.
@@ -36,7 +37,7 @@ struct ESTFeedbackPayload: Codable, Equatable, Sendable {
 
     init(
         schema: Int = 1,
-        product: String = "est",
+        product: String = GameIdentity.current.product,
         message: String,
         replyEmail: String? = nil,
         app: App
@@ -68,9 +69,9 @@ enum ESTFeedbackService {
         }
     }
 
-    static let endpointKey = "estFeedbackEndpoint"
-    static let endpointInfoKey = "ESTFeedbackEndpoint"
-    static let defaultEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback"
+    static var endpointKey: String { GameIdentity.current.defaultsKey("FeedbackEndpoint") }
+    static var endpointInfoKey: String { GameIdentity.current.infoKey("FeedbackEndpoint") }
+    static let defaultEndpoint = GameIdentity.defaultFeedbackEndpoint
     static let maxMessageLength = 5_000
     /// RFC 5321 caps an address at 254 characters.
     static let maxEmailLength = 254
@@ -158,7 +159,7 @@ enum ESTFeedbackService {
         request.timeoutInterval = 15
         request.cachePolicy = .reloadIgnoringLocalCacheData
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.setValue("1", forHTTPHeaderField: "X-EST-Feedback-Schema")
+        request.setValue("1", forHTTPHeaderField: GameIdentity.current.header("Feedback-Schema"))
         request.httpBody = body
 
         do {

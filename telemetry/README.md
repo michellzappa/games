@@ -1,6 +1,13 @@
-# EST telemetry service
+# Telemetry service
 
-This is the small first-party intake for EST's optional anonymous diagnostics.
+This is the small first-party intake for the optional anonymous diagnostics
+of every game in this repo. One Worker serves every game: each payload
+carries a `product` slug (`est`, `seep`), the `PRODUCTS` table in `worker.js`
+whitelists that game's keys, D1 rows carry the product, and
+`GET /v1/community?product=<slug>` aggregates one game. A request with no
+product parameter is the EST 1.0.0 client and gets EST.
+
+Adding a game: add its entry to `PRODUCTS`, deploy. No schema change.
 It also forwards the app's optional free-text feedback form to
 `mz@centaur-labs.io`. Feedback is not stored in D1 and does not require
 anonymous-diagnostics consent.
@@ -73,6 +80,16 @@ cannot keep a secret. Before public deployment, configure a Cloudflare rate
 limit for `POST /v1/feedback` (for example, a small per-IP hourly limit) and
 ensure the Resend sender is a verified domain. Feedback may be retained by the
 recipient's email system and Resend; the Worker does not write it to D1.
+
+## Migrations
+
+`migrations/` holds one file per schema change, applied by hand and in order
+with `npx wrangler d1 execute est-telemetry --remote --config
+telemetry/wrangler.local.toml --file=telemetry/migrations/<file>`.
+`schema.sql` is the full current schema for a fresh database.
+
+- `0001-product-column.sql`: adds `product` (default `est`) and reindexes
+  on `(product, period, dedupe_key)`. Applied 2026-09-14.
 
 ## Deploy traps
 

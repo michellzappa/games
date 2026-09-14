@@ -230,6 +230,29 @@ struct SymbolView: View {
     }
 }
 
+/// How the cards face. A game screen sets this on its board; every `CardView`
+/// under it turns its symbols by that angle. Only the symbols turn, so the
+/// grid keeps the same cards in the same cells.
+private struct ESTCardRotationKey: EnvironmentKey {
+    static let defaultValue = Angle.zero
+}
+
+extension EnvironmentValues {
+    var estCardRotation: Angle {
+        get { self[ESTCardRotationKey.self] }
+        set { self[ESTCardRotationKey.self] = newValue }
+    }
+}
+
+extension ConfettiView {
+    /// Confetti in EST's own symbols and tints.
+    static func cards(tints: [Card.Tint] = Card.Tint.allCases) -> ConfettiView {
+        ConfettiView(colors: tints.map(\.color)) { _ in
+            AnyShape(ElementaryShape(symbol: Card.Symbol.allCases.randomElement()!))
+        }
+    }
+}
+
 struct ElementaryShape: Shape {
     let symbol: Card.Symbol
 

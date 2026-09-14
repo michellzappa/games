@@ -64,9 +64,9 @@ struct SettingsView: View {
                                 Text(theme.name)
                                     .foregroundStyle(.primary)
                                 Spacer()
-                                ForEach(Card.Tint.allCases, id: \.self) { tint in
+                                ForEach(GameAccent.identity, id: \.self) { accent in
                                     Circle()
-                                        .fill(theme.color(for: tint))
+                                        .fill(theme.color(for: accent))
                                         .frame(width: 16, height: 16)
                                 }
                                 Image(systemName: theme == .dusk && !supportStore.isSupporter ? "lock.fill" : "checkmark")
@@ -223,7 +223,7 @@ struct SettingsView: View {
                                 if supportStore.isSupporter {
                                     Text("Supporter")
                                         .font(.footnote.weight(.semibold))
-                                        .foregroundStyle(Card.Tint.blue.color)
+                                        .foregroundStyle(GameAccent.second.color)
                                 }
                             }
                         }
@@ -249,7 +249,7 @@ struct SettingsView: View {
                     if supportStore.isSupporter {
                         Label("EST Supporter", systemImage: "checkmark.seal.fill")
                             .font(.subheadline.weight(.semibold))
-                            .foregroundStyle(Card.Tint.blue.color)
+                            .foregroundStyle(GameAccent.second.color)
                     }
 
                     Link(destination: Self.sourceCodeURL) {

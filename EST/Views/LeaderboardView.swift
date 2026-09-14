@@ -57,7 +57,7 @@ struct LeaderboardView: View {
                 VStack(spacing: 10) {
                     Image(systemName: "trophy.fill")
                         .font(.system(size: trophySize))
-                        .foregroundStyle(Card.Tint.yellow.color)
+                        .foregroundStyle(GameAccent.third.color)
 
                     Text(selectedTab.title)
                         .font(.title2.weight(.bold))

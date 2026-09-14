@@ -433,7 +433,7 @@ private struct PartyGameOverView: View {
 
     var body: some View {
         ZStack {
-            ConfettiView(tints: confettiTints)
+            ConfettiView.cards(tints: confettiTints)
                 .ignoresSafeArea()
             card
         }

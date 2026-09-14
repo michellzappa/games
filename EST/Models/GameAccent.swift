@@ -9,6 +9,10 @@ enum GameAccent: CaseIterable {
     case third
     case danger
 
+    /// The three identity positions, in palette order. `danger` is feedback,
+    /// not identity.
+    static let identity: [GameAccent] = [.first, .second, .third]
+
     var color: Color {
         Appearance.shared.theme.color(for: self)
     }
@@ -23,18 +27,5 @@ enum GameAccent: CaseIterable {
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
-    }
-}
-
-extension Card.Tint {
-    /// EST cards retain their named identity colours while shared chrome uses
-    /// palette positions. Future games can map their own identity system onto
-    /// the same three positions.
-    var gameAccent: GameAccent {
-        switch self {
-        case .red: .first
-        case .blue: .second
-        case .yellow: .third
-        }
     }
 }

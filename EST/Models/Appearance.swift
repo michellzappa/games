@@ -9,10 +9,10 @@ private func dynamicColor(light: UIColor, dark: UIColor) -> Color {
     Color(UIColor { $0.userInterfaceStyle == .dark ? dark : light })
 }
 
-/// User-facing look settings, persisted in UserDefaults. Card tint colors
-/// flow through the active theme (`Card.Tint.color` delegates here), so a
-/// theme change restyles cards, confetti, the title, and the progress bar
-/// at once.
+/// User-facing look settings, persisted in UserDefaults. Identity colors
+/// flow through the active theme by palette position (`GameAccent`), and
+/// `Card.Tint.color` delegates there, so a theme change restyles cards,
+/// confetti, the title, and the progress bar at once.
 @Observable
 final class Appearance {
     static let shared = Appearance()
@@ -81,49 +81,36 @@ final class Appearance {
             }
         }
 
-        func color(for tint: Card.Tint) -> Color {
-            switch (self, tint) {
-            case (.primary, .red): Color(red: 0.87, green: 0.32, blue: 0.28)
-            case (.primary, .blue): Color(red: 0.24, green: 0.43, blue: 0.92)
-            case (.primary, .yellow): Color(red: 0.94, green: 0.66, blue: 0.20)
-            case (.orchard, .red): Color(red: 0.55, green: 0.33, blue: 0.83)
-            case (.orchard, .blue): Color(red: 0.13, green: 0.62, blue: 0.39)
-            case (.orchard, .yellow): Color(red: 0.93, green: 0.47, blue: 0.15)
-            case (.dusk, .red): Color(red: 0.87, green: 0.33, blue: 0.46)
-            case (.dusk, .blue): Color(red: 0.12, green: 0.55, blue: 0.58)
-            case (.dusk, .yellow): Color(red: 0.82, green: 0.60, blue: 0.16)
-            }
-        }
-
+        /// Identity colors by palette position. A game maps its own identity
+        /// system onto these three positions (EST: red, blue, yellow).
         func color(for accent: GameAccent) -> Color {
-            switch accent {
-            case .first: color(for: .red)
-            case .second: color(for: .blue)
-            case .third: color(for: .yellow)
-            case .danger: errorColor
+            switch (self, accent) {
+            case (.primary, .first): Color(red: 0.87, green: 0.32, blue: 0.28)
+            case (.primary, .second): Color(red: 0.24, green: 0.43, blue: 0.92)
+            case (.primary, .third): Color(red: 0.94, green: 0.66, blue: 0.20)
+            case (.orchard, .first): Color(red: 0.55, green: 0.33, blue: 0.83)
+            case (.orchard, .second): Color(red: 0.13, green: 0.62, blue: 0.39)
+            case (.orchard, .third): Color(red: 0.93, green: 0.47, blue: 0.15)
+            case (.dusk, .first): Color(red: 0.87, green: 0.33, blue: 0.46)
+            case (.dusk, .second): Color(red: 0.12, green: 0.55, blue: 0.58)
+            case (.dusk, .third): Color(red: 0.82, green: 0.60, blue: 0.16)
+            case (_, .danger): errorColor
             }
         }
 
-        func highlight(for tint: Card.Tint) -> Color {
-            switch (self, tint) {
-            case (.primary, .red): Color(red: 0.96, green: 0.47, blue: 0.41)
-            case (.primary, .blue): Color(red: 0.44, green: 0.60, blue: 0.98)
-            case (.primary, .yellow): Color(red: 0.99, green: 0.79, blue: 0.38)
-            case (.orchard, .red): Color(red: 0.68, green: 0.48, blue: 0.93)
-            case (.orchard, .blue): Color(red: 0.30, green: 0.76, blue: 0.53)
-            case (.orchard, .yellow): Color(red: 0.98, green: 0.62, blue: 0.31)
-            case (.dusk, .red): Color(red: 0.96, green: 0.50, blue: 0.61)
-            case (.dusk, .blue): Color(red: 0.29, green: 0.70, blue: 0.73)
-            case (.dusk, .yellow): Color(red: 0.93, green: 0.74, blue: 0.34)
-            }
-        }
-
+        /// Lighter sibling used as the top of a solid-fill gradient.
         func highlight(for accent: GameAccent) -> Color {
-            switch accent {
-            case .first: highlight(for: .red)
-            case .second: highlight(for: .blue)
-            case .third: highlight(for: .yellow)
-            case .danger: errorColor.opacity(0.72)
+            switch (self, accent) {
+            case (.primary, .first): Color(red: 0.96, green: 0.47, blue: 0.41)
+            case (.primary, .second): Color(red: 0.44, green: 0.60, blue: 0.98)
+            case (.primary, .third): Color(red: 0.99, green: 0.79, blue: 0.38)
+            case (.orchard, .first): Color(red: 0.68, green: 0.48, blue: 0.93)
+            case (.orchard, .second): Color(red: 0.30, green: 0.76, blue: 0.53)
+            case (.orchard, .third): Color(red: 0.98, green: 0.62, blue: 0.31)
+            case (.dusk, .first): Color(red: 0.96, green: 0.50, blue: 0.61)
+            case (.dusk, .second): Color(red: 0.29, green: 0.70, blue: 0.73)
+            case (.dusk, .third): Color(red: 0.93, green: 0.74, blue: 0.34)
+            case (_, .danger): errorColor.opacity(0.72)
             }
         }
 
@@ -230,9 +217,9 @@ final class Appearance {
     /// lockstep. The fourth slot uses the theme's implicit fourth player hue.
     func playerColor(for slot: Int) -> Color {
         switch slot {
-        case 0: Card.Tint.red.color
-        case 1: Card.Tint.blue.color
-        case 2: Card.Tint.yellow.color
+        case 0: GameAccent.first.color
+        case 1: GameAccent.second.color
+        case 2: GameAccent.third.color
         default: theme.fourthPlayerColor
         }
     }
@@ -300,13 +287,6 @@ private struct ESTColorBlindAssistKey: EnvironmentKey {
     static let defaultValue = false
 }
 
-/// How the cards face. A game screen sets this on its board; every `CardView`
-/// under it turns its symbols by that angle. Only the symbols turn, so the
-/// grid keeps the same cards in the same cells.
-private struct ESTCardRotationKey: EnvironmentKey {
-    static let defaultValue = Angle.zero
-}
-
 extension EnvironmentValues {
     var estReduceMotion: Bool {
         get { self[ESTReduceMotionKey.self] }
@@ -321,10 +301,5 @@ extension EnvironmentValues {
     var estColorBlindAssist: Bool {
         get { self[ESTColorBlindAssistKey.self] }
         set { self[ESTColorBlindAssistKey.self] = newValue }
-    }
-
-    var estCardRotation: Angle {
-        get { self[ESTCardRotationKey.self] }
-        set { self[ESTCardRotationKey.self] = newValue }
     }
 }

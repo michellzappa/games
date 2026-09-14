@@ -311,7 +311,7 @@ struct NetworkPartyGameView: View {
     ) -> some View {
         ZStack {
             if celebratory {
-                ConfettiView()
+                ConfettiView.cards()
                     .ignoresSafeArea()
             }
             VStack(spacing: 20) {

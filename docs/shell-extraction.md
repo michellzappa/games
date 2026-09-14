@@ -48,12 +48,14 @@ any file moves.
 
 ### Phase 2. Palette slot replaces `Card.Tint` in shared code
 
-In `Appearance`: `Theme.color(for: Card.Tint)` becomes `color(for slot:
-PaletteSlot)` where `PaletteSlot` is `enum { case first, second, third }`.
-`Card.Tint.color` stays as an EST extension that maps `red -> .first` and so
-on. `GameAccent` already exists for this; extend it and use it in the view
-sites. `ConfettiView` takes `colors: [Color]` and a shape builder (default
-circle); EST passes its symbols. `Appearance.playerColor(for:)` reads slots.
+`GameAccent` (`first`, `second`, `third`, `danger`) is the palette slot.
+`Theme.color(for:)` and `highlight(for:)` hold their tables on `GameAccent`;
+`Card.Tint.color` delegates through `Card.Tint.gameAccent`, an extension that
+lives in `Card.swift`. `GameAccent.identity` lists the three identity slots
+for swatch rows and confetti defaults. `ConfettiView` takes `colors: [Color]`
+and a shape builder (default circle); `ConfettiView.cards(tints:)` in
+`CardView.swift` supplies EST's symbols. `Appearance.playerColor(for:)` reads
+slots. The `estCardRotation` environment key moved next to `CardView`.
 
 Result: `Appearance`, `GameAccent`, `ConfettiView`, `ButtonStyles`,
 `GlassHelpers` compile with no reference to `Card`. No file moves yet.
@@ -160,7 +162,7 @@ own `ScreenshotTests` target.
 | Phase | Files moved | Files edited | New |
 |---|---|---|---|
 | 1 | 0 | `project.yml` | 2 `Package.swift`, 2 stub files |
-| 2 | 0 | `Appearance`, `GameAccent`, `ConfettiView`, 6 views, `Card.swift` | `PaletteSlot` |
+| 2 | 0 | `Appearance`, `GameAccent`, `ConfettiView`, `CardView`, 6 views, `Card.swift` | `GameAccent.identity` |
 | 3 | 0 | `Telemetry`, `Feedback`, `SupportStore`, `ESTApp`, `project.yml` | `GameIdentity` |
 | 4 | 14 | every caller, for `public` and `import GameShell` | none |
 | 5 | 0 | `SettingsView`, `ESTApp` | `CardAppearance` |
@@ -176,3 +178,7 @@ enum, and whether `SupportView` copy references cards. Both surface in Phase
 
 - Phase 1: done. `Packages/GameShell` and `Packages/GridKit` exist and are
   linked into the EST target.
+- Phase 2: done. `Appearance`, `GameAccent`, `ConfettiView`, `ButtonStyles`,
+  `GlassHelpers`, `SupportView`, `FeedbackView`, `LeaderboardView` have no
+  `Card` reference. Remaining EST-only sites: the fill preview and
+  `PlayStyleView` (Phase 5).

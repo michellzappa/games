@@ -335,7 +335,7 @@ struct SoloGameOverView: View {
 
     var body: some View {
         ZStack {
-            ConfettiView()
+            ConfettiView.cards()
                 .ignoresSafeArea()
             card
         }

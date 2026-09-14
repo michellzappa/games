@@ -74,7 +74,7 @@ struct FeedbackView: View {
                 if isSent {
                     Section {
                         Label("Feedback sent. Thank you.", systemImage: "checkmark.circle.fill")
-                            .foregroundStyle(Card.Tint.blue.color)
+                            .foregroundStyle(GameAccent.second.color)
                     }
                 } else {
                     Section {

@@ -62,7 +62,7 @@ struct PlayStyleView: View {
         VStack(alignment: .leading, spacing: 6) {
             Label("A private practice mirror", systemImage: "lock.shield")
                 .font(.headline)
-                .foregroundStyle(Card.Tint.blue.color)
+                .foregroundStyle(GameAccent.second.color)
             Text("These aggregate stats stay on this device and are never included in anonymous diagnostics.")
                 .font(.footnote)
                 .foregroundStyle(.secondary)
@@ -76,7 +76,7 @@ struct PlayStyleView: View {
         VStack(spacing: 10) {
             Image(systemName: "chart.bar.xaxis")
                 .font(.largeTitle)
-                .foregroundStyle(Card.Tint.yellow.color)
+                .foregroundStyle(GameAccent.third.color)
             Text("Play a few solo rounds")
                 .font(.headline)
             Text("EST will show which kinds of sets feel natural to you and where a little practice could help.")
@@ -198,7 +198,7 @@ struct PlayStyleView: View {
                         Spacer()
                         Text("\(errors[index])")
                             .font(.subheadline.monospacedDigit().bold())
-                            .foregroundStyle(errors[index] == errors.max() ? Card.Tint.red.color : .secondary)
+                            .foregroundStyle(errors[index] == errors.max() ? GameAccent.first.color : .secondary)
                     }
                     .font(.subheadline)
                 }
@@ -235,13 +235,13 @@ struct PlayStyleView: View {
         VStack(alignment: .leading, spacing: 8) {
             Label("A useful next habit", systemImage: "lightbulb")
                 .font(.headline)
-                .foregroundStyle(Card.Tint.yellow.color)
+                .foregroundStyle(GameAccent.third.color)
             Text(tipText)
                 .font(.subheadline)
         }
         .padding(16)
         .glassButtonSurface(
-            tint: Card.Tint.yellow.color,
+            tint: GameAccent.third.color,
             opacity: 0.10,
             cornerRadius: 18
         )

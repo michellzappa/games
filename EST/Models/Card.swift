@@ -17,24 +17,14 @@ struct Card: Identifiable, Hashable {
     enum Tint: Int, CaseIterable {
         case red, blue, yellow
 
-        /// Themed via Appearance: a theme change restyles everything that
-        /// draws with tint colors.
-        var color: Color {
-            Appearance.shared.theme.color(for: self)
-        }
+        /// Themed via Appearance through the tint's palette position, so a
+        /// theme change restyles everything that draws with tint colors.
+        var color: Color { gameAccent.color }
 
         /// Lighter sibling used as the top of the solid-fill gradient.
-        var highlight: Color {
-            Appearance.shared.theme.highlight(for: self)
-        }
+        var highlight: Color { gameAccent.highlight }
 
-        var gradient: LinearGradient {
-            LinearGradient(
-                colors: [highlight, color],
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-        }
+        var gradient: LinearGradient { gameAccent.gradient }
 
         var name: String {
             switch self {
@@ -293,5 +283,18 @@ struct Card: Identifiable, Hashable {
             }
         }
         return nil
+    }
+}
+
+extension Card.Tint {
+    /// EST cards retain their named identity colours while shared chrome uses
+    /// palette positions. Future games can map their own identity system onto
+    /// the same three positions.
+    var gameAccent: GameAccent {
+        switch self {
+        case .red: .first
+        case .blue: .second
+        case .yellow: .third
+        }
     }
 }

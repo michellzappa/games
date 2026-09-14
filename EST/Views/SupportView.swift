@@ -59,7 +59,7 @@ struct SupportView: View {
                         VStack(spacing: 12) {
                             Label("You're an EST supporter", systemImage: "checkmark.seal.fill")
                                 .font(.subheadline.weight(.semibold))
-                                .foregroundStyle(Card.Tint.blue.color)
+                                .foregroundStyle(GameAccent.second.color)
 
                             Button {
                                 Appearance.shared.theme = .dusk
@@ -156,7 +156,7 @@ struct SupportView: View {
             Circle()
                 .fill(
                     LinearGradient(
-                        colors: [Card.Tint.red.color, Card.Tint.yellow.color, Card.Tint.blue.color],
+                        colors: [GameAccent.first.color, GameAccent.third.color, GameAccent.second.color],
                         startPoint: .topLeading,
                         endPoint: .bottomTrailing
                     )
@@ -166,7 +166,7 @@ struct SupportView: View {
                 .foregroundStyle(.white)
         }
         .frame(width: markSide, height: markSide)
-        .shadow(color: Card.Tint.red.color.opacity(0.28), radius: 16, y: 8)
+        .shadow(color: GameAccent.first.color.opacity(0.28), radius: 16, y: 8)
         .accessibilityHidden(true)
     }
 
@@ -193,13 +193,13 @@ private struct SupportThankYouView: View {
         ZStack {
             Appearance.shared.gameBackground
                 .ignoresSafeArea()
-            ConfettiView()
+            ConfettiView.cards()
                 .ignoresSafeArea()
 
             VStack(spacing: 18) {
                 Image(systemName: "checkmark.seal.fill")
                     .font(.system(size: sealSize, weight: .bold))
-                    .foregroundStyle(Card.Tint.yellow.color)
+                    .foregroundStyle(GameAccent.third.color)
 
                 Text("Thank you")
                     .font(.largeTitle.weight(.bold))

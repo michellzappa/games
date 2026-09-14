@@ -85,7 +85,7 @@ struct TitleView: View {
             RulesView()
         }
         .sheet(isPresented: $showSettings) {
-            SettingsView()
+            ESTSettingsView()
         }
         .sheet(isPresented: $showPlayStyle) {
             PlayStyleView()

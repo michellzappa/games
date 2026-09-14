@@ -220,3 +220,8 @@ enum, and whether `SupportView` copy references cards. Both surface in Phase
   `Theme.cardSurface/cardBorder/cardSlotBorder` are now
   `surface/border/slotBorder`. `RunStore<Run>` replaces `SoloRunStore`'s
   body; EST keeps a thin `SoloRunStore` wrapper with the old key.
+- Phase 5: done. `SettingsView` in the shell owns the universal sections and
+  three slots: `look`, `game`, `afterPrivacy`. The Support section hides
+  when `supportProductID` is nil. `ESTSettingsView` fills the slots with
+  the fill picker, Game and Data sections, and Community Pulse, and owns
+  the reset dialog and the Play Style sheet.

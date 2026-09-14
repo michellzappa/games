@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		125DC9139719C4CB8E45CE0A /* FeedbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2C9E562A51E177A5F5E58 /* FeedbackTests.swift */; };
+		173FAD4D384AB24A359FFEBE /* ESTSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF21CDFB2EE84BEFB88CC4 /* ESTSettingsView.swift */; };
 		272C76944CA31B9085571EED /* PilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F58ECE893660C9BEABFEB /* PilesView.swift */; };
 		2BAABEFD4BABA40A79640CD6 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F124673A85426DAE3666DC /* ScreenshotTests.swift */; };
 		34D5EEDF027658B338D7B528 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2477202E22AC8D7CB6C56AC /* TitleView.swift */; };
@@ -25,7 +26,6 @@
 		65C403C001A51B16E9AE77FC /* PartySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BE598B03AA0E6BB445B6A9 /* PartySession.swift */; };
 		7572C9FF33C4245181D5FE3B /* ESTIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3ED26E018BAA9AC59D2EB /* ESTIdentity.swift */; };
 		8548D34517850306510158AC /* NetworkPartyGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */; };
-		9B7FAE128876330A4AC34468 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3403B1A46938054B8158671C /* SettingsView.swift */; };
 		A236671F0BB4C9015A66C7B8 /* PartySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5816BABD18A4F7F6E2296F2D /* PartySessionTests.swift */; };
 		A7430579CA5981FECF598754 /* FourDimensionalProjectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DAB9099E4CA8F529837603 /* FourDimensionalProjectionView.swift */; };
 		A8D040A4698E0B208BF5D8E7 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14A00FCA84303D9FE935EE /* MatchmakerView.swift */; };
@@ -64,10 +64,10 @@
 		0D7A01961B33CE03B20D49F4 /* GridKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GridKit; path = Packages/GridKit; sourceTree = SOURCE_ROOT; };
 		16EFDB671FA1F6A886409C17 /* ESTUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ESTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F37FAA2DCF8DD1E0761D68 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		1BDF21CDFB2EE84BEFB88CC4 /* ESTSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTSettingsView.swift; sourceTree = "<group>"; };
 		299F58ECE893660C9BEABFEB /* PilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilesView.swift; sourceTree = "<group>"; };
 		2B10BBBD73B61C9E649C8A41 /* EST.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EST.entitlements; sourceTree = "<group>"; };
 		315EDDEAAD8AC89CBE742294 /* EST.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = EST.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3403B1A46938054B8158671C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		41A1D2288F1C5BD10CE53315 /* PartyGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyGameView.swift; sourceTree = "<group>"; };
 		4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloGameView.swift; sourceTree = "<group>"; };
 		472C464CD1AE63569E3EA136 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -194,12 +194,12 @@
 				E48C5C1346BE0394E6087B18 /* BoardGridView.swift */,
 				472C464CD1AE63569E3EA136 /* CardView.swift */,
 				AF5BB501A834D29F5AC96B7B /* ESTLeaderboardView.swift */,
+				1BDF21CDFB2EE84BEFB88CC4 /* ESTSettingsView.swift */,
 				DA14A00FCA84303D9FE935EE /* MatchmakerView.swift */,
 				FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */,
 				41A1D2288F1C5BD10CE53315 /* PartyGameView.swift */,
 				299F58ECE893660C9BEABFEB /* PilesView.swift */,
 				76F1379D58115CE598C68C6B /* PlayStyleView.swift */,
-				3403B1A46938054B8158671C /* SettingsView.swift */,
 				4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */,
 				F2477202E22AC8D7CB6C56AC /* TitleView.swift */,
 				16F37FAA2DCF8DD1E0761D68 /* TutorialView.swift */,
@@ -389,6 +389,7 @@
 				7572C9FF33C4245181D5FE3B /* ESTIdentity.swift in Sources */,
 				E098F3D6429EF8218C641740 /* ESTLeaderboard.swift in Sources */,
 				D455D64693145D8727C9C13E /* ESTLeaderboardView.swift in Sources */,
+				173FAD4D384AB24A359FFEBE /* ESTSettingsView.swift in Sources */,
 				A7430579CA5981FECF598754 /* FourDimensionalProjectionView.swift in Sources */,
 				4C0A8911E947E1CE42E9AF30 /* GameEngine.swift in Sources */,
 				A8D040A4698E0B208BF5D8E7 /* MatchmakerView.swift in Sources */,
@@ -401,7 +402,6 @@
 				272C76944CA31B9085571EED /* PilesView.swift in Sources */,
 				455AB690FC27BD6421FE1B68 /* PlayStyleView.swift in Sources */,
 				BD1AC9C9AE7C289DAACF9AFB /* PlayerStats.swift in Sources */,
-				9B7FAE128876330A4AC34468 /* SettingsView.swift in Sources */,
 				B751729340CEC69F505EB537 /* SoloGameView.swift in Sources */,
 				64C9C8127644B6F9AA91CA12 /* SoloRunStore.swift in Sources */,
 				34D5EEDF027658B338D7B528 /* TitleView.swift in Sources */,
@@ -550,7 +550,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 159;
+				CURRENT_PROJECT_VERSION = 160;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
 				INFOPLIST_KEY_ESTFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
@@ -577,7 +577,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 159;
+				CURRENT_PROJECT_VERSION = 160;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
 				INFOPLIST_KEY_ESTFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";

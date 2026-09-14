@@ -37,8 +37,9 @@ becoming a monorepo for a small library of games; EST is the first.
   code. Every persisted key, Info.plist key, header and product id derives
   from `GameIdentity.current.product`, so EST's stored keys did not change.
 - Shell views take game content as parameters: `SupportView(confetti:)`,
-  `LeaderboardView(boards:onOpen:)`, `ConfettiView(colors:shape:)`. EST's
-  versions are `ConfettiView.cards()` and `ESTLeaderboardView`.
+  `LeaderboardView(boards:onOpen:)`, `ConfettiView(colors:shape:)`,
+  `SettingsView(about:confetti:look:game:afterPrivacy:)`. EST's versions are
+  `ConfettiView.cards()`, `ESTLeaderboardView`, `ESTSettingsView`.
 - Card-only look settings live in `CardAppearance` (fill style), not in the
   shell `Appearance`.
 
@@ -185,7 +186,7 @@ iPhone and iPad are both mandatory while TARGETED_DEVICE_FAMILY is "1,2".
   SwiftUI applies the modifier to each branch. A state change that switches the
   branch destroys that view and cancels the task that set the state. This kept
   Community Pulse on "Loading…" forever. `CommunityPulseView` in
-  `SettingsView.swift` now holds one `VStack` and a `Phase` enum, and the
+  `ESTSettingsView.swift` now holds one `VStack` and a `Phase` enum, and the
   `.task` sits on the stable container.
 
 ## App Store Connect

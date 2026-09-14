@@ -1,4 +1,5 @@
 import GameShell
+import GridKit
 import SwiftUI
 
 /// Multi-device party: every player holds their own phone. Each player's
@@ -154,14 +155,14 @@ struct NetworkPartyGameView: View {
     /// fitted cards require, so alignment can move it toward either side.
     private var adaptiveBoard: some View {
         GeometryReader { proxy in
-            let columns = 3
-            let gap: CGFloat = 10
-            let rows = max(1, Int(ceil(Double(session.table.count) / Double(columns))))
-            let horizontalSide = max(1, (proxy.size.width - CGFloat(columns - 1) * gap) / CGFloat(columns))
-            let verticalSide = max(1, (proxy.size.height - CGFloat(rows - 1) * gap) / CGFloat(rows))
-            let side = min(horizontalSide, verticalSide)
-            let width = CGFloat(columns) * side + CGFloat(columns - 1) * gap
-            let height = CGFloat(rows) * side + CGFloat(rows - 1) * gap
+            let layout = GridLayout.fitting(
+                columns: 3,
+                rows: GridLayout.rows(for: session.table.count, columns: 3),
+                gap: 10,
+                in: proxy.size
+            )
+            let width = layout.width
+            let height = layout.height
             let alignment: Alignment = session.activePlayerID == session.localID
                 ? .bottom
                 : session.activePlayerID == nil ? .center : .top

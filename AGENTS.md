@@ -26,7 +26,13 @@ becoming a monorepo for a small library of games; EST is the first.
 - `Packages/GameShell`: chrome, `Appearance`, `GameAccent`, buttons, glass,
   audio, confetti, telemetry, feedback, support purchase, Game Center,
   `LeaderboardView`, `RunStore`, `GameIdentity`. No game logic, no `Card`.
-- `Packages/GridKit`: grid primitives for square-cell puzzle games (Phase 6).
+- `Packages/GridKit`: grid primitives for square-cell puzzle games.
+  `GridLayout` is the one copy of the cell-fit math; every board view in
+  EST reads its side, frames and centers from it. `GridBoardView` reports
+  taps and drags as `(row, column)`. `LevelStore` keeps pack progress.
+  `SeededGenerator` and `Seed` make a level a seed and a daily a date; a
+  board generator must take a `RandomNumberGenerator`, never call
+  `.random()` directly.
 - Everything the app reaches must be `public`, including memberwise inits,
   which Swift never makes public: write the `init` by hand. A missing
   `public` shows as "inaccessible due to 'internal' protection level", or,

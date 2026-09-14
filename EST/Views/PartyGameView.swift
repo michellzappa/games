@@ -1,4 +1,5 @@
 import GameShell
+import GridKit
 import SwiftUI
 
 /// Local multiplayer on one device. A two-player game keeps the compact
@@ -147,7 +148,7 @@ struct PartyGameView: View {
                 ? min(210, max(180, proxy.size.width * 0.28))
                 : min(260, max(220, proxy.size.width * 0.24))
             let gridGap: CGFloat = 10
-            let rows = max(1, Int(ceil(Double(session.engine.table.count) / 3)))
+            let rows = GridLayout.rows(for: session.engine.table.count, columns: 3)
             let seatThickness = GameButtonStyle.Size.large.height
             let edgeGap: CGFloat = 8
 
@@ -163,20 +164,19 @@ struct PartyGameView: View {
                 proxy.size.height
                     - (seatThickness + edgeGap) * 2
             )
-            let widthLimitedCardSide = max(
-                1,
-                (availableBoardWidth - gridGap * 2) / 3
-            )
-            let fittedCardSide = min(
-                widthLimitedCardSide,
-                max(1, (availableBoardHeight - CGFloat(rows - 1) * gridGap) / CGFloat(rows))
+            let fitted = GridLayout.fitting(
+                columns: 3,
+                rows: rows,
+                gap: gridGap,
+                in: CGSize(width: availableBoardWidth, height: availableBoardHeight)
             )
             // Leave a generous visual moat between the table and all four
             // player controls. The board still responds to available space,
             // just at a deliberately more comfortable scale.
-            let cardSide = fittedCardSide * 0.8
-            let boardWidth = cardSide * 3 + gridGap * 2
-            let boardHeight = cardSide * CGFloat(rows) + gridGap * CGFloat(rows - 1)
+            let cardSide = fitted.side * 0.8
+            let layout = GridLayout(columns: 3, rows: rows, gap: gridGap, side: cardSide)
+            let boardWidth = layout.width
+            let boardHeight = layout.height
             let boardCenter = CGPoint(
                 x: proxy.size.width / 2,
                 y: proxy.size.height / 2

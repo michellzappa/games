@@ -1,4 +1,5 @@
 import GameShell
+import GridKit
 import SwiftUI
 
 /// The table: 3 columns, rows grow as the engine deals (12, 15, ...).
@@ -113,26 +114,17 @@ struct BoardGridView: View {
     var body: some View {
         GeometryReader { proxy in
             let columns = 3
-            let rows = max(1, Int(ceil(Double(table.count) / Double(columns))))
-            let side = min(
-                min(
-                    (proxy.size.width - CGFloat(columns - 1) * gap) / CGFloat(columns),
-                    (proxy.size.height - CGFloat(rows - 1) * gap) / CGFloat(rows)
-                ),
-                maximumCardSide
+            let rows = GridLayout.rows(for: table.count, columns: columns)
+            let layout = GridLayout.fitting(
+                columns: columns, rows: rows, gap: gap, in: proxy.size, maximumSide: maximumCardSide
             )
-            let gridWidth = CGFloat(columns) * side + CGFloat(columns - 1) * gap
-            let gridHeight = CGFloat(rows) * side + CGFloat(rows - 1) * gap
-            let origin = CGPoint(
-                x: (proxy.size.width - gridWidth) / 2,
-                y: (proxy.size.height - gridHeight) / 2
-            )
+            let side = layout.side
+            let gridWidth = layout.width
+            let gridHeight = layout.height
+            let origin = layout.origin(centeredIn: proxy.size)
             let boardFrame = proxy.frame(in: .named("game"))
             let slotCenter: (Int) -> CGPoint = { index in
-                CGPoint(
-                    x: origin.x + CGFloat(index % columns) * (side + gap) + side / 2,
-                    y: origin.y + CGFloat(index / columns) * (side + gap) + side / 2
-                )
+                layout.center(index: index, origin: origin)
             }
             let toLocal: (CGRect) -> CGPoint = { rect in
                 CGPoint(x: rect.midX - boardFrame.minX, y: rect.midY - boardFrame.minY)

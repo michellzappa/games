@@ -225,3 +225,8 @@ enum, and whether `SupportView` copy references cards. Both surface in Phase
   when `supportProductID` is nil. `ESTSettingsView` fills the slots with
   the fill picker, Game and Data sections, and Community Pulse, and owns
   the reset dialog and the Play Style sheet.
+- Phase 6: done. `GridKit` holds `GridLayout` (fit, frames, hit test),
+  `GridBoardView` (tap and drag in grid coordinates), `LevelStore` (packs,
+  best, stars, unlock), `SeededGenerator` and `Seed` (SplitMix64, daily
+  and per-level seeds). `BoardGridView`, `PartyGameView` and
+  `NetworkPartyGameView` read their cell size from `GridLayout`.

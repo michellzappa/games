@@ -1,17 +1,17 @@
 // Generate the canonical metadata files consumed by the `asc` CLI.
 //
-//   node appstore/metadata.mjs
+//   node appstore/metadata.mjs --app est
 //
-// Copy lives in appstore/appstore.md. Generated JSON is intentionally small:
+// Copy lives in appstore/<app>/appstore.md. Generated JSON is intentionally small:
 // omitted fields are no-ops when `asc metadata push` applies the directory.
 
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
+import { appFromArgs } from "./app.mjs";
 
-const ROOT = dirname(fileURLToPath(import.meta.url));
-const SOURCE = join(ROOT, "appstore.md");
-const OUTPUT = join(ROOT, "metadata");
+const APP = appFromArgs();
+const SOURCE = join(APP.dir, "appstore.md");
+const OUTPUT = join(APP.dir, "metadata");
 const LOCALE = "en-US";
 
 const FIELD_MAP = {
@@ -37,7 +37,7 @@ const parse = (text) => {
 };
 
 const parsed = parse(readFileSync(SOURCE, "utf8"));
-if (parsed.bundleId !== "com.centaur-labs.est") {
+if (parsed.bundleId !== APP.bundleId) {
   throw new Error(`Unexpected bundle ID: ${parsed.bundleId}`);
 }
 
@@ -58,14 +58,15 @@ version.keywords = parsed.fields.keywords;
 // new against. Keep the copy in appstore.md for the next release and omit it
 // here until 1.0.0 ships.
 const initialRelease = process.argv.includes("--initial-release")
-  || process.env.EST_INITIAL_RELEASE === "1";
+  || process.env.EST_INITIAL_RELEASE === "1"
+  || process.env.INITIAL_RELEASE === "1";
 if (initialRelease) {
   delete version.whatsNew;
 }
 
 mkdirSync(join(OUTPUT, "app-info"), { recursive: true });
-mkdirSync(join(OUTPUT, "version", "1.0.0"), { recursive: true });
+mkdirSync(join(OUTPUT, "version", APP.version), { recursive: true });
 writeFileSync(join(OUTPUT, "app-info", `${LOCALE}.json`), `${JSON.stringify(appInfo, null, 2)}\n`);
-writeFileSync(join(OUTPUT, "version", "1.0.0", `${LOCALE}.json`), `${JSON.stringify(version, null, 2)}\n`);
+writeFileSync(join(OUTPUT, "version", APP.version, `${LOCALE}.json`), `${JSON.stringify(version, null, 2)}\n`);
 
-console.log(`✓ ${parsed.platform} (${parsed.bundleId}) → appstore/metadata/`);
+console.log(`✓ ${parsed.platform} (${parsed.bundleId}) → appstore/${APP.key}/metadata/`);

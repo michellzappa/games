@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# Capture raw App Store screenshots from the EST UI-test target.
+# Capture raw App Store screenshots from an app's UI-test target.
 #
-#   appstore/capture.sh <device> [light|dark]
+#   appstore/capture.sh <app> <device> [light|dark]
+#     app: est | seep (a directory under appstore/ with an app.json)
 #     device: iphone69 | ipad13
 #
-# The raw captures go to appstore/raw/<device>/<appearance>/. They are kept
+# The raw captures go to appstore/<app>/raw/<device>/<appearance>/. They are kept
 # separate from the final staged screenshots so the marketing order can change
 # without re-running the simulator.
 #
@@ -12,21 +13,31 @@
 # target produces both sets. Only the simulator changes.
 set -euo pipefail
 
-DEVICE="${1:?usage: appstore/capture.sh <iphone69|ipad13> [light|dark]}"
-APPEARANCE="${2:-light}"
+APP="${1:?usage: appstore/capture.sh <app> <iphone69|ipad13> [light|dark]}"
+DEVICE="${2:?usage: appstore/capture.sh <app> <iphone69|ipad13> [light|dark]}"
+APPEARANCE="${3:-light}"
 case "$APPEARANCE" in
   light|dark) ;;
-  *) echo "usage: appstore/capture.sh <device> [light|dark]"; exit 1 ;;
+  *) echo "usage: appstore/capture.sh <app> <device> [light|dark]"; exit 1 ;;
 esac
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+# app.json names the scheme and the UI-test target that captures.
+app_field() {
+  node --input-type=module -e \
+    'import { app } from "./appstore/app.mjs"; console.log(app(process.argv[1])[process.argv[2]]);' \
+    "$APP" "$1"
+}
+SCHEME="$(app_field scheme)" || { echo "Unknown app: $APP"; exit 1; }
+UI_TEST_TARGET="$(app_field uiTestTarget)"
+
 # devices.mjs is the single source of truth for the simulator per device class.
 SIM_DEFAULT="$(node --input-type=module -e \
   'import { device } from "./appstore/devices.mjs"; console.log(device(process.argv[1]).simulator);' \
   "$DEVICE")" || { echo "Unknown device: $DEVICE"; exit 1; }
-SIM_NAME="${EST_SIMULATOR_NAME:-$SIM_DEFAULT}"
+SIM_NAME="${SIMULATOR_NAME:-${EST_SIMULATOR_NAME:-$SIM_DEFAULT}}"
 SIM_ID="$(xcrun simctl list devices available | grep "$SIM_NAME (" | head -1 | grep -oE '\([0-9A-F-]{36}\)' | tr -d '()')"
 [ -n "$SIM_ID" ] || { echo "No '$SIM_NAME' simulator found"; exit 1; }
 
@@ -38,8 +49,8 @@ xcrun simctl status_bar "$SIM_ID" override \
   --cellularMode notSupported \
   --batteryState charged --batteryLevel 100 2>/dev/null || true
 
-RESULT="/tmp/est-appstore-${DEVICE}-${APPEARANCE}.xcresult"
-OUT="$ROOT/appstore/raw/$DEVICE/$APPEARANCE"
+RESULT="/tmp/${APP}-appstore-${DEVICE}-${APPEARANCE}.xcresult"
+OUT="$ROOT/appstore/$APP/raw/$DEVICE/$APPEARANCE"
 rm -rf "$RESULT" "$OUT"
 mkdir -p "$OUT"
 
@@ -49,10 +60,10 @@ mkdir -p "$OUT"
 set +e
 xcodebuild test \
   -project EST.xcodeproj \
-  -scheme EST \
+  -scheme "$SCHEME" \
   -destination "platform=iOS Simulator,id=$SIM_ID" \
   -resultBundlePath "$RESULT" \
-  -only-testing:ESTUITests/ScreenshotTests \
+  -only-testing:"$UI_TEST_TARGET/ScreenshotTests" \
   -configuration Debug
 
 TEST_STATUS=$?
@@ -92,8 +103,8 @@ PY
 
 if [ "$TEST_STATUS" -ne 0 ]; then
   echo "✗ The UI test failed on $DEVICE. Exported whatever it captured to" >&2
-  echo "  appstore/raw/$DEVICE/$APPEARANCE for diagnosis. Do not ship these." >&2
+  echo "  appstore/$APP/raw/$DEVICE/$APPEARANCE for diagnosis. Do not ship these." >&2
   exit "$TEST_STATUS"
 fi
 
-echo "✓ raw screenshots → appstore/raw/$DEVICE/$APPEARANCE"
+echo "✓ raw screenshots → appstore/$APP/raw/$DEVICE/$APPEARANCE"

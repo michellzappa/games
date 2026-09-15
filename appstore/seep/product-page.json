@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "locale": "en-US",
+  "appearance": "light",
+  "panels": [
+    {
+      "id": "board",
+      "source": "board.png",
+      "headline": "One color. *Flood the board.*",
+      "accent": "#356fe5",
+      "background": "#3d6eeb",
+      "text": "#ffffff",
+      "alt": "A SEEP board mid-flood with the move counter and color bar"
+    },
+    {
+      "id": "won",
+      "source": "won.png",
+      "headline": "Beat par. *Three stars.*",
+      "accent": "#efa629",
+      "background": "#f0a833",
+      "text": "#111111",
+      "alt": "A finished SEEP board with three stars and the move count"
+    },
+    {
+      "id": "levels",
+      "source": "levels.png",
+      "headline": "Ninety boards. *Three packs.*",
+      "accent": "#e9544d",
+      "background": "#de5147",
+      "text": "#ffffff",
+      "alt": "The SEEP board grid showing Pool, Lake and Ocean packs"
+    },
+    {
+      "id": "title",
+      "source": "title.png",
+      "headline": "A new board *every day.*",
+      "accent": "#9b57c7",
+      "background": "#8d4fb8",
+      "text": "#ffffff",
+      "alt": "The SEEP title screen with Play, Today's board and All boards"
+    },
+    {
+      "id": "tutorial",
+      "source": "tutorial.png",
+      "headline": "Learn it *in five steps.*",
+      "accent": "#3daa6b",
+      "background": "#2f9c5f",
+      "text": "#ffffff",
+      "alt": "The SEEP tutorial explaining why a move fails"
+    },
+    {
+      "id": "idea",
+      "source": "idea.png",
+      "headline": "See the *search behind it.*",
+      "accent": "#356fe5",
+      "background": "#3d6eeb",
+      "text": "#ffffff",
+      "alt": "The SEEP idea screen showing the flood-fill search wave"
+    }
+  ]
+}

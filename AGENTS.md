@@ -224,11 +224,18 @@ xcodebuild -project EST.xcodeproj -scheme SEEP -destination 'generic/platform=iO
 
 ## App Store Connect
 
-The app record is `6806817604`. The App Store name is `EST - Card Trios`. The
-product name stays EST. `appstore/appstore.md` is the source of truth for the
-listing; edit it, then run `node appstore/metadata.mjs`.
+Every script takes the app first: `./scripts/appstore.sh <app> <command>`,
+`appstore/capture.sh <app> <device>`, `node appstore/metadata.mjs --app
+<app>`. `appstore/<app>/app.json` holds the names, bundle id, scheme,
+categories, leaderboards and screenshot order; `appstore/<app>/appstore.md`
+is the listing copy. See `appstore/README.md`.
 
-`scripts/appstore.sh` needs `asc` 4.x. Version 3.x has no
+EST: the app record is `6806817604` (in `app.json`). The App Store name is
+`EST - Card Trios`; the product name stays EST. SEEP: no record yet;
+`appId` is empty until `create` runs, then `setup` creates the three
+leaderboards and `seep.support` follows the same IAP steps as EST.
+
+`scripts/appstore.sh` needs `asc` 4.x and `jq`. Version 3.x has no
 `ELAPSED_TIME_CENTISECOND` formatter, and 4.x renamed flags the script uses.
 
 One App Store Connect API key serves every app in the team. Reuse it. Do not
@@ -278,7 +285,7 @@ These rules come from the real 1.0.0 publish. Each one failed first:
   with `asc versions update --version-id ID --version 1.0.0`.
 - Apple rejects `whatsNew` on an app that has never been released: "Attribute
   'whatsNew' cannot be edited at this time". Generate metadata with
-  `EST_INITIAL_RELEASE=1` until 1.0.0 ships.
+  `INITIAL_RELEASE=1` until 1.0.0 ships (`EST_INITIAL_RELEASE` still works).
 - App Review details require `contactPhone`. The script fails up front now.
 - `asc review details-create` leaves `demoAccountRequired` true, which makes
   App Review expect credentials EST does not have. The script pins it false.

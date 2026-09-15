@@ -1,7 +1,7 @@
 // Render the declarative product-page.json into exact App Store marketing PNGs.
 //
-//   npm run product-page --prefix appstore
-//   npm run product-page --prefix appstore -- --device ipad13
+//   npm run product-page --prefix appstore -- --app est
+//   npm run product-page --prefix appstore -- --app est --device ipad13
 //   npm run product-page --prefix appstore -- --appearance dark
 //
 // Raw simulator captures stay in raw/<device>/; the rendered panels go to
@@ -18,12 +18,13 @@ import {
   unlinkSync,
   writeFileSync,
 } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 import { chromium } from "playwright";
 import { device as lookupDevice, DEVICE_KEYS } from "./devices.mjs";
+import { appFromArgs } from "./app.mjs";
 
-const ROOT = dirname(fileURLToPath(import.meta.url));
+const APP = appFromArgs();
+const ROOT = APP.dir;
 const config = JSON.parse(readFileSync(join(ROOT, "product-page.json"), "utf8"));
 const arg = (name, fallback) => {
   const index = process.argv.indexOf(`--${name}`);
@@ -40,7 +41,7 @@ const uploadDir = join(ROOT, "screenshots", device.key, config.locale);
 
 if (!existsSync(rawDir)) {
   throw new Error(
-    `No raw captures at ${rawDir}. Run appstore/capture.sh ${device.key} ${appearance} first.`,
+    `No raw captures at ${rawDir}. Run appstore/capture.sh ${APP.key} ${device.key} ${appearance} first.`,
   );
 }
 
@@ -134,7 +135,7 @@ const missing = config.panels
 if (missing.length && !allowMissing) {
   throw new Error(
     `Missing ${missing.length} capture(s) for ${device.key}: ${missing.join(", ")}\n` +
-      `Run appstore/capture.sh ${device.key} ${appearance} first, ` +
+      `Run appstore/capture.sh ${APP.key} ${device.key} ${appearance} first, ` +
       `or pass --allow-missing to render placeholders for design work.`,
   );
 }

@@ -1,0 +1,36 @@
+{
+  "product": "est",
+  "displayName": "EST",
+  "storeName": "EST - Card Trios",
+  "subtitle": "A game of patterns.",
+  "sku": "EST",
+  "bundleId": "com.centaur-labs.est",
+  "scheme": "EST",
+  "uiTestTarget": "ESTUITests",
+  "screenshotModeArgument": "-ESTScreenshotMode",
+  "appId": "6806817604",
+  "version": "1.0.0",
+  "categories": {
+    "primary": "GAMES",
+    "primarySubcategoryOne": "GAMES_PUZZLE",
+    "primarySubcategoryTwo": "GAMES_CARD"
+  },
+  "supportProductId": "est.support",
+  "leaderboards": [
+    {
+      "referenceName": "Solo 81",
+      "vendorId": "est.solo.completion.time",
+      "formatter": "ELAPSED_TIME_CENTISECOND",
+      "scoreRangeStart": 1800,
+      "scoreRangeEnd": 3600000
+    },
+    {
+      "referenceName": "Quick 27",
+      "vendorId": "est.quick.completion.time",
+      "formatter": "ELAPSED_TIME_CENTISECOND",
+      "scoreRangeStart": 450,
+      "scoreRangeEnd": 3600000
+    }
+  ],
+  "shots": ["title", "solo-81", "quick-27", "duel", "rules", "mathematics"]
+}

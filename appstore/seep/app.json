@@ -1,0 +1,43 @@
+{
+  "product": "seep",
+  "displayName": "SEEP",
+  "storeName": "SEEP - Flood Puzzle",
+  "subtitle": "Flood the board. Beat par.",
+  "sku": "SEEP",
+  "bundleId": "com.centaur-labs.seep",
+  "scheme": "SEEP",
+  "uiTestTarget": "SEEPUITests",
+  "screenshotModeArgument": "-SEEPScreenshotMode",
+  "appId": "",
+  "version": "1.0.0",
+  "categories": {
+    "primary": "GAMES",
+    "primarySubcategoryOne": "GAMES_PUZZLE",
+    "primarySubcategoryTwo": "GAMES_BOARD"
+  },
+  "supportProductId": "seep.support",
+  "leaderboards": [
+    {
+      "referenceName": "Pool",
+      "vendorId": "seep.pool.moves",
+      "formatter": "INTEGER",
+      "scoreRangeStart": 30,
+      "scoreRangeEnd": 100000
+    },
+    {
+      "referenceName": "Lake",
+      "vendorId": "seep.lake.moves",
+      "formatter": "INTEGER",
+      "scoreRangeStart": 30,
+      "scoreRangeEnd": 100000
+    },
+    {
+      "referenceName": "Ocean",
+      "vendorId": "seep.ocean.moves",
+      "formatter": "INTEGER",
+      "scoreRangeStart": 30,
+      "scoreRangeEnd": 100000
+    }
+  ],
+  "shots": ["title", "board", "won", "levels", "tutorial", "idea"]
+}

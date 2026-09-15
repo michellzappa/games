@@ -241,4 +241,12 @@ enum, and whether `SupportView` copy references cards. Both surface in Phase
   (5 steps on 6x6), explainer (BFS wave, greedy vs exact search), play
   style, settings, leaderboards. The shell gained `TutorialFrame`,
   `TutorialText` and `ESTTelemetry.record(key:)`; EST's tutorial uses them.
-  Not yet: SEEP screenshots, App Store record, listing (Phase 8).
+  SEEP build 2 went to MZ's iPhone for hand testing.
+- Phase 8: done. `appstore/<app>/app.json` per app; `appstore/app.mjs`
+  resolves it; `appstore.sh`, `capture.sh`, `stage.sh`, `metadata.mjs`,
+  `validate.mjs`, `render-product-page.mjs` take the app. EST's listing
+  moved under `appstore/est/` unchanged. SEEP has `app.json`,
+  `appstore.md`, `product-page.json`, `review-notes.txt`, and a
+  `SEEPUITests` target with six captures plus the IAP review shot.
+  Not run yet: SEEP captures (needs a simulator run), the App Store
+  record (`create`, web session), `setup`, the IAP record.

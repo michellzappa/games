@@ -89,6 +89,7 @@ struct FloodColorBar: View {
                 .disabled(!enabled || color == board.floodColor)
                 .opacity(color == board.floodColor ? 0.35 : 1)
                 .accessibilityLabel("Flood \(FloodPalette.name(color))")
+                .accessibilityValue(hintColor == color ? "hinted" : "")
             }
         }
     }

@@ -49,6 +49,7 @@
 		B751729340CEC69F505EB537 /* SoloGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */; };
 		BD1AC9C9AE7C289DAACF9AFB /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F96389609C870D53F7E6C /* PlayerStats.swift */; };
 		BF39AF1CDD050E76CBB74253 /* SEEPLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512910976F522D084670220 /* SEEPLeaderboardView.swift */; };
+		C0290DD8C6EFC4102D7CB85C /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87CE635A9747BED943DB1F1 /* ScreenshotTests.swift */; };
 		C4F16DF39EC08E21D4DA2D0E /* SEEPApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801992911A81E1DBE1EED74E /* SEEPApp.swift */; };
 		C5DE2CAFCE70371D04F67B07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3476586C0851F24E8E653AB /* Assets.xcassets */; };
 		CA7533AB0C33C1E5348505A1 /* CardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5400937214F675381D17D03 /* CardTests.swift */; };
@@ -72,6 +73,13 @@
 			remoteGlobalIDString = 5588DC9F0D158AC0C978EB6E;
 			remoteInfo = EST;
 		};
+		6362EF4A922EF88BBFF58297 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A008AEFD6655C9CF1835AB14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F5A87F3CB0F05EBADACA38AB;
+			remoteInfo = SEEP;
+		};
 		6C7161A27ACB66E3D581EE15 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A008AEFD6655C9CF1835AB14 /* Project object */;
@@ -82,6 +90,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03DBC741EE4C76E8AF7DF1F1 /* SEEPUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = SEEPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D7A01961B33CE03B20D49F4 /* GridKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GridKit; path = Packages/GridKit; sourceTree = SOURCE_ROOT; };
 		16EFDB671FA1F6A886409C17 /* ESTUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ESTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F37FAA2DCF8DD1E0761D68 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
@@ -129,6 +138,7 @@
 		CFFECB55E89D60D1B4C57ED9 /* ESTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTApp.swift; sourceTree = "<group>"; };
 		D2F4EA5D54ED04662EB126AE /* NetworkPartySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPartySession.swift; sourceTree = "<group>"; };
 		D5F124673A85426DAE3666DC /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
+		D87CE635A9747BED943DB1F1 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		DA14A00FCA84303D9FE935EE /* MatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakerView.swift; sourceTree = "<group>"; };
 		DBD9B8C15E0FAE232F72B6B9 /* ESTLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTLeaderboard.swift; sourceTree = "<group>"; };
 		DDA5395FBC02CCAA2D6D1A92 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
@@ -260,6 +270,7 @@
 				67FBC0BB05BEB30933DC7A6F /* ESTTests.xctest */,
 				16EFDB671FA1F6A886409C17 /* ESTUITests.xctest */,
 				37C7ADDBE35F1CE8D088AA66 /* SEEP.app */,
+				03DBC741EE4C76E8AF7DF1F1 /* SEEPUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,6 +282,14 @@
 				7F02BA8AC44B573528AA6140 /* MathVisualizerView.swift */,
 			);
 			path = Math;
+			sourceTree = "<group>";
+		};
+		9A4EFB50ACB7934CD050A548 /* SEEPUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D87CE635A9747BED943DB1F1 /* ScreenshotTests.swift */,
+			);
+			path = SEEPUITests;
 			sourceTree = "<group>";
 		};
 		C03A4EDB24D81F531B8DE369 /* App */ = {
@@ -327,6 +346,7 @@
 				2E2DB43C271B4724AD92761D /* ESTUITests */,
 				D14A5D93F4DE9E7DA8E11BD3 /* Packages */,
 				71A823DCA7C35DE382D1ECEB /* SEEP */,
+				9A4EFB50ACB7934CD050A548 /* SEEPUITests */,
 				7B20878442E81F7C3DE5BF1D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -361,6 +381,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		36044B3F268C266FABBD7370 /* SEEPUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75EEBDAA1D6EB987DE5982DD /* Build configuration list for PBXNativeTarget "SEEPUITests" */;
+			buildPhases = (
+				3EBD3B4144DD8E2F901CE5A5 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AADCE27ABFA94F4C7C4A8582 /* PBXTargetDependency */,
+			);
+			name = SEEPUITests;
+			packageProductDependencies = (
+			);
+			productName = SEEPUITests;
+			productReference = 03DBC741EE4C76E8AF7DF1F1 /* SEEPUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		5588DC9F0D158AC0C978EB6E /* EST */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60E995F4F5F67B35224E1417 /* Build configuration list for PBXNativeTarget "EST" */;
@@ -448,6 +486,10 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					36044B3F268C266FABBD7370 = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = F5A87F3CB0F05EBADACA38AB;
+					};
 					5588DC9F0D158AC0C978EB6E = {
 						ProvisioningStyle = Automatic;
 					};
@@ -486,6 +528,7 @@
 				E5A720E62EDB5B9AB9C21F0C /* ESTTests */,
 				B28694EB21EB968C12B1FF78 /* ESTUITests */,
 				F5A87F3CB0F05EBADACA38AB /* SEEP */,
+				36044B3F268C266FABBD7370 /* SEEPUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -510,6 +553,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		3EBD3B4144DD8E2F901CE5A5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0290DD8C6EFC4102D7CB85C /* ScreenshotTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52602B4EB941FA3A15C8B3AC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -599,6 +650,11 @@
 			isa = PBXTargetDependency;
 			target = 5588DC9F0D158AC0C978EB6E /* EST */;
 			targetProxy = 23CB684221A478401F2AD14A /* PBXContainerItemProxy */;
+		};
+		AADCE27ABFA94F4C7C4A8582 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F5A87F3CB0F05EBADACA38AB /* SEEP */;
+			targetProxy = 6362EF4A922EF88BBFF58297 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -747,7 +803,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SEEP/SEEP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SEEP;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
@@ -794,6 +850,23 @@
 			};
 			name = Debug;
 		};
+		B684B46D6CFA17F38998825B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centaur-labs.seep.uitests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SEEP;
+			};
+			name = Release;
+		};
 		BE11DD19CAF4B01F70532145 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -818,7 +891,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SEEP/SEEP.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = SEEP;
 				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
@@ -902,6 +975,23 @@
 			};
 			name = Debug;
 		};
+		E50638D322E19518C52DB228 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centaur-labs.seep.uitests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SEEP;
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -928,6 +1018,15 @@
 			buildConfigurations = (
 				BE11DD19CAF4B01F70532145 /* Debug */,
 				8F394728FD45B6A588DAE30A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75EEBDAA1D6EB987DE5982DD /* Build configuration list for PBXNativeTarget "SEEPUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E50638D322E19518C52DB228 /* Debug */,
+				B684B46D6CFA17F38998825B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

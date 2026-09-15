@@ -1,14 +1,14 @@
 // Validate store copy and staged screenshot assets without contacting Apple.
 
 import { existsSync, openSync, readSync, closeSync, readdirSync } from "node:fs";
-import { join, dirname } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join } from "node:path";
 
 import { DEVICES } from "./devices.mjs";
+import { appFromArgs } from "./app.mjs";
 
-const ROOT = dirname(fileURLToPath(import.meta.url));
-const SOURCE = join(ROOT, "appstore.md");
-const screenshotDir = (key) => join(ROOT, "screenshots", key, "en-US");
+const APP = appFromArgs();
+const SOURCE = join(APP.dir, "appstore.md");
+const screenshotDir = (key) => join(APP.dir, "screenshots", key, "en-US");
 const validateScreenshots = !process.argv.includes("--metadata-only");
 const text = (await import("node:fs")).readFileSync(SOURCE, "utf8");
 const limits = {

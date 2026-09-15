@@ -1,12 +1,20 @@
-# EST App Store Connect workflow
+# App Store Connect workflow
 
-This follows the release setup used by Septena, adapted to EST's single iPhone/iPad
-target and the installed `asc` CLI. `appstore/appstore.md` contains the
-listing copy. `metadata.mjs` turns it into the JSON files accepted by `asc
-metadata`. The UI test captures six screens: title, Solo 81, Quick 27,
-one-phone Duel, rules, and the math explorer. The same test target runs on
-both an iPhone and an iPad simulator, because it makes no device or
-orientation assumption.
+One pipeline, one app at a time. Every script takes the app first:
+`./scripts/appstore.sh <app> <command>`, `appstore/capture.sh <app> <device>`,
+`node appstore/metadata.mjs --app <app>`. An app is a directory under
+`appstore/` with an `app.json` (names, bundle id, scheme, UI-test target,
+categories, leaderboards, screenshot order), an `appstore.md` (the listing
+copy), a `product-page.json` (marketing panels), and `review-notes.txt`.
+`app.mjs` resolves the app for the node scripts. Generated files
+(`metadata/`, `raw/`, `product-page/`, `screenshots/`) live under the same
+directory. `devices.mjs` stays shared: every app ships the same device
+classes.
+
+`metadata.mjs` turns `appstore.md` into the JSON files accepted by `asc
+metadata`. Each app's UI test captures its own screens, listed in
+`app.json`'s `shots`. The same test target runs on both an iPhone and an
+iPad simulator, because it makes no device or orientation assumption.
 
 ## Local capture and validation
 
@@ -20,20 +28,20 @@ npm exec --prefix appstore -- playwright install chromium
 Then generate the raw captures, product-page panels, and ASC upload set:
 
 ```bash
-./scripts/appstore.sh prepare
+./scripts/appstore.sh est prepare
 ```
 
 Metadata-only validation, which does not require a simulator or generated
 screenshots, is available with:
 
 ```bash
-node appstore/metadata.mjs
-node appstore/validate.mjs --metadata-only
+node appstore/metadata.mjs --app est
+node appstore/validate.mjs --app est --metadata-only
 ```
 
 That regenerates the Xcode project from `project.yml`, captures every device
 class with Apple's 9:41 status bar, renders the marketing panels, generates
-metadata, and runs both local validators. Set `EST_SIMULATOR_NAME` to override
+metadata, and runs both local validators. Set `SIMULATOR_NAME` to override
 the simulator for a single capture run.
 
 `appstore/devices.mjs` is the single source of truth for the device classes.
@@ -53,7 +61,7 @@ Mac screenshot set.
 Capture one device class at a time with:
 
 ```bash
-./appstore/capture.sh ipad13 light
+./appstore/capture.sh est ipad13 light
 ```
 
 Panels are authored once. Each device renders in a shared design space 1320
@@ -63,7 +71,7 @@ panel can override its frame geometry for one device under
 `overrides.<deviceKey>` in `product-page.json`; the mathematics panel does this
 to nudge its frame down on iPhone only.
 
-The product-page source is [product-page.json](product-page.json). Each panel
+The product-page source is `appstore/<app>/product-page.json`. Each panel
 keeps its source capture, headline, accent, and alt text as editable metadata.
 The renderer writes the finished images to
 `appstore/product-page/<device>/en-US/` and mirrors the same files into
@@ -71,7 +79,7 @@ The renderer writes the finished images to
 without recapturing:
 
 ```bash
-./scripts/appstore.sh product-page
+./scripts/appstore.sh est product-page
 ```
 
 ## One-time App Store Connect setup
@@ -80,7 +88,7 @@ The public App Store Connect REST API does not create the initial app record.
 The installed CLI uses Apple's web session flow for that one step:
 
 ```bash
-./scripts/appstore.sh create your-apple-account@example.com
+./scripts/appstore.sh est create your-apple-account@example.com
 ```
 
 The command prompts securely for the Apple Account password and two-factor
@@ -90,8 +98,10 @@ version `1.0.0`. Copy the returned numeric App Store Connect app ID.
 Then run:
 
 ```bash
-./scripts/appstore.sh setup <APP_ID>
+./scripts/appstore.sh est setup
 ```
+
+The app id comes from `app.json`'s `appId`; pass one explicitly to override.
 
 This sets the listing basics, categories (Games / Puzzle), full territory
 availability, a free price schedule, and the two Game Center leaderboards:
@@ -115,7 +125,7 @@ to be new against. Keep the copy in `appstore.md` for the next version and set
 ships:
 
 ```bash
-EST_INITIAL_RELEASE=1 ./scripts/appstore.sh upload-screenshots <APP_ID>
+INITIAL_RELEASE=1 ./scripts/appstore.sh seep upload-screenshots
 ```
 
 ## Optional support purchase
@@ -154,8 +164,8 @@ The App Store Connect API key can be supplied through
 CLI receives the same key through `ASC_PRIVATE_KEY_PATH` in the wrapper.
 
 ```bash
-./scripts/appstore.sh publish <APP_ID>
-./scripts/appstore.sh upload-screenshots <APP_ID>
+./scripts/appstore.sh est publish
+./scripts/appstore.sh est upload-screenshots
 ```
 
 `publish` archives the Release build, uploads it, waits for processing, creates
@@ -174,7 +184,7 @@ the review contact and notes can be created or updated from the CLI:
 ```bash
 EST_REVIEW_EMAIL=you@example.com \
 EST_REVIEW_PHONE='+1 555 0100' \
-./scripts/appstore.sh review-details <APP_ID>
+./scripts/appstore.sh est review-details
 ```
 
 The first and last name default to `Michell Zappa`; override them with
@@ -184,5 +194,5 @@ Finally, inspect the readiness report and submit explicitly:
 
 ```bash
 asc validate --app <APP_ID> --version 1.0.0 --platform IOS --output table
-./scripts/appstore.sh submit <APP_ID>
+./scripts/appstore.sh est submit
 ```

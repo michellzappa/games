@@ -408,16 +408,3 @@ struct SoloGameOverView: View {
         .transition(.scale(scale: 0.85).combined(with: .opacity))
     }
 }
-
-enum TimeFormat {
-    /// mm:ss everywhere. The leaderboard still receives centiseconds; only
-    /// the display rounds.
-    static func clock(_ interval: TimeInterval) -> String {
-        let total = Int(max(0, interval))
-        return String(format: "%02d:%02d", total / 60, total % 60)
-    }
-
-    static func shortSeconds(_ interval: TimeInterval) -> String {
-        String(format: "%.1fs", max(0, interval))
-    }
-}

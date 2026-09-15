@@ -222,6 +222,26 @@ xcodebuild -project EST.xcodeproj -scheme SEEP -destination 'generic/platform=iO
 - Icons: `swift scripts/generate-seep-icon.swift <AppIcon png>` then
   `generate-app-icons.swift orchard|dusk` for the alternates.
 
+## DIG
+
+The third app, a minesweeper. `DIG/` mirrors `SEEP/`. Build with
+`-scheme DIG`.
+
+- `MineBoard` owns the board and the three moves: dig (floods zeros),
+  flag, chord. `MineSolver` owns the two rules (saturation, subset) and is
+  the one source for hints, the loss reason, and no-guess verification. Do
+  not restate a rule in a view.
+- The start cell is seeded and always a zero. `MineLevel.board()` retries
+  seeds until the solver clears the board without a guess, or the size's
+  `noGuessAttempts` run out; the second value marks a board "may need a
+  guess". Quarry (16 by 30, 99 mines) never verifies; Patch verifies on
+  the first try 85 percent of the time; the whole search is under 300 ms.
+- Leaderboards `dig.patch.time`, `dig.field.time`, `dig.quarry.time`:
+  centiseconds, ascending, floors 100 / 1000 / 3000. A hinted round and a
+  daily never submit.
+- `GridBoardView` gained `onLongPress`; a long press cancels the tap.
+- `TimeFormat` moved from EST into the shell.
+
 ## App Store Connect
 
 Every script takes the app first: `./scripts/appstore.sh <app> <command>`,
@@ -231,9 +251,10 @@ categories, leaderboards and screenshot order; `appstore/<app>/appstore.md`
 is the listing copy. See `appstore/README.md`.
 
 EST: the app record is `6806817604` (in `app.json`). The App Store name is
-`EST - Card Trios`; the product name stays EST. SEEP: no record yet;
-`appId` is empty until `create` runs, then `setup` creates the three
-leaderboards and `seep.support` follows the same IAP steps as EST.
+`EST - Card Trios`; the product name stays EST. SEEP and DIG: no record
+yet; `appId` is empty until `create` runs, then `setup` creates the three
+leaderboards each, and `seep.support` / `dig.support` follow the same IAP
+steps as EST.
 
 `scripts/appstore.sh` needs `asc` 4.x and `jq`. Version 3.x has no
 `ELAPSED_TIME_CENTISECOND` formatter, and 4.x renamed flags the script uses.

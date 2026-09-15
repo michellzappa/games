@@ -1,0 +1,38 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+    ]
+  },
+  "identifier" : "DIGSupport",
+  "nonRenewingSubscriptions" : [
+  ],
+  "products" : [
+    {
+      "displayPrice" : "10.00",
+      "familyShareable" : false,
+      "internalID" : "1001",
+      "localizations" : [
+        {
+          "description" : "A one-time gift that keeps DIG free and independent. No gameplay is locked. Supporters receive a mark, the optional Dusk finish, and early-access invites when available.",
+          "displayName" : "Support DIG",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "dig.support",
+      "referenceName" : "Support DIG",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_failTransactionsEnabled" : false,
+    "_storeKitErrors" : [
+    ]
+  },
+  "subscriptionGroups" : [
+  ],
+  "version" : {
+    "major" : 4,
+    "minor" : 0
+  }
+}

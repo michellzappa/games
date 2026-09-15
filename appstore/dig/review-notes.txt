@@ -1,0 +1,7 @@
+DIG is a single-player minesweeper. No account is needed.
+
+Game Center: the app authenticates on launch to submit best times to three leaderboards (dig.patch.time, dig.field.time, dig.quarry.time). Play works without signing in.
+
+In-app purchase: dig.support is an optional one-time non-consumable. It unlocks no gameplay; it adds a supporter mark and cosmetic options in Settings. The purchase screen is reachable from Settings > Support DIG.
+
+Diagnostics: an optional weekly aggregate (app version, iOS major version, coarse activity counts) is sent to a first-party Cloudflare Worker. No identifiers, no gameplay events. The toggle is in Settings > Privacy and the code is public at https://github.com/michellzappa/games.

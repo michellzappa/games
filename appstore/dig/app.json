@@ -1,0 +1,25 @@
+{
+  "product": "dig",
+  "displayName": "DIG",
+  "storeName": "DIG - Minesweeper",
+  "subtitle": "Every number is a clue.",
+  "sku": "DIG",
+  "bundleId": "com.centaur-labs.dig",
+  "scheme": "DIG",
+  "uiTestTarget": "DIGUITests",
+  "screenshotModeArgument": "-DIGScreenshotMode",
+  "appId": "",
+  "version": "1.0.0",
+  "categories": {
+    "primary": "GAMES",
+    "primarySubcategoryOne": "GAMES_PUZZLE",
+    "primarySubcategoryTwo": "GAMES_STRATEGY"
+  },
+  "supportProductId": "dig.support",
+  "leaderboards": [
+    { "referenceName": "Patch", "vendorId": "dig.patch.time", "formatter": "ELAPSED_TIME_CENTISECOND", "scoreRangeStart": 100, "scoreRangeEnd": 3600000 },
+    { "referenceName": "Field", "vendorId": "dig.field.time", "formatter": "ELAPSED_TIME_CENTISECOND", "scoreRangeStart": 1000, "scoreRangeEnd": 3600000 },
+    { "referenceName": "Quarry", "vendorId": "dig.quarry.time", "formatter": "ELAPSED_TIME_CENTISECOND", "scoreRangeStart": 3000, "scoreRangeEnd": 3600000 }
+  ],
+  "shots": ["board", "title", "tutorial", "idea"]
+}

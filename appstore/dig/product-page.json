@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "locale": "en-US",
+  "appearance": "light",
+  "panels": [
+    { "id": "board", "source": "board.png", "headline": "Every number *is a clue.*", "accent": "#356fe5", "background": "#3d6eeb", "text": "#ffffff", "alt": "A DIG board with an open area, numbers, and a hinted safe cell" },
+    { "id": "title", "source": "title.png", "headline": "Three sizes. *A daily board.*", "accent": "#e9544d", "background": "#de5147", "text": "#ffffff", "alt": "The DIG title screen with Patch, Field, Quarry and Today's board" },
+    { "id": "tutorial", "source": "tutorial.png", "headline": "One deduction *at a time.*", "accent": "#3daa6b", "background": "#2f9c5f", "text": "#ffffff", "alt": "The DIG tutorial showing a worked deduction" },
+    { "id": "idea", "source": "idea.png", "headline": "The board is *a set of equations.*", "accent": "#efa629", "background": "#f0a833", "text": "#111111", "alt": "The DIG idea screen with provable cells outlined" }
+  ]
+}

@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		017F123B3CF28498CA5C1CE9 /* GameShell in Frameworks */ = {isa = PBXBuildFile; productRef = 15B8170EC224B98C96A9336F /* GameShell */; };
 		071004AD1A86A69D435CC149 /* SEEPTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5781C78C6B9D572A5318E30 /* SEEPTelemetry.swift */; };
+		0A7250E95CB8D3DE25CDB55D /* MineBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AEC23D13B994762D8FB9EA /* MineBoardView.swift */; };
 		125DC9139719C4CB8E45CE0A /* FeedbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DB2C9E562A51E177A5F5E58 /* FeedbackTests.swift */; };
+		14E20FD95C4016E18C38195F /* MineExplainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC3D8013FB956BB400CCAD4E /* MineExplainerView.swift */; };
 		173FAD4D384AB24A359FFEBE /* ESTSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BDF21CDFB2EE84BEFB88CC4 /* ESTSettingsView.swift */; };
 		17F0F6A248CCA159BB9C073D /* FloodGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3347B508AE62480F0DDCBE7 /* FloodGame.swift */; };
 		18BFD6D44A715516674879BF /* SEEPIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFA11ADAD05F997FB497308 /* SEEPIdentity.swift */; };
 		1C5AE7DFCEEDCC7CBEF2FE36 /* FloodBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A413F9675BAF0D04D492D91 /* FloodBoard.swift */; };
 		26FF394A6BD3A8E6A6D32765 /* GridKit in Frameworks */ = {isa = PBXBuildFile; productRef = 35FCFA880A6981551D94891E /* GridKit */; };
 		272C76944CA31B9085571EED /* PilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299F58ECE893660C9BEABFEB /* PilesView.swift */; };
+		28558ED4125F2898E547E3B6 /* DIGLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A991875A1F0A73F305C90B8 /* DIGLeaderboardView.swift */; };
 		2BAABEFD4BABA40A79640CD6 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F124673A85426DAE3666DC /* ScreenshotTests.swift */; };
+		2C74147F4568340B7D22B01B /* DIGTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45E14C7D29A41838F6EC573 /* DIGTitleView.swift */; };
 		34D5EEDF027658B338D7B528 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2477202E22AC8D7CB6C56AC /* TitleView.swift */; };
 		396A787E979D4A51A2C4EF31 /* PartyGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A1D2288F1C5BD10CE53315 /* PartyGameView.swift */; };
 		3AABDEB0CEC2DD196C930785 /* NetMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3799FD9463E030E3027C6 /* NetMessages.swift */; };
@@ -25,6 +30,7 @@
 		47498A00BB03030965C9D6F5 /* GameShell in Frameworks */ = {isa = PBXBuildFile; productRef = BDC72FF9BC0A7E4BCA44A678 /* GameShell */; };
 		4C0A8911E947E1CE42E9AF30 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDA5395FBC02CCAA2D6D1A92 /* GameEngine.swift */; };
 		502878AE04236BCDC64899DB /* CardAppearance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491E1589F5431E45353C2B89 /* CardAppearance.swift */; };
+		54C7296F7C4C0CDFB650F5D8 /* MineSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8931126F501C8D4C7B8D4B63 /* MineSolver.swift */; };
 		557AF9134BAE985870096E8F /* ClaimRace.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05FD8C31FB384CB9A02C591 /* ClaimRace.swift */; };
 		577AAB9F2D793C42076BD6B0 /* FloodExplainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD49460DC9BFE51056FD8AF5 /* FloodExplainerView.swift */; };
 		5ECD3365B2D09F4AFC428759 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EBEEB06BF708F78BF96466 /* Card.swift */; };
@@ -32,22 +38,31 @@
 		65BEE9643473223B5DAE5863 /* ClaimRaceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF873213F2ACB61C1E665CF7 /* ClaimRaceTests.swift */; };
 		65C403C001A51B16E9AE77FC /* PartySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90BE598B03AA0E6BB445B6A9 /* PartySession.swift */; };
 		66347E420E6FFE90BBBCEE7D /* SEEPLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8738BF91871F8C6DD7E3E625 /* SEEPLeaderboard.swift */; };
+		6636CDB9B9260BC9CF731B9C /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCADB2CFDCCA645BF75D3182 /* ScreenshotTests.swift */; };
 		720972D4C54B5FA44AE2A332 /* GameShell in Frameworks */ = {isa = PBXBuildFile; productRef = 3D879C8C385BE1FE7336BDDC /* GameShell */; };
 		73C322FD11336C7DEF2292D4 /* SEEPTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53369896F7CC147FCABF261B /* SEEPTitleView.swift */; };
 		7473FD892F0BBFE431C3CD72 /* SEEPStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D529FCEA4358D6E81655BE8 /* SEEPStats.swift */; };
 		7572C9FF33C4245181D5FE3B /* ESTIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8E3ED26E018BAA9AC59D2EB /* ESTIdentity.swift */; };
+		7E6F3D338C929250BD4F060E /* DIGStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D152AF5C1E4A673D32DC8F3 /* DIGStats.swift */; };
+		7EA5475EDD74D94B9278BC75 /* DIGIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E106AC72FB3B5EF957DB00F1 /* DIGIdentity.swift */; };
 		8548D34517850306510158AC /* NetworkPartyGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */; };
 		8583257B09911904EA99BED8 /* SEEPSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5154078AC72BEF12A6EEBE22 /* SEEPSettingsView.swift */; };
 		996AFACF2C8CE80698797BA6 /* FloodLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B744AAA01DC649A191241 /* FloodLevels.swift */; };
 		9BF555561709F86D73A26DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BD502B04D8360619FD2C601 /* Assets.xcassets */; };
+		A128221C3C515FAFFC5677EC /* GridKit in Frameworks */ = {isa = PBXBuildFile; productRef = 25915A0D103447180FD0AA3D /* GridKit */; };
 		A236671F0BB4C9015A66C7B8 /* PartySessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5816BABD18A4F7F6E2296F2D /* PartySessionTests.swift */; };
 		A7430579CA5981FECF598754 /* FourDimensionalProjectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1DAB9099E4CA8F529837603 /* FourDimensionalProjectionView.swift */; };
 		A8D040A4698E0B208BF5D8E7 /* MatchmakerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA14A00FCA84303D9FE935EE /* MatchmakerView.swift */; };
+		AE0D57A6D9705B4A3DCA1E5A /* DIGPlayStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67A6AD58E05513BBCF42B53E /* DIGPlayStyleView.swift */; };
+		AE32D8211932689B7DCD6502 /* MineTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8C281846E2D7D1F74D19951 /* MineTutorialView.swift */; };
 		B05057B7F00E573E83C3769D /* MathVisualizerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F02BA8AC44B573528AA6140 /* MathVisualizerView.swift */; };
 		B07B6169EEC578EAFB1EC9F4 /* FloodTutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F6245A28B44CBA278406DCC /* FloodTutorialView.swift */; };
+		B5885B9AAEB89E842A0DC261 /* MineBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 349C9476D1BC4C722BC68964 /* MineBoard.swift */; };
 		B5FA59E4C52A0DBF75F221ED /* FloodGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5356E6186FD8ABC175125A8 /* FloodGameView.swift */; };
 		B751729340CEC69F505EB537 /* SoloGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */; };
+		B9435D2A6338A4C049060EE3 /* DIGApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01E7099460EA5B069DB4BB1 /* DIGApp.swift */; };
 		BD1AC9C9AE7C289DAACF9AFB /* PlayerStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 491F96389609C870D53F7E6C /* PlayerStats.swift */; };
+		BF2FBA19AA05FA412C55ACD2 /* DIGSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E38E735B22004E747BF481 /* DIGSettingsView.swift */; };
 		BF39AF1CDD050E76CBB74253 /* SEEPLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512910976F522D084670220 /* SEEPLeaderboardView.swift */; };
 		C0290DD8C6EFC4102D7CB85C /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D87CE635A9747BED943DB1F1 /* ScreenshotTests.swift */; };
 		C4F16DF39EC08E21D4DA2D0E /* SEEPApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 801992911A81E1DBE1EED74E /* SEEPApp.swift */; };
@@ -56,10 +71,16 @@
 		CB6BF56010E6C67529F3F06E /* FloodBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F316A1A39AB2610A00CF89 /* FloodBoardView.swift */; };
 		CD34675CC61385270B94C5F4 /* GridKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0086D76F460C8F977F203BC /* GridKit */; };
 		CD4687EB304273B6B1437C80 /* SEEPPlayStyleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13F6A0ED7D87CF0CB62F7D0 /* SEEPPlayStyleView.swift */; };
+		D34FDECEED56D89B003A2503 /* DIGLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15618FFDD63071FA90BB9E9 /* DIGLeaderboard.swift */; };
 		D455D64693145D8727C9C13E /* ESTLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5BB501A834D29F5AC96B7B /* ESTLeaderboardView.swift */; };
 		E098F3D6429EF8218C641740 /* ESTLeaderboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBD9B8C15E0FAE232F72B6B9 /* ESTLeaderboard.swift */; };
 		E755D31CE0B809F5A275FD04 /* FloodPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B6B332E699B04FDF33FEC32 /* FloodPalette.swift */; };
+		ED2AB539A54A33320E3B2357 /* MineGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F22A5D90228A916C695D8DD /* MineGame.swift */; };
+		EDA8C7CC3B06D5AE6AEE9D96 /* DIGTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19004B88FC2846BCCB4111ED /* DIGTelemetry.swift */; };
+		F0898AB63CB22F4CA488BBA8 /* MineSizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 191328CD61FDF49CCE7BCFFE /* MineSizes.swift */; };
+		F3AC32891C9293DC170C1FDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9226F61FB3F6428612516EC6 /* Assets.xcassets */; };
 		F4E47310C18E6EF77B70EAD8 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472C464CD1AE63569E3EA136 /* CardView.swift */; };
+		F7A736EB906A463153492D7E /* MineGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E549A436EE813028B9469E0 /* MineGameView.swift */; };
 		F836FE52727B691059860707 /* NetworkPartySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2F4EA5D54ED04662EB126AE /* NetworkPartySession.swift */; };
 		FB7FEFF55B4BE791F4FDE614 /* ESTApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFFECB55E89D60D1B4C57ED9 /* ESTApp.swift */; };
 		FCD70564F92D59107E55E7B4 /* BoardGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48C5C1346BE0394E6087B18 /* BoardGridView.swift */; };
@@ -87,6 +108,13 @@
 			remoteGlobalIDString = 5588DC9F0D158AC0C978EB6E;
 			remoteInfo = EST;
 		};
+		E3687F65401AFF851281D5A8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A008AEFD6655C9CF1835AB14 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4E1468B1ECF7F05C69127B71;
+			remoteInfo = DIG;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -94,12 +122,18 @@
 		0D7A01961B33CE03B20D49F4 /* GridKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GridKit; path = Packages/GridKit; sourceTree = SOURCE_ROOT; };
 		16EFDB671FA1F6A886409C17 /* ESTUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ESTUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		16F37FAA2DCF8DD1E0761D68 /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
+		19004B88FC2846BCCB4111ED /* DIGTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGTelemetry.swift; sourceTree = "<group>"; };
+		191328CD61FDF49CCE7BCFFE /* MineSizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSizes.swift; sourceTree = "<group>"; };
 		1BDF21CDFB2EE84BEFB88CC4 /* ESTSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTSettingsView.swift; sourceTree = "<group>"; };
+		22AEC23D13B994762D8FB9EA /* MineBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBoardView.swift; sourceTree = "<group>"; };
 		299F58ECE893660C9BEABFEB /* PilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PilesView.swift; sourceTree = "<group>"; };
 		2A413F9675BAF0D04D492D91 /* FloodBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodBoard.swift; sourceTree = "<group>"; };
 		2B10BBBD73B61C9E649C8A41 /* EST.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = EST.entitlements; sourceTree = "<group>"; };
+		2D152AF5C1E4A673D32DC8F3 /* DIGStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGStats.swift; sourceTree = "<group>"; };
 		315EDDEAAD8AC89CBE742294 /* EST.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = EST.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		349C9476D1BC4C722BC68964 /* MineBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBoard.swift; sourceTree = "<group>"; };
 		37C7ADDBE35F1CE8D088AA66 /* SEEP.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SEEP.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A991875A1F0A73F305C90B8 /* DIGLeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGLeaderboardView.swift; sourceTree = "<group>"; };
 		3F6245A28B44CBA278406DCC /* FloodTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodTutorialView.swift; sourceTree = "<group>"; };
 		41A1D2288F1C5BD10CE53315 /* PartyGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyGameView.swift; sourceTree = "<group>"; };
 		4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloGameView.swift; sourceTree = "<group>"; };
@@ -108,11 +142,15 @@
 		491F96389609C870D53F7E6C /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
 		4BD502B04D8360619FD2C601 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4D529FCEA4358D6E81655BE8 /* SEEPStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPStats.swift; sourceTree = "<group>"; };
+		4E549A436EE813028B9469E0 /* MineGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineGameView.swift; sourceTree = "<group>"; };
+		4F22A5D90228A916C695D8DD /* MineGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineGame.swift; sourceTree = "<group>"; };
 		5154078AC72BEF12A6EEBE22 /* SEEPSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPSettingsView.swift; sourceTree = "<group>"; };
 		53369896F7CC147FCABF261B /* SEEPTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPTitleView.swift; sourceTree = "<group>"; };
 		5816BABD18A4F7F6E2296F2D /* PartySessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartySessionTests.swift; sourceTree = "<group>"; };
 		5DB2C9E562A51E177A5F5E58 /* FeedbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackTests.swift; sourceTree = "<group>"; };
+		5FAE713F85EE4DFA8F65FE45 /* DIG.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DIG.entitlements; sourceTree = "<group>"; };
 		66EBEEB06BF708F78BF96466 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		67A6AD58E05513BBCF42B53E /* DIGPlayStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGPlayStyleView.swift; sourceTree = "<group>"; };
 		67FBC0BB05BEB30933DC7A6F /* ESTTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = ESTTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B6B332E699B04FDF33FEC32 /* FloodPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodPalette.swift; sourceTree = "<group>"; };
 		715B744AAA01DC649A191241 /* FloodLevels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodLevels.swift; sourceTree = "<group>"; };
@@ -120,35 +158,47 @@
 		7F02BA8AC44B573528AA6140 /* MathVisualizerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathVisualizerView.swift; sourceTree = "<group>"; };
 		801992911A81E1DBE1EED74E /* SEEPApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPApp.swift; sourceTree = "<group>"; };
 		8738BF91871F8C6DD7E3E625 /* SEEPLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPLeaderboard.swift; sourceTree = "<group>"; };
+		8931126F501C8D4C7B8D4B63 /* MineSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineSolver.swift; sourceTree = "<group>"; };
 		90BE598B03AA0E6BB445B6A9 /* PartySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartySession.swift; sourceTree = "<group>"; };
+		9226F61FB3F6428612516EC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9512910976F522D084670220 /* SEEPLeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPLeaderboardView.swift; sourceTree = "<group>"; };
 		9BD4BD80BED4CEF44FCE3563 /* GameShell */ = {isa = PBXFileReference; lastKnownFileType = folder; name = GameShell; path = Packages/GameShell; sourceTree = SOURCE_ROOT; };
 		A05FD8C31FB384CB9A02C591 /* ClaimRace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRace.swift; sourceTree = "<group>"; };
 		A3347B508AE62480F0DDCBE7 /* FloodGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodGame.swift; sourceTree = "<group>"; };
 		A5356E6186FD8ABC175125A8 /* FloodGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodGameView.swift; sourceTree = "<group>"; };
 		A5400937214F675381D17D03 /* CardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTests.swift; sourceTree = "<group>"; };
+		A8FC7F684428CCA85471E1AF /* DIG.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = DIG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD49460DC9BFE51056FD8AF5 /* FloodExplainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodExplainerView.swift; sourceTree = "<group>"; };
 		AF5BB501A834D29F5AC96B7B /* ESTLeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTLeaderboardView.swift; sourceTree = "<group>"; };
 		B13F6A0ED7D87CF0CB62F7D0 /* SEEPPlayStyleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPPlayStyleView.swift; sourceTree = "<group>"; };
 		B3476586C0851F24E8E653AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B7F316A1A39AB2610A00CF89 /* FloodBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodBoardView.swift; sourceTree = "<group>"; };
+		B8C281846E2D7D1F74D19951 /* MineTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineTutorialView.swift; sourceTree = "<group>"; };
+		C01E7099460EA5B069DB4BB1 /* DIGApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGApp.swift; sourceTree = "<group>"; };
 		C1DAB9099E4CA8F529837603 /* FourDimensionalProjectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FourDimensionalProjectionView.swift; sourceTree = "<group>"; };
 		C4E3799FD9463E030E3027C6 /* NetMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetMessages.swift; sourceTree = "<group>"; };
 		C5781C78C6B9D572A5318E30 /* SEEPTelemetry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPTelemetry.swift; sourceTree = "<group>"; };
+		CCADB2CFDCCA645BF75D3182 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		CFFECB55E89D60D1B4C57ED9 /* ESTApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTApp.swift; sourceTree = "<group>"; };
 		D2F4EA5D54ED04662EB126AE /* NetworkPartySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPartySession.swift; sourceTree = "<group>"; };
 		D5F124673A85426DAE3666DC /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
+		D72225A8288A37F468D1AA35 /* DIGUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DIGUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D87CE635A9747BED943DB1F1 /* ScreenshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotTests.swift; sourceTree = "<group>"; };
 		DA14A00FCA84303D9FE935EE /* MatchmakerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchmakerView.swift; sourceTree = "<group>"; };
 		DBD9B8C15E0FAE232F72B6B9 /* ESTLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTLeaderboard.swift; sourceTree = "<group>"; };
 		DDA5395FBC02CCAA2D6D1A92 /* GameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		DF873213F2ACB61C1E665CF7 /* ClaimRaceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClaimRaceTests.swift; sourceTree = "<group>"; };
+		E106AC72FB3B5EF957DB00F1 /* DIGIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGIdentity.swift; sourceTree = "<group>"; };
+		E15618FFDD63071FA90BB9E9 /* DIGLeaderboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGLeaderboard.swift; sourceTree = "<group>"; };
 		E48C5C1346BE0394E6087B18 /* BoardGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardGridView.swift; sourceTree = "<group>"; };
 		E6ACBE43FB6B60ABD0E74DFD /* SEEP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SEEP.entitlements; sourceTree = "<group>"; };
+		E7E38E735B22004E747BF481 /* DIGSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGSettingsView.swift; sourceTree = "<group>"; };
 		E9B3BD29BD181969572CF2ED /* SoloRunStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloRunStore.swift; sourceTree = "<group>"; };
+		EC3D8013FB956BB400CCAD4E /* MineExplainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineExplainerView.swift; sourceTree = "<group>"; };
 		ECFA11ADAD05F997FB497308 /* SEEPIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SEEPIdentity.swift; sourceTree = "<group>"; };
 		F1806A20E0E31070593D2A3A /* LevelGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelGridView.swift; sourceTree = "<group>"; };
 		F2477202E22AC8D7CB6C56AC /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		F45E14C7D29A41838F6EC573 /* DIGTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGTitleView.swift; sourceTree = "<group>"; };
 		F8E3ED26E018BAA9AC59D2EB /* ESTIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ESTIdentity.swift; sourceTree = "<group>"; };
 		FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkPartyGameView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,6 +210,15 @@
 			files = (
 				47498A00BB03030965C9D6F5 /* GameShell in Frameworks */,
 				CD34675CC61385270B94C5F4 /* GridKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		74083C06CF52D73321844DF5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				017F123B3CF28498CA5C1CE9 /* GameShell in Frameworks */,
+				A128221C3C515FAFFC5677EC /* GridKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +263,21 @@
 			path = EST;
 			sourceTree = "<group>";
 		};
+		2A1BD3A261EC972A3278822E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3A991875A1F0A73F305C90B8 /* DIGLeaderboardView.swift */,
+				67A6AD58E05513BBCF42B53E /* DIGPlayStyleView.swift */,
+				E7E38E735B22004E747BF481 /* DIGSettingsView.swift */,
+				F45E14C7D29A41838F6EC573 /* DIGTitleView.swift */,
+				22AEC23D13B994762D8FB9EA /* MineBoardView.swift */,
+				EC3D8013FB956BB400CCAD4E /* MineExplainerView.swift */,
+				4E549A436EE813028B9469E0 /* MineGameView.swift */,
+				B8C281846E2D7D1F74D19951 /* MineTutorialView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		2BACCB27921F1EE91A27CA0F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +300,22 @@
 				D5F124673A85426DAE3666DC /* ScreenshotTests.swift */,
 			);
 			path = ESTUITests;
+			sourceTree = "<group>";
+		};
+		41EC4B1A6861A0FA8EEBD4C0 /* DIGUITests */ = {
+			isa = PBXGroup;
+			children = (
+				CCADB2CFDCCA645BF75D3182 /* ScreenshotTests.swift */,
+			);
+			path = DIGUITests;
+			sourceTree = "<group>";
+		};
+		668AF0CC62AA9DD26AAF4AA6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9226F61FB3F6428612516EC6 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		696173847AE62F759AD2DCD3 /* App */ = {
@@ -266,6 +356,8 @@
 		7B20878442E81F7C3DE5BF1D /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				A8FC7F684428CCA85471E1AF /* DIG.app */,
+				D72225A8288A37F468D1AA35 /* DIGUITests.xctest */,
 				315EDDEAAD8AC89CBE742294 /* EST.app */,
 				67FBC0BB05BEB30933DC7A6F /* ESTTests.xctest */,
 				16EFDB671FA1F6A886409C17 /* ESTUITests.xctest */,
@@ -273,6 +365,18 @@
 				03DBC741EE4C76E8AF7DF1F1 /* SEEPUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		7E303CDB3A50471879C1C543 /* DIG */ = {
+			isa = PBXGroup;
+			children = (
+				5FAE713F85EE4DFA8F65FE45 /* DIG.entitlements */,
+				E574990EFBB4CF265930D897 /* App */,
+				9DE32AC3F36EF183F24D66AB /* Models */,
+				668AF0CC62AA9DD26AAF4AA6 /* Resources */,
+				2A1BD3A261EC972A3278822E /* Views */,
+			);
+			path = DIG;
 			sourceTree = "<group>";
 		};
 		935D41E1DD5936CA0827A7E6 /* Math */ = {
@@ -290,6 +394,20 @@
 				D87CE635A9747BED943DB1F1 /* ScreenshotTests.swift */,
 			);
 			path = SEEPUITests;
+			sourceTree = "<group>";
+		};
+		9DE32AC3F36EF183F24D66AB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E15618FFDD63071FA90BB9E9 /* DIGLeaderboard.swift */,
+				2D152AF5C1E4A673D32DC8F3 /* DIGStats.swift */,
+				19004B88FC2846BCCB4111ED /* DIGTelemetry.swift */,
+				349C9476D1BC4C722BC68964 /* MineBoard.swift */,
+				4F22A5D90228A916C695D8DD /* MineGame.swift */,
+				191328CD61FDF49CCE7BCFFE /* MineSizes.swift */,
+				8931126F501C8D4C7B8D4B63 /* MineSolver.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C03A4EDB24D81F531B8DE369 /* App */ = {
@@ -318,6 +436,15 @@
 			path = Packages;
 			sourceTree = "<group>";
 		};
+		E574990EFBB4CF265930D897 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C01E7099460EA5B069DB4BB1 /* DIGApp.swift */,
+				E106AC72FB3B5EF957DB00F1 /* DIGIdentity.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		E9DBC3231CCA20DAE831BF88 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +468,8 @@
 		ED0D7F78296EE2E3546A6059 = {
 			isa = PBXGroup;
 			children = (
+				7E303CDB3A50471879C1C543 /* DIG */,
+				41EC4B1A6861A0FA8EEBD4C0 /* DIGUITests */,
 				23CC4356B0E650C000976EC9 /* EST */,
 				F8EBBDE99F9A137EA0A86A5D /* ESTTests */,
 				2E2DB43C271B4724AD92761D /* ESTUITests */,
@@ -399,6 +528,27 @@
 			productReference = 03DBC741EE4C76E8AF7DF1F1 /* SEEPUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		4E1468B1ECF7F05C69127B71 /* DIG */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5CCAA5E44CBCDAA399634939 /* Build configuration list for PBXNativeTarget "DIG" */;
+			buildPhases = (
+				B4C9853FFA4CD22A9EC4E032 /* Sources */,
+				4302D96BA07D1F0483B372BC /* Resources */,
+				74083C06CF52D73321844DF5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DIG;
+			packageProductDependencies = (
+				15B8170EC224B98C96A9336F /* GameShell */,
+				25915A0D103447180FD0AA3D /* GridKit */,
+			);
+			productName = DIG;
+			productReference = A8FC7F684428CCA85471E1AF /* DIG.app */;
+			productType = "com.apple.product-type.application";
+		};
 		5588DC9F0D158AC0C978EB6E /* EST */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 60E995F4F5F67B35224E1417 /* Build configuration list for PBXNativeTarget "EST" */;
@@ -419,6 +569,24 @@
 			productName = EST;
 			productReference = 315EDDEAAD8AC89CBE742294 /* EST.app */;
 			productType = "com.apple.product-type.application";
+		};
+		9973433E7DFC97F779B207BC /* DIGUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7E72E1B9151F43F6CE4C5E8A /* Build configuration list for PBXNativeTarget "DIGUITests" */;
+			buildPhases = (
+				AC6FA7044309ADA59D8A2AB0 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E519070C88360D14C420D5BD /* PBXTargetDependency */,
+			);
+			name = DIGUITests;
+			packageProductDependencies = (
+			);
+			productName = DIGUITests;
+			productReference = D72225A8288A37F468D1AA35 /* DIGUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		B28694EB21EB968C12B1FF78 /* ESTUITests */ = {
 			isa = PBXNativeTarget;
@@ -490,8 +658,15 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = F5A87F3CB0F05EBADACA38AB;
 					};
+					4E1468B1ECF7F05C69127B71 = {
+						ProvisioningStyle = Automatic;
+					};
 					5588DC9F0D158AC0C978EB6E = {
 						ProvisioningStyle = Automatic;
+					};
+					9973433E7DFC97F779B207BC = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = 4E1468B1ECF7F05C69127B71;
 					};
 					B28694EB21EB968C12B1FF78 = {
 						ProvisioningStyle = Automatic;
@@ -524,6 +699,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				4E1468B1ECF7F05C69127B71 /* DIG */,
+				9973433E7DFC97F779B207BC /* DIGUITests */,
 				5588DC9F0D158AC0C978EB6E /* EST */,
 				E5A720E62EDB5B9AB9C21F0C /* ESTTests */,
 				B28694EB21EB968C12B1FF78 /* ESTUITests */,
@@ -534,6 +711,14 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4302D96BA07D1F0483B372BC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3AC32891C9293DC170C1FDE /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7487FCFF89C32ADED5D7729F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -605,6 +790,38 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AC6FA7044309ADA59D8A2AB0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6636CDB9B9260BC9CF731B9C /* ScreenshotTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B4C9853FFA4CD22A9EC4E032 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B9435D2A6338A4C049060EE3 /* DIGApp.swift in Sources */,
+				7EA5475EDD74D94B9278BC75 /* DIGIdentity.swift in Sources */,
+				D34FDECEED56D89B003A2503 /* DIGLeaderboard.swift in Sources */,
+				28558ED4125F2898E547E3B6 /* DIGLeaderboardView.swift in Sources */,
+				AE0D57A6D9705B4A3DCA1E5A /* DIGPlayStyleView.swift in Sources */,
+				BF2FBA19AA05FA412C55ACD2 /* DIGSettingsView.swift in Sources */,
+				7E6F3D338C929250BD4F060E /* DIGStats.swift in Sources */,
+				EDA8C7CC3B06D5AE6AEE9D96 /* DIGTelemetry.swift in Sources */,
+				2C74147F4568340B7D22B01B /* DIGTitleView.swift in Sources */,
+				B5885B9AAEB89E842A0DC261 /* MineBoard.swift in Sources */,
+				0A7250E95CB8D3DE25CDB55D /* MineBoardView.swift in Sources */,
+				14E20FD95C4016E18C38195F /* MineExplainerView.swift in Sources */,
+				ED2AB539A54A33320E3B2357 /* MineGame.swift in Sources */,
+				F7A736EB906A463153492D7E /* MineGameView.swift in Sources */,
+				F0898AB63CB22F4CA488BBA8 /* MineSizes.swift in Sources */,
+				54C7296F7C4C0CDFB650F5D8 /* MineSolver.swift in Sources */,
+				AE32D8211932689B7DCD6502 /* MineTutorialView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C781C66C1917223F6A3B2805 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -655,6 +872,11 @@
 			isa = PBXTargetDependency;
 			target = F5A87F3CB0F05EBADACA38AB /* SEEP */;
 			targetProxy = 6362EF4A922EF88BBFF58297 /* PBXContainerItemProxy */;
+		};
+		E519070C88360D14C420D5BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4E1468B1ECF7F05C69127B71 /* DIG */;
+			targetProxy = E3687F65401AFF851281D5A8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -734,6 +956,33 @@
 			};
 			name = Release;
 		};
+		4F811E7EA73885A08DD0013F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconOrchard AppIconDusk";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DIG/DIG.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = DIG;
+				INFOPLIST_KEY_DIGFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
+				INFOPLIST_KEY_DIGTelemetryEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/batches";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centaur-labs.dig";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		5A2030964106519BEE4928BC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -749,6 +998,23 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EST.app/EST";
 				TEST_TARGET_NAME = EST;
+			};
+			name = Release;
+		};
+		7B410CB9B42E24278C9C36D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centaur-labs.dig.uitests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DIG;
 			};
 			name = Release;
 		};
@@ -795,6 +1061,33 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
+		};
+		A551217A5D012AE8502968CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = "AppIconOrchard AppIconDusk";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = DIG/DIG.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = DIG;
+				INFOPLIST_KEY_DIGFeedbackEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/feedback";
+				INFOPLIST_KEY_DIGTelemetryEndpoint = "https://est-telemetry.envisioning.workers.dev/v1/batches";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centaur-labs.dig";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
 		};
 		A61CB639F5F88D17D9B9E8A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -975,6 +1268,23 @@
 			};
 			name = Debug;
 		};
+		D8E4C4F7B2DA737A9AD9108A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.centaur-labs.dig.uitests";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = DIG;
+			};
+			name = Debug;
+		};
 		E50638D322E19518C52DB228 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1004,6 +1314,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		5CCAA5E44CBCDAA399634939 /* Build configuration list for PBXNativeTarget "DIG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A551217A5D012AE8502968CD /* Debug */,
+				4F811E7EA73885A08DD0013F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		60E995F4F5F67B35224E1417 /* Build configuration list for PBXNativeTarget "EST" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1027,6 +1346,15 @@
 			buildConfigurations = (
 				E50638D322E19518C52DB228 /* Debug */,
 				B684B46D6CFA17F38998825B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7E72E1B9151F43F6CE4C5E8A /* Build configuration list for PBXNativeTarget "DIGUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D8E4C4F7B2DA737A9AD9108A /* Debug */,
+				7B410CB9B42E24278C9C36D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1063,6 +1391,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		15B8170EC224B98C96A9336F /* GameShell */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GameShell;
+		};
+		25915A0D103447180FD0AA3D /* GridKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GridKit;
+		};
 		35FCFA880A6981551D94891E /* GridKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GridKit;

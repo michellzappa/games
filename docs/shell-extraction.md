@@ -250,3 +250,6 @@ enum, and whether `SupportView` copy references cards. Both surface in Phase
   `SEEPUITests` target with six captures plus the IAP review shot.
   Not run yet: SEEP captures (needs a simulator run), the App Store
   record (`create`, web session), `setup`, the IAP record.
+- DIG (2026-09-15): third app, minesweeper, on the same shell. Long press
+  added to `GridBoardView`; `TimeFormat` moved to the shell; Worker gained
+  the `dig` product and was deployed. DIG build 1 went to MZ's iPhone.

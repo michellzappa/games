@@ -19,23 +19,32 @@ public struct GridBoardView<Cell: View>: View {
     private let gap: CGFloat
     private let maximumSide: CGFloat
     private let onTap: ((Position) -> Void)?
+    private let onLongPress: ((Position) -> Void)?
+    private let longPressDuration: TimeInterval
     private let onDragEnter: ((Position) -> Void)?
     private let onDragEnd: (() -> Void)?
     private let cell: (Position, CGFloat) -> Cell
 
     @State private var dragPosition: Position?
     @State private var dragMoved = false
+    @State private var pressStart: Date?
+    @State private var longPressFired = false
 
     /// `cell` receives the position and the cell side, so a cell can scale
     /// its content. `onDragEnter` fires once each time the finger enters a
     /// new cell; `onDragEnd` when the finger lifts after a drag. A touch
-    /// that never leaves its first cell is a tap.
+    /// that never leaves its first cell is a tap, or a long press when it
+    /// stays down for `longPressDuration` and `onLongPress` is set; a long
+    /// press fires once, while the finger is still down, and the lift is
+    /// then not a tap.
     public init(
         columns: Int,
         rows: Int,
         gap: CGFloat = 4,
         maximumSide: CGFloat = .infinity,
         onTap: ((Position) -> Void)? = nil,
+        onLongPress: ((Position) -> Void)? = nil,
+        longPressDuration: TimeInterval = 0.35,
         onDragEnter: ((Position) -> Void)? = nil,
         onDragEnd: (() -> Void)? = nil,
         @ViewBuilder cell: @escaping (Position, CGFloat) -> Cell
@@ -45,6 +54,8 @@ public struct GridBoardView<Cell: View>: View {
         self.gap = gap
         self.maximumSide = maximumSide
         self.onTap = onTap
+        self.onLongPress = onLongPress
+        self.longPressDuration = longPressDuration
         self.onDragEnter = onDragEnter
         self.onDragEnd = onDragEnd
         self.cell = cell
@@ -76,7 +87,18 @@ public struct GridBoardView<Cell: View>: View {
                         if dragPosition == nil {
                             dragPosition = position
                             dragMoved = false
+                            longPressFired = false
+                            pressStart = .now
                             onDragEnter?(position)
+                            if let onLongPress {
+                                let start = pressStart
+                                Task { @MainActor in
+                                    try? await Task.sleep(for: .seconds(longPressDuration))
+                                    guard pressStart == start, dragPosition == position, !dragMoved else { return }
+                                    longPressFired = true
+                                    onLongPress(position)
+                                }
+                            }
                         } else if position != dragPosition {
                             dragPosition = position
                             dragMoved = true
@@ -84,7 +106,7 @@ public struct GridBoardView<Cell: View>: View {
                         }
                     }
                     .onEnded { _ in
-                        if let dragPosition, !dragMoved {
+                        if let dragPosition, !dragMoved, !longPressFired {
                             onTap?(dragPosition)
                         }
                         if dragMoved {
@@ -92,6 +114,8 @@ public struct GridBoardView<Cell: View>: View {
                         }
                         dragPosition = nil
                         dragMoved = false
+                        pressStart = nil
+                        longPressFired = false
                     }
             )
         }

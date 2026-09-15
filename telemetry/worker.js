@@ -36,6 +36,18 @@ const PRODUCTS = {
       ],
     },
   },
+  dig: {
+    label: "DIG",
+    activity: new Set([
+      ...CORE_ACTIVITY,
+      "boards_won", "boards_lost", "guesses",
+    ]),
+    features: new Set(CORE_FEATURES),
+    community: {
+      totals: ["games_started", "boards_won", "boards_lost"],
+      modes: [],
+    },
+  },
   seep: {
     label: "SEEP",
     activity: new Set([

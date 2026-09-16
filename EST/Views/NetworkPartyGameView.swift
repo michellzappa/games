@@ -43,7 +43,11 @@ struct NetworkPartyGameView: View {
             Button("Leave match", role: .destructive) { exit() }
             Button("Keep playing", role: .cancel) {}
         } message: {
-            Text("Leaving ends the match for everyone.")
+            Text(
+                session.players.count > PartySession.minimumPlayerCount
+                    ? "The others keep playing without you."
+                    : "Leaving ends the match for everyone."
+            )
         }
         .sensoryFeedback(
             trigger: FeedbackTrigger(value: session.matchToken, enabled: hapticsEnabled)
@@ -85,17 +89,20 @@ struct NetworkPartyGameView: View {
             }
         }
         .overlay {
-            if session.someoneLeft {
-                endCard {
-                    Text("A player disconnected")
-                        .font(.headline)
-                }
-            } else if session.isFinished {
+            // A finished game shows its result. A disconnect after the last
+            // match changes nothing, so the result card wins.
+            if session.isFinished {
                 endCard(celebratory: true) {
                     let winners = session.winners
                     Text(winners.count == 1 ? "\(winners[0].name) wins" : "Tie game")
                         .font(.system(size: winnerSize, weight: .black, design: .rounded))
                         .foregroundStyle(winners.count == 1 ? winners[0].color : .primary)
+                    scoreList
+                }
+            } else if session.someoneLeft {
+                endCard {
+                    Text("A player left the match")
+                        .font(.headline)
                     scoreList
                 }
             }
@@ -207,27 +214,21 @@ struct NetworkPartyGameView: View {
         TimelineView(.periodic(from: .now, by: 0.25)) { context in
             HStack(spacing: 8) {
                 ForEach(session.players.filter { $0.id != session.localID }) { player in
+                    // Every player holds their own phone, so nothing here
+                    // is turned to face across a table.
                     HStack(spacing: 6) {
-                        VStack(alignment: .leading, spacing: 4) {
-                            HStack(spacing: 6) {
-                                Circle().fill(player.color).frame(width: 10, height: 10)
-                                Text(player.name)
-                                    .font(.caption.bold())
-                                    .lineLimit(1)
-                                if player.isLocked(at: context.date) {
-                                    Image(systemName: "hourglass")
-                                        .font(.caption2)
-                                }
-                            }
-                            Text("Their cards")
+                        Circle().fill(player.color).frame(width: 10, height: 10)
+                        Text(player.name)
+                            .font(.caption.bold())
+                            .lineLimit(1)
+                        if player.isLocked(at: context.date) {
+                            Image(systemName: "hourglass")
                                 .font(.caption2)
-                                .foregroundStyle(.secondary)
                         }
                         PlayerDeckView(
                             cardCount: player.cardCount,
                             frameID: "player-\(player.id)"
                         )
-                            .rotationEffect(.degrees(180))
                     }
                     .padding(.horizontal, 10)
                     .padding(.vertical, 6)

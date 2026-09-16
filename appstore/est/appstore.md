@@ -54,7 +54,15 @@ trio,shapes,symbols,matching,brain,teaser,logic,math,deduction,duel,party,two pl
 
 ### release_notes
 
-First release. Solo 81 and Quick 27 against the clock, Duel on one phone or across two devices, four-player tables on iPad, a six-step tutorial, and a four-dimensional math explorer.
+Duel fixes.
+
+The table no longer fades while nobody holds a claim. Cards stay at full brightness from the first deal.
+
+Playing across two devices, your opponent's card count was drawn upside down. It sits upright now.
+
+If your opponent leaves after the last set, you keep the result card. If they leave mid-game, the notice shows the scores so far.
+
+With three or four players, the others keep playing when one leaves. The leave dialog now says so.
 
 ### support_url
 

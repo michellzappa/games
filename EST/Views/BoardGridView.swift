@@ -177,7 +177,11 @@ struct BoardGridView: View {
                                             : "Double-tap to select this card"
                                     )
                                     .accessibilityAddTraits(isSelected ? .isSelected : [])
-                                    .disabled(!isInteractive)
+                                    // Not `.disabled`: a disabled plain button dims its
+                                    // label, which faded the whole table in party mode
+                                    // while nobody held a claim. The action guards
+                                    // `isInteractive` itself; only touches are blocked.
+                                    .allowsHitTesting(isInteractive)
                                     .transition(.identity)
                                     .id(card.id)
                                 } else {

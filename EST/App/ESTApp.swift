@@ -9,6 +9,7 @@ struct ESTApp: App {
 
     init() {
         GameIdentity.install(.est)
+        GameAudio.shared.configureSession()
     }
 
     var body: some Scene {

@@ -54,6 +54,8 @@ trio,shapes,symbols,matching,brain,teaser,logic,math,deduction,duel,party,two pl
 
 ### release_notes
 
+Sound effects no longer stop your music or podcast. Thanks to Leo Lobato for the report.
+
 Duel fixes.
 
 The table no longer fades while nobody holds a claim. Cards stay at full brightness from the first deal.

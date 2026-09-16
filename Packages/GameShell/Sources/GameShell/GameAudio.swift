@@ -67,8 +67,23 @@ public final class GameAudio {
         playerNodes.forEach { $0.stop() }
     }
 
+    /// Puts the shared audio session in the effects-only category. Call it
+    /// in the `App` initializer, before GameKit, haptics, or any other
+    /// framework touches the session: the session defaults to solo ambient,
+    /// and the first framework to activate it in that state stops the
+    /// player's music or podcast. Every `play` re-checks the category, so a
+    /// framework that changes it later still cannot take the session over.
+    public func configureSession() {
+        let session = AVAudioSession.sharedInstance()
+        guard session.category != .ambient else { return }
+        // Ambient respects the phone's silent switch and mixes with other
+        // audio, which suits a quiet tabletop game.
+        try? session.setCategory(.ambient, mode: .default, options: [.mixWithOthers])
+    }
+
     public func play(_ effect: Effect) {
         guard isEnabled else { return }
+        configureSession()
         prepareEngineIfNeeded()
         guard !playerNodes.isEmpty else { return }
 
@@ -97,12 +112,10 @@ public final class GameAudio {
             engine.connect($0, to: engine.mainMixerNode, format: format)
         }
 
+        // The engine activates the session itself. No explicit `setActive`:
+        // the category is already ambient, and there is no second place that
+        // can activate it under a different one.
         do {
-            let session = AVAudioSession.sharedInstance()
-            // Ambient respects the phone's silent switch and mixes politely
-            // with other audio, which suits a quiet tabletop game.
-            try session.setCategory(.ambient, mode: .default, options: [.mixWithOthers])
-            try session.setActive(true)
             try engine.start()
         } catch {
             return

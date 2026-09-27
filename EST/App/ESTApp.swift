@@ -39,6 +39,7 @@ struct RootView: View {
 
     @State private var screen: Screen = .title
     @State private var showMatchmaker = false
+    @State private var showNearby = false
     @State private var showLeaderboards = false
     @State private var showSettings = false
     @State private var networkSession: NetworkPartySession?
@@ -94,6 +95,7 @@ struct RootView: View {
                     onQuickSolo: { screen = .solo(.quick) },
                     onParty: { screen = .party($0) },
                     onOnlineParty: { showMatchmaker = true },
+                    onNearbyParty: { showNearby = true },
                     onLeaderboards: { showLeaderboards = true },
                     onResumeSolo: { screen = .resumeSolo($0) },
                     showSettings: $showSettings
@@ -149,12 +151,24 @@ struct RootView: View {
                 ),
                 onMatch: { match in
                     showMatchmaker = false
-                    networkSession = NetworkPartySession(match: match)
+                    networkSession = NetworkPartySession(transport: GameCenterTransport(match: match))
                     screen = .networkParty
                 },
                 onDismiss: { showMatchmaker = false }
             )
             .ignoresSafeArea()
+        }
+        .sheet(isPresented: $showNearby) {
+            NearbyLobbyView(
+                maximumPlayers: PartySession.matchmakingMaximumPlayerCount,
+                onStart: { party in
+                    showNearby = false
+                    networkSession = NetworkPartySession(transport: party)
+                    screen = .networkParty
+                },
+                onCancel: { showNearby = false }
+            )
+            .interactiveDismissDisabled()
         }
         .sheet(isPresented: $showLeaderboards) {
             ESTLeaderboardView()

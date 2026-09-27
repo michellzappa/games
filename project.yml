@@ -31,8 +31,8 @@ targets:
       base:
         GENERATE_INFOPLIST_FILE: true
         TARGETED_DEVICE_FAMILY: "1,2"
-        MARKETING_VERSION: "1.0.2"
-        CURRENT_PROJECT_VERSION: 165
+        MARKETING_VERSION: "1.1.0"
+        CURRENT_PROJECT_VERSION: 167
         INFOPLIST_KEY_UILaunchScreen_Generation: true
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
         INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
@@ -45,6 +45,17 @@ targets:
         # setting with the URL of their own telemetry Worker.
         INFOPLIST_KEY_ESTTelemetryEndpoint: "https://est-telemetry.envisioning.workers.dev/v1/batches"
         INFOPLIST_KEY_ESTFeedbackEndpoint: "https://est-telemetry.envisioning.workers.dev/v1/feedback"
+    # Array keys cannot go through INFOPLIST_KEY_ settings. Xcode merges
+    # this file with the generated Info.plist.
+    info:
+      path: EST/Info.plist
+      properties:
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        NSLocalNetworkUsageDescription: "EST finds nearby players over Wi-Fi and Bluetooth, so you can play together without internet."
+        NSBonjourServices:
+          - _est-party._tcp
+          - _est-party._udp
     entitlements:
       path: EST/EST.entitlements
       properties:

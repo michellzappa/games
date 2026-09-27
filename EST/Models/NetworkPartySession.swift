@@ -1,10 +1,10 @@
-import GameKit
 import SwiftUI
 import Observation
 
-/// Party mode across devices over a GKMatch (online or nearby).
+/// Party mode across devices. The wire is a `PartyTransport`: a Game Center
+/// match, or a local MultipeerConnectivity session with no internet.
 ///
-/// The device with the lowest gamePlayerID is the host and runs the only real
+/// The device with the lowest player id is the host and runs the only real
 /// `GameEngine`. Clients render snapshots and send buzz/select events. Claim
 /// window and lockout reuse the constants in `PartySession`.
 @Observable
@@ -24,12 +24,12 @@ final class NetworkPartySession {
         }
     }
 
-    let match: GKMatch
-    /// Not fixed for the life of the match. The lowest gamePlayerID among the
+    let transport: PartyTransport
+    /// Not fixed for the life of the match. The lowest player id among the
     /// devices still connected is the host, so a host that leaves hands the
     /// role to the next device.
     private(set) var isHost: Bool
-    let localID = GKLocalPlayer.local.gamePlayerID
+    let localID: String
 
     // Display state. On the host this mirrors the engine; on clients it is
     // whatever the last snapshot said.
@@ -57,36 +57,31 @@ final class NetworkPartySession {
     private var collectedCards: [String: [Card]] = [:]
     private var claimRace = ClaimRace<String>()
     private var expiryTask: Task<Void, Never>?
-    private var remoteHost: GKPlayer?
+    private var remoteHostID: String?
     /// Palette slots are pinned per player. A player who leaves must not
     /// recolor everyone behind them.
     private var colorIndexes: [String: Int] = [:]
     /// Clients keep the last snapshot so one of them can become host from it.
     private var lastSnapshot: NetSnapshot?
 
-    private let proxy = MatchDelegateProxy()
+    init(transport: PartyTransport) {
+        self.transport = transport
+        localID = transport.localID
+        let everyone = (transport.remotePlayers + [(id: transport.localID, name: transport.localName)])
+            .sorted { $0.id < $1.id }
+        let hostID = everyone.first?.id
+        isHost = hostID == localID
+        remoteHostID = isHost ? nil : hostID
 
-    init(match: GKMatch) {
-        self.match = match
-        let everyone = (match.players + [GKLocalPlayer.local])
-            .sorted { $0.gamePlayerID < $1.gamePlayerID }
-        let hostID = everyone.first?.gamePlayerID
-        isHost = hostID == GKLocalPlayer.local.gamePlayerID
-        remoteHost = match.players.first { $0.gamePlayerID == hostID }
-
-        proxy.onData = { [weak self] data, player in
-            DispatchQueue.main.async { self?.receive(data, from: player.gamePlayerID) }
+        transport.onPlayerLeft = { [weak self] playerID in
+            self?.playerLeft(playerID)
         }
-        proxy.onStateChange = { [weak self] player, state in
-            DispatchQueue.main.async {
-                guard state == .disconnected else { return }
-                self?.playerLeft(player.gamePlayerID)
-            }
+        transport.onData = { [weak self] data, playerID in
+            self?.receive(data, from: playerID)
         }
-        match.delegate = proxy
 
         if isHost {
-            roster = everyone.map { ($0.gamePlayerID, $0.displayName) }
+            roster = everyone.map { ($0.id, $0.name) }
             for (index, entry) in roster.enumerated() {
                 scores[entry.id] = 0
                 collectedCards[entry.id] = []
@@ -134,8 +129,7 @@ final class NetworkPartySession {
 
     func leave() {
         expiryTask?.cancel()
-        match.delegate = nil
-        match.disconnect()
+        transport.disconnect()
     }
 
     // MARK: - Host authority
@@ -262,9 +256,9 @@ final class NetworkPartySession {
     private func send(_ message: NetMessage) {
         guard let data = try? JSONEncoder().encode(message) else { return }
         if isHost {
-            try? match.sendData(toAllPlayers: data, with: .reliable)
-        } else if let remoteHost {
-            try? match.send(data, to: [remoteHost], dataMode: .reliable)
+            transport.sendToAll(data)
+        } else if let remoteHostID {
+            transport.send(data, to: remoteHostID)
         }
     }
 
@@ -329,10 +323,10 @@ final class NetworkPartySession {
 
     // MARK: - Leaving and host migration
 
-    /// Every device still in the match, lowest gamePlayerID first. The first
+    /// Every device still in the match, lowest player id first. The first
     /// entry is the host.
     private func connectedIDs(excluding leaver: String? = nil) -> [String] {
-        var ids = match.players.map(\.gamePlayerID) + [localID]
+        var ids = transport.remotePlayers.map(\.id) + [localID]
         if let leaver {
             ids.removeAll { $0 == leaver }
         }
@@ -379,7 +373,7 @@ final class NetworkPartySession {
             someoneLeft = true
             return
         }
-        remoteHost = match.players.first { $0.gamePlayerID == hostID }
+        remoteHostID = hostID == localID ? nil : hostID
         guard hostID == localID else { return }
         promoteToHost(connected: Set(remaining))
     }
@@ -439,21 +433,8 @@ final class NetworkPartySession {
         expiryTask = nil
         penaltyToken = snapshot.penaltyToken
         lastCollectorID = snapshot.lastCollectorID
-        remoteHost = nil
+        remoteHostID = nil
         isHost = true
         publishAndBroadcast()
-    }
-
-    private final class MatchDelegateProxy: NSObject, GKMatchDelegate {
-        var onData: ((Data, GKPlayer) -> Void)?
-        var onStateChange: ((GKPlayer, GKPlayerConnectionState) -> Void)?
-
-        func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer player: GKPlayer) {
-            onData?(data, player)
-        }
-
-        func match(_ match: GKMatch, player: GKPlayer, didChange state: GKPlayerConnectionState) {
-            onStateChange?(player, state)
-        }
     }
 }

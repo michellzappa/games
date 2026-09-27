@@ -49,6 +49,7 @@ struct TitleView: View {
     var onQuickSolo: () -> Void
     var onParty: (Int) -> Void
     var onOnlineParty: () -> Void
+    var onNearbyParty: () -> Void
     var onLeaderboards: () -> Void
     var onResumeSolo: (GameEngine.Variant) -> Void = { _ in }
     @Binding var showSettings: Bool
@@ -130,7 +131,7 @@ struct TitleView: View {
                     resumeButton
                 }
                 modeButtons(supportsFourPlayerMode: supportsFourPlayerMode)
-                onlinePartyButton(supportsFourPlayerMode: supportsFourPlayerMode)
+                networkButtons(supportsFourPlayerMode: supportsFourPlayerMode)
                 playStyleButton
                 utilityButtons
             }
@@ -242,16 +243,38 @@ struct TitleView: View {
         .buttonStyle(.game(.secondary, tint: tint, size: .large))
     }
 
+    @ViewBuilder
+    private func networkButtons(supportsFourPlayerMode: Bool) -> some View {
+        if usesAccessibilityLayout {
+            VStack(spacing: 12) {
+                onlinePartyButton(supportsFourPlayerMode: supportsFourPlayerMode)
+                nearbyPartyButton(supportsFourPlayerMode: supportsFourPlayerMode)
+            }
+        } else {
+            HStack(spacing: 12) {
+                onlinePartyButton(supportsFourPlayerMode: supportsFourPlayerMode)
+                nearbyPartyButton(supportsFourPlayerMode: supportsFourPlayerMode)
+            }
+        }
+    }
+
     private func onlinePartyButton(supportsFourPlayerMode: Bool) -> some View {
-        let title = usesAccessibilityLayout
-            ? (supportsFourPlayerMode ? "Online party" : "Online duel")
-            : (supportsFourPlayerMode ? "Party, online or nearby" : "Duel, online or nearby")
+        let title = supportsFourPlayerMode ? "Party online" : "Duel online"
 
         return Button(action: onOnlineParty) {
             Label(title, systemImage: "antenna.radiowaves.left.and.right")
         }
         .buttonStyle(.game(.secondary, tint: .first))
         .disabled(!GameCenterManager.shared.isAuthenticated)
+    }
+
+    /// Devices in the same room, over Wi-Fi and Bluetooth. Needs no Game
+    /// Center sign-in and no internet, so it is never disabled.
+    private func nearbyPartyButton(supportsFourPlayerMode: Bool) -> some View {
+        Button(action: onNearbyParty) {
+            Label(supportsFourPlayerMode ? "Party offline" : "Duel offline", systemImage: "wifi.slash")
+        }
+        .buttonStyle(.game(.secondary, tint: .first))
     }
 
     private var playStyleButton: some View {

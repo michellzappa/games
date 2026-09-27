@@ -18,7 +18,7 @@ enum NetEvent: Codable {
 /// because device clocks are not trusted to agree.
 struct NetSnapshot: Codable {
     struct PlayerState: Codable {
-        /// GKPlayer.gamePlayerID
+        /// `PartyTransport` player id: a gamePlayerID or a nearby device id.
         let id: String
         let name: String
         /// Index into PartySession.palette, assigned by the host.

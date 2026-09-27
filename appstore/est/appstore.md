@@ -16,7 +16,7 @@ A pattern puzzle, solo or duel
 
 ### promotional_text
 
-Twelve cards on the table, and three of them fit together. Spot the trio before the clock runs out. Play solo, duel on one phone, or match across devices.
+Twelve cards on the table, and three of them fit together. Spot the trio before the clock runs out. Play solo, share one phone, or link two devices, even offline.
 
 ### description
 
@@ -28,7 +28,7 @@ THREE WAYS TO PLAY
 
 • Solo 81: clear the whole deck against the clock. Play a run without hints and your best time goes to the Game Center leaderboard.
 • Quick 27: the 27 solid cards, nine on the table, for a shorter round.
-• Duel: race someone on one phone, or across two devices over Game Center. On iPad, four players share one table.
+• Duel: race someone on one phone, or on two devices. Play online over Game Center, or offline over Wi-Fi and Bluetooth when you have no signal. On iPad, four players share one table.
 
 LEARN THE RULE
 
@@ -54,17 +54,11 @@ trio,shapes,symbols,matching,brain,teaser,logic,math,deduction,duel,party,two pl
 
 ### release_notes
 
-Sound effects no longer stop your music or podcast. Thanks to Leo Lobato for the report.
+Two devices can now play without internet, so a duel works on a plane or on the subway. Tap Duel offline on both. One of you hosts a table and the other joins it. The devices connect over Wi-Fi and Bluetooth, and you don't need a Game Center account.
 
-Duel fixes.
+On iPad, tap Party offline and up to four players can join one table.
 
-The table no longer fades while nobody holds a claim. Cards stay at full brightness from the first deal.
-
-Playing across two devices, your opponent's card count was drawn upside down. It sits upright now.
-
-If your opponent leaves after the last set, you keep the result card. If they leave mid-game, the notice shows the scores so far.
-
-With three or four players, the others keep playing when one leaves. The leave dialog now says so.
+The Game Center option is now called Duel online. It works the same as before.
 
 ### support_url
 

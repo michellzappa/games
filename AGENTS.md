@@ -336,11 +336,11 @@ after the upload succeeds. This Mac has only Xcode 27.1. The Mac mini
 (`mini4p.local`, Xcode 26.3) builds the archive, and this Mac signs and
 uploads it:
 
-1. On the mini, in `~/Dev/_/ios-est`: `git checkout --
-   EST.xcodeproj/project.pbxproj`, `git pull`, `xcodegen generate`.
-2. MZ runs `ssh -4 -t mini4p.local '~/Dev/_/ios-est/build/release.sh'` in
-   the macOS Terminal app. The script unlocks the login keychain and archives
-   to `build/EST.xcarchive`. The script lives only on the mini.
+1. Push the release commit.
+2. MZ runs `ssh -4 -t mini4p.local '~/Dev/_/ios-est/scripts/mini-archive.sh
+   EST'` in the macOS Terminal app. `scripts/mini-archive.sh` pulls,
+   regenerates, unlocks the login keychain, and archives to
+   `build/<scheme>.xcarchive`. It prints the version, build and Xcode.
 3. Here: copy the archive back, then `xcodebuild -exportArchive` with
    `method app-store-connect`. This Mac holds the Apple Distribution
    certificate. Export re-signs but keeps `DTXcode`, so Apple sees Xcode
@@ -358,7 +358,7 @@ Each rule below comes from a failed attempt:
   password steps in the macOS Terminal app.
 - Each SSH session has its own keychain lock. An unlock in one session does
   not carry to the next, and codesign fails with `errSecInternalComponent`.
-  The unlock and the archive must run in one session, as `release.sh` does.
+  The unlock and the archive must run in one session, as `mini-archive.sh` does.
 - The mini cannot export. The API key has no cloud-signing permission
   ("Cloud signing permission error"), and the mini has no distribution
   certificate.

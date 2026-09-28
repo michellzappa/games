@@ -329,6 +329,42 @@ These rules come from the real 1.0.0 publish. Each one failed first:
   rotating device identifier. All are unlinked and not used for tracking. If
   the diagnostics default changes, this declaration changes with it.
 
+Toolchain for App Store builds (1.1.1, 2026-09-28). App Store Connect
+refuses a build from Xcode 27.1: "Build SDK build is not yet supported" and
+"Build Xcode build is not yet supported". The error shows only at submit,
+after the upload succeeds. This Mac has only Xcode 27.1. The Mac mini
+(`mini4p.local`, Xcode 26.3) builds the archive, and this Mac signs and
+uploads it:
+
+1. On the mini, in `~/Dev/_/ios-est`: `git checkout --
+   EST.xcodeproj/project.pbxproj`, `git pull`, `xcodegen generate`.
+2. MZ runs `ssh -4 -t mini4p.local '~/Dev/_/ios-est/build/release.sh'` in
+   the macOS Terminal app. The script unlocks the login keychain and archives
+   to `build/EST.xcarchive`. The script lives only on the mini.
+3. Here: copy the archive back, then `xcodebuild -exportArchive` with
+   `method app-store-connect`. This Mac holds the Apple Distribution
+   certificate. Export re-signs but keeps `DTXcode`, so Apple sees Xcode
+   26.3.
+4. `asc publish appstore --app APP_ID --ipa EST.ipa --version X --build-number
+   N --metadata-dir appstore/est/metadata --wait`, then
+   `./scripts/appstore.sh est submit`.
+
+Each rule below comes from a failed attempt:
+
+- Use `ssh -4`. `mini4p.local` also resolves to an IPv6 address that does
+  not connect.
+- The terminal pane in the Claude desktop app cannot take a hidden password.
+  `ssh` and `ssh-copy-id` hang there, and typed text shows in clear. Run
+  password steps in the macOS Terminal app.
+- Each SSH session has its own keychain lock. An unlock in one session does
+  not carry to the next, and codesign fails with `errSecInternalComponent`.
+  The unlock and the archive must run in one session, as `release.sh` does.
+- The mini cannot export. The API key has no cloud-signing permission
+  ("Cloud signing permission error"), and the mini has no distribution
+  certificate.
+- An ad hoc archive (`CODE_SIGN_IDENTITY=-`) fails: the Game Center
+  entitlement requires a provisioning profile.
+
 An in-app purchase is a separate review item with its own readiness rules.
 `est.support` stays MISSING_METADATA until all three exist:
 

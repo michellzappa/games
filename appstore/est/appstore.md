@@ -60,6 +60,10 @@ On iPad, tap Party offline and up to four players can join one table.
 
 The Game Center option is now called Duel online. It works the same as before.
 
+New training mode: Is this a set? It shows three cards, you answer, and it explains each trait. Most wrong answers are near misses, where one trait breaks the set. Your best streak is saved.
+
+In a two-device duel, the board now stays put when someone presses SET.
+
 ### support_url
 
 https://github.com/michellzappa/games/issues

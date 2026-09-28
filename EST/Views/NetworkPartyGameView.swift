@@ -157,9 +157,8 @@ struct NetworkPartyGameView: View {
         return session.players.first { $0.id == activeID }
     }
 
-    /// Keeps the card grid close to the player who claimed it. The outer
-    /// geometry is flexible, while the inner grid is only as tall as its
-    /// fitted cards require, so alignment can move it toward either side.
+    /// Every player holds their own device, so the grid stays centered. It
+    /// does not slide toward the player who claimed it.
     private var adaptiveBoard: some View {
         GeometryReader { proxy in
             let layout = GridLayout.fitting(
@@ -168,18 +167,11 @@ struct NetworkPartyGameView: View {
                 gap: 10,
                 in: proxy.size
             )
-            let width = layout.width
-            let height = layout.height
-            let alignment: Alignment = session.activePlayerID == session.localID
-                ? .bottom
-                : session.activePlayerID == nil ? .center : .top
-
             boardView
-                .frame(width: width, height: height)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment)
+                .frame(width: layout.width, height: layout.height)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .frame(maxHeight: .infinity)
-        .animation(.spring(duration: 0.45), value: session.activePlayerID)
     }
 
     private var boardView: some View {

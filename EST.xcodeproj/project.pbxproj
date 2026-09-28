@@ -48,6 +48,7 @@
 		7EA5475EDD74D94B9278BC75 /* DIGIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E106AC72FB3B5EF957DB00F1 /* DIGIdentity.swift */; };
 		8548D34517850306510158AC /* NetworkPartyGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */; };
 		8583257B09911904EA99BED8 /* SEEPSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5154078AC72BEF12A6EEBE22 /* SEEPSettingsView.swift */; };
+		8B1DB53B54B545E1FE64E7C0 /* TrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BACB8F3B79D58E3FBCC59C /* TrainingView.swift */; };
 		996AFACF2C8CE80698797BA6 /* FloodLevels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715B744AAA01DC649A191241 /* FloodLevels.swift */; };
 		9BF555561709F86D73A26DD2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BD502B04D8360619FD2C601 /* Assets.xcassets */; };
 		A128221C3C515FAFFC5677EC /* GridKit in Frameworks */ = {isa = PBXBuildFile; productRef = 25915A0D103447180FD0AA3D /* GridKit */; };
@@ -141,6 +142,7 @@
 		41A1D2288F1C5BD10CE53315 /* PartyGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyGameView.swift; sourceTree = "<group>"; };
 		4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloGameView.swift; sourceTree = "<group>"; };
 		472C464CD1AE63569E3EA136 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		48BACB8F3B79D58E3FBCC59C /* TrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingView.swift; sourceTree = "<group>"; };
 		491E1589F5431E45353C2B89 /* CardAppearance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardAppearance.swift; sourceTree = "<group>"; };
 		491F96389609C870D53F7E6C /* PlayerStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerStats.swift; sourceTree = "<group>"; };
 		4BD502B04D8360619FD2C601 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 				76F1379D58115CE598C68C6B /* PlayStyleView.swift */,
 				4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */,
 				F2477202E22AC8D7CB6C56AC /* TitleView.swift */,
+				48BACB8F3B79D58E3FBCC59C /* TrainingView.swift */,
 				16F37FAA2DCF8DD1E0761D68 /* TutorialView.swift */,
 				935D41E1DD5936CA0827A7E6 /* Math */,
 			);
@@ -800,6 +803,7 @@
 				B751729340CEC69F505EB537 /* SoloGameView.swift in Sources */,
 				64C9C8127644B6F9AA91CA12 /* SoloRunStore.swift in Sources */,
 				34D5EEDF027658B338D7B528 /* TitleView.swift in Sources */,
+				8B1DB53B54B545E1FE64E7C0 /* TrainingView.swift in Sources */,
 				45D5DE849C1F9A54C925D4D8 /* TutorialView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1056,7 +1060,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 168;
+				CURRENT_PROJECT_VERSION = 172;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EST/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
@@ -1138,7 +1142,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 168;
+				CURRENT_PROJECT_VERSION = 172;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EST/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;

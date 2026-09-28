@@ -60,6 +60,7 @@ struct TitleView: View {
     @State private var savedRun: GameEngine.SavedRun?
     @State private var showRules = false
     @State private var showPlayStyle = false
+    @State private var showTraining = false
     @State private var demoCards = Card.randomValidSet()
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -87,6 +88,9 @@ struct TitleView: View {
         }
         .sheet(isPresented: $showSettings) {
             ESTSettingsView()
+        }
+        .sheet(isPresented: $showTraining) {
+            TrainingView()
         }
         .sheet(isPresented: $showPlayStyle) {
             PlayStyleView()
@@ -132,7 +136,7 @@ struct TitleView: View {
                 }
                 modeButtons(supportsFourPlayerMode: supportsFourPlayerMode)
                 networkButtons(supportsFourPlayerMode: supportsFourPlayerMode)
-                playStyleButton
+                learningButtons
                 utilityButtons
             }
             .padding(.horizontal, 32)
@@ -275,6 +279,30 @@ struct TitleView: View {
             Label(supportsFourPlayerMode ? "Party offline" : "Duel offline", systemImage: "wifi.slash")
         }
         .buttonStyle(.game(.secondary, tint: .first))
+    }
+
+    @ViewBuilder
+    private var learningButtons: some View {
+        if usesAccessibilityLayout {
+            VStack(spacing: 12) {
+                trainingButton
+                playStyleButton
+            }
+        } else {
+            HStack(spacing: 12) {
+                trainingButton
+                playStyleButton
+            }
+        }
+    }
+
+    private var trainingButton: some View {
+        Button {
+            showTraining = true
+        } label: {
+            Label(usesAccessibilityLayout ? "Training" : "Is this a set?", systemImage: "questionmark.square.dashed")
+        }
+        .buttonStyle(.game(.quiet, tint: .third, size: .compact))
     }
 
     private var playStyleButton: some View {

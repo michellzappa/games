@@ -174,6 +174,10 @@ iPhone and iPad are both mandatory while TARGETED_DEVICE_FAMILY is "1,2".
 - Trait explanations come from `Card.audit(_:_:_:)`, which returns one
   `TraitVerdict` per trait. `violationDescriptions` and the tutorial's
   `TraitAuditView` both read it; do not restate the rule in a view.
+- `TrainingView` is the "Is this a set?" drill, opened from the title
+  screen. Questions come from `Card.trainingTrio()`: half sets, most of the
+  rest near misses from `nearMissTrio()`. The answer reads `TraitAuditView`.
+  The best streak is the `trainingBestStreak` UserDefaults key.
 - `TutorialView` is the guided tour (goal, traits, worked set, worked non-set,
   practice board, table rules). First launch shows it over the title screen,
   gated by the `hasSeenTutorial` UserDefaults key; the rules sheet replays it.

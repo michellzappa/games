@@ -237,6 +237,24 @@ struct Card: Identifiable, Hashable {
         return [a, b, broken].shuffled()
     }
 
+    /// One question for the training drill. Half are sets. Of the rest, most
+    /// are near misses with exactly one broken trait, because those teach the
+    /// eye; the others are any three cards that fail.
+    static func trainingTrio() -> (cards: [Card], isSet: Bool) {
+        if Bool.random() {
+            return (randomValidSet(), true)
+        }
+        if Int.random(in: 0..<4) > 0 {
+            return (nearMissTrio(), false)
+        }
+        while true {
+            let cards = Array(fullDeck.shuffled().prefix(3))
+            if !isValidSet(cards[0], cards[1], cards[2]) {
+                return (cards, false)
+            }
+        }
+    }
+
     /// A small teaching board: exactly one set hides among `size` cards.
     /// Grows a known set with cards that add no second set.
     static func practiceBoard(size: Int = 6) -> [Card] {

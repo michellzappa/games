@@ -10,6 +10,14 @@ struct PlayStyleView: View {
 
     private let traitNames = ["number", "color", "shape", "fill"]
 
+    /// Opens the Game Center leaderboards. The caller closes this sheet
+    /// first, because the app root presents the leaderboard.
+    var onLeaderboards: (() -> Void)?
+
+    init(onLeaderboards: (() -> Void)? = nil) {
+        self.onLeaderboards = onLeaderboards
+    }
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -44,6 +52,12 @@ struct PlayStyleView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
+                }
+                if let onLeaderboards {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Leaderboard", systemImage: "trophy", action: onLeaderboards)
+                            .disabled(!GameCenterManager.shared.isAuthenticated)
+                    }
                 }
             }
             .confirmationDialog(

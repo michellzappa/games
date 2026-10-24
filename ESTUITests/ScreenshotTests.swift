@@ -24,19 +24,22 @@ final class ScreenshotTests: XCTestCase {
 
         app.terminate()
         launch(app)
+        tapFirst(app, labels: ["Solo"])
         tapFirst(app, labels: ["Solo 81"])
         waitForGame(app)
         capture(app, "solo-81")
 
         app.terminate()
         launch(app)
+        tapFirst(app, labels: ["Solo"])
         tapFirst(app, labels: ["Quick 27"])
         waitForGame(app)
         capture(app, "quick-27")
 
         app.terminate()
         launch(app)
-        tapFirst(app, labels: ["Duel, one phone"])
+        tapFirst(app, labels: ["Together"])
+        tapFirst(app, labels: ["Duel"])
         waitForGame(app)
         capture(app, "duel")
 

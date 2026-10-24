@@ -21,10 +21,6 @@ final class PartySession {
             : [minimumPlayerCount]
     }
 
-    static var fourPlayerDeviceLabel: String {
-        "one device"
-    }
-
     static func supportsFourPlayerMode(
         in size: CGSize,
         userInterfaceIdiom: UIUserInterfaceIdiom = UIDevice.current.userInterfaceIdiom

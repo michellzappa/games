@@ -61,6 +61,14 @@ struct TitleView: View {
     @State private var showRules = false
     @State private var showPlayStyle = false
     @State private var showTraining = false
+    @State private var menu: HomeMenu = .root
+    /// Set by the Stats sheet's Leaderboard button. The app root presents
+    /// the leaderboard, so it opens only after the Stats sheet is gone.
+    @State private var opensLeaderboardsAfterStats = false
+
+    private enum HomeMenu {
+        case root, solo, together
+    }
     @State private var demoCards = Card.randomValidSet()
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
@@ -69,20 +77,34 @@ struct TitleView: View {
     }
 
     var body: some View {
-        GeometryReader { proxy in
-            let supportsFourPlayerMode = PartySession.supportsFourPlayerMode(in: proxy.size)
+        // A NavigationStack only for its toolbar: the system places Rules,
+        // Stats and Settings in the top bar on iPhone and iPad, and in the
+        // side rail on iPhone Duo.
+        NavigationStack {
+            GeometryReader { proxy in
+                let supportsFourPlayerMode = PartySession.supportsFourPlayerMode(in: proxy.size)
+                let isWide = proxy.size.width > proxy.size.height && !usesAccessibilityLayout
 
-            Group {
-                if usesAccessibilityLayout {
-                    ScrollView {
-                        titleContent(supportsFourPlayerMode: supportsFourPlayerMode)
+                Group {
+                    if usesAccessibilityLayout {
+                        ScrollView {
+                            titleContent(supportsFourPlayerMode: supportsFourPlayerMode, isWide: isWide)
+                        }
+                    } else {
+                        titleContent(supportsFourPlayerMode: supportsFourPlayerMode, isWide: isWide)
                     }
-                } else {
-                    titleContent(supportsFourPlayerMode: supportsFourPlayerMode)
+                }
+            }
+            .background(Appearance.shared.gameBackground)
+            .toolbarBackground(.hidden, for: .navigationBar)
+            .toolbar {
+                ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("Rules", systemImage: "questionmark.circle") { showRules = true }
+                    Button("Stats", systemImage: "chart.bar.xaxis") { showPlayStyle = true }
+                    Button("Settings", systemImage: "gearshape") { showSettings = true }
                 }
             }
         }
-        .background(Appearance.shared.gameBackground)
         .sheet(isPresented: $showRules) {
             RulesView()
         }
@@ -92,8 +114,16 @@ struct TitleView: View {
         .sheet(isPresented: $showTraining) {
             TrainingView()
         }
-        .sheet(isPresented: $showPlayStyle) {
-            PlayStyleView()
+        .sheet(isPresented: $showPlayStyle, onDismiss: {
+            if opensLeaderboardsAfterStats {
+                opensLeaderboardsAfterStats = false
+                onLeaderboards()
+            }
+        }) {
+            PlayStyleView {
+                opensLeaderboardsAfterStats = true
+                showPlayStyle = false
+            }
         }
         .onAppear {
             // Marketing captures need the same title screen on every run, so
@@ -104,12 +134,37 @@ struct TitleView: View {
         }
     }
 
-    private func titleContent(supportsFourPlayerMode: Bool) -> some View {
-        VStack(spacing: 16) {
-            if !usesAccessibilityLayout {
-                Spacer()
+    /// The screen has two parts: the hero (name, tagline, demo set) on the
+    /// plain background, and every choice inside one panel. A wide window
+    /// puts them side by side.
+    @ViewBuilder
+    private func titleContent(supportsFourPlayerMode: Bool, isWide: Bool) -> some View {
+        if isWide {
+            HStack(spacing: 32) {
+                hero
+                    .frame(maxWidth: .infinity)
+                menuPanel(supportsFourPlayerMode: supportsFourPlayerMode)
             }
+            .padding(32)
+            .frame(maxHeight: .infinity)
+        } else {
+            VStack(spacing: 24) {
+                if !usesAccessibilityLayout {
+                    Spacer()
+                }
+                hero
+                if !usesAccessibilityLayout {
+                    Spacer()
+                }
+                menuPanel(supportsFourPlayerMode: supportsFourPlayerMode)
+            }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 12)
+        }
+    }
 
+    private var hero: some View {
+        VStack(spacing: 16) {
             VaryingTitleView {
                 withAnimation(.spring(duration: 0.7)) {
                     demoCards = Card.randomValidSet()
@@ -118,89 +173,130 @@ struct TitleView: View {
             Text("A game of patterns")
                 .font(.subheadline.weight(.semibold))
                 .foregroundStyle(.secondary)
-            Text("81 cards. Every combination. Find three where\nevery trait is all the same or all different.")
-                .font(.footnote)
-                .multilineTextAlignment(.center)
-                .foregroundStyle(.secondary)
-
             demoRow
-                .padding(.vertical, 16)
-
-            if !usesAccessibilityLayout {
-                Spacer()
-            }
-
-            VStack(spacing: 12) {
-                if savedRun != nil {
-                    resumeButton
-                }
-                modeButtons(supportsFourPlayerMode: supportsFourPlayerMode)
-                networkButtons(supportsFourPlayerMode: supportsFourPlayerMode)
-                learningButtons
-                utilityButtons
-            }
-            .padding(.horizontal, 32)
-            .padding(.bottom, 24)
+                .padding(.top, 8)
         }
     }
 
-    @ViewBuilder
-    private func modeButtons(supportsFourPlayerMode: Bool) -> some View {
-        if usesAccessibilityLayout {
-            VStack(spacing: 12) {
-                soloButton
-                quickSoloButton
-                if supportsFourPlayerMode {
-                    partyButton(
-                        playerCount: PartySession.minimumPlayerCount,
-                        title: "Duel",
-                        systemImage: "person.2.fill",
-                        tint: .first
-                    )
-                    partyButton(
-                        playerCount: PartySession.maximumPlayerCount,
-                        title: "\(PartySession.maximumPlayerCount) players",
-                        systemImage: "person.3.fill",
-                        tint: .third
-                    )
-                } else {
-                    partyButton(
-                        playerCount: PartySession.minimumPlayerCount,
-                        title: "Duel",
-                        systemImage: "person.2.fill",
-                        tint: .first
-                    )
-                }
-            }
-        } else {
+    private func menuPanel(supportsFourPlayerMode: Bool) -> some View {
+        VStack(spacing: 16) {
+            // Back lives in the panel header, next to the choices it leaves.
             HStack(spacing: 12) {
-                soloButton
-                quickSoloButton
-            }
-
-            if supportsFourPlayerMode {
-                HStack(spacing: 12) {
-                    partyButton(
-                        playerCount: PartySession.minimumPlayerCount,
-                        title: "Duel, one phone",
-                        systemImage: "person.2.fill",
-                        tint: .first
-                    )
-                    partyButton(
-                        playerCount: PartySession.maximumPlayerCount,
-                        title: "\(PartySession.maximumPlayerCount) players, \(PartySession.fourPlayerDeviceLabel)",
-                        systemImage: "person.3.fill",
-                        tint: .third
-                    )
+                if menu != .root {
+                    Button {
+                        menu = .root
+                    } label: {
+                        Image(systemName: "chevron.backward")
+                    }
+                    .buttonStyle(.game(.quiet, size: .icon))
+                    .accessibilityLabel("Back")
                 }
-            } else {
-                partyButton(
-                    playerCount: PartySession.minimumPlayerCount,
-                    title: "Duel, one phone",
-                    systemImage: "person.2.fill",
-                    tint: .first
-                )
+                Text(menuTitle)
+                    .font(.headline)
             }
+            .frame(maxWidth: .infinity, minHeight: GameButtonStyle.Size.icon.height, alignment: .leading)
+            menuButtons(supportsFourPlayerMode: supportsFourPlayerMode)
+                .id(menu)
+                .transition(.asymmetric(
+                    insertion: .move(edge: menu == .root ? .leading : .trailing).combined(with: .opacity),
+                    removal: .opacity
+                ))
+        }
+        .animation(.spring(duration: 0.35), value: menu)
+        .padding(Self.menuPanelPadding)
+        .frame(maxWidth: 460)
+        .glassPanel(cornerRadius: Self.menuPanelCornerRadius)
+    }
+
+    private static let menuPanelPadding: CGFloat = 20
+    /// Concentric with the large buttons inside: their corner radius (0.32 of
+    /// the height, as GameButtonStyle draws it) plus the panel padding.
+    private static let menuPanelCornerRadius =
+        GameButtonStyle.Size.large.height * 0.32 + menuPanelPadding
+
+    private var menuTitle: String {
+        switch menu {
+        case .root: "Play"
+        case .solo: "Solo"
+        case .together: "Together"
+        }
+    }
+
+    /// Home asks one question at a time: who plays, then which game. Only
+    /// the root level shows Resume.
+    @ViewBuilder
+    private func menuButtons(supportsFourPlayerMode: Bool) -> some View {
+        VStack(spacing: 12) {
+            switch menu {
+            case .root:
+                if savedRun != nil {
+                    resumeButton
+                }
+                Button {
+                    menu = .solo
+                } label: {
+                    Label("Solo", systemImage: "person.fill")
+                }
+                .buttonStyle(.game(savedRun == nil ? .primary : .secondary, tint: .second, size: .large))
+                Button {
+                    menu = .together
+                } label: {
+                    Label("Together", systemImage: "person.2.fill")
+                }
+                .buttonStyle(.game(.secondary, tint: .first, size: .large))
+            case .solo:
+                pairRow {
+                    soloButton
+                    quickSoloButton
+                }
+                trainingButton
+            case .together:
+                menuSection("This device") {
+                    pairRow {
+                        partyButton(
+                            playerCount: PartySession.minimumPlayerCount,
+                            title: "Duel",
+                            systemImage: "person.2.fill"
+                        )
+                        if supportsFourPlayerMode {
+                            partyButton(
+                                playerCount: PartySession.maximumPlayerCount,
+                                title: "\(PartySession.maximumPlayerCount) players",
+                                systemImage: "person.3.fill"
+                            )
+                        }
+                    }
+                }
+                menuSection("Separate devices") {
+                    pairRow {
+                        nearbyPartyButton
+                        onlinePartyButton
+                    }
+                }
+            }
+        }
+    }
+
+    /// Two choices side by side; stacked at accessibility text sizes.
+    @ViewBuilder
+    private func pairRow<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
+        if usesAccessibilityLayout {
+            VStack(spacing: 12, content: content)
+        } else {
+            HStack(spacing: 12, content: content)
+        }
+    }
+
+    private func menuSection<Content: View>(
+        _ title: String,
+        @ViewBuilder content: () -> Content
+    ) -> some View {
+        VStack(spacing: 8) {
+            Text(title)
+                .font(.footnote.weight(.semibold))
+                .textCase(.uppercase)
+                .foregroundStyle(.secondary)
+            content()
         }
     }
 
@@ -208,7 +304,7 @@ struct TitleView: View {
         Button(action: onSolo) {
             Label("Solo 81", systemImage: "timer")
         }
-        .buttonStyle(.game(savedRun == nil ? .primary : .secondary, tint: .second, size: .large))
+        .buttonStyle(.game(.primary, tint: .second, size: .large))
     }
 
     @ViewBuilder
@@ -230,134 +326,46 @@ struct TitleView: View {
         Button(action: onQuickSolo) {
             Label("Quick 27", systemImage: "bolt.fill")
         }
-        .buttonStyle(.game(.secondary, tint: .third, size: .large))
+        .buttonStyle(.game(.secondary, tint: .second, size: .large))
     }
 
     private func partyButton(
         playerCount: Int,
         title: String,
-        systemImage: String,
-        tint: GameAccent
+        systemImage: String
     ) -> some View {
         Button {
             onParty(playerCount)
         } label: {
             Label(title, systemImage: systemImage)
         }
-        .buttonStyle(.game(.secondary, tint: tint, size: .large))
+        .buttonStyle(.game(.secondary, tint: .first, size: .large))
     }
 
-    @ViewBuilder
-    private func networkButtons(supportsFourPlayerMode: Bool) -> some View {
-        if usesAccessibilityLayout {
-            VStack(spacing: 12) {
-                onlinePartyButton(supportsFourPlayerMode: supportsFourPlayerMode)
-                nearbyPartyButton(supportsFourPlayerMode: supportsFourPlayerMode)
-            }
-        } else {
-            HStack(spacing: 12) {
-                onlinePartyButton(supportsFourPlayerMode: supportsFourPlayerMode)
-                nearbyPartyButton(supportsFourPlayerMode: supportsFourPlayerMode)
-            }
+    private var onlinePartyButton: some View {
+        Button(action: onOnlineParty) {
+            Label("Online", systemImage: "antenna.radiowaves.left.and.right")
         }
-    }
-
-    private func onlinePartyButton(supportsFourPlayerMode: Bool) -> some View {
-        let title = supportsFourPlayerMode ? "Party online" : "Duel online"
-
-        return Button(action: onOnlineParty) {
-            Label(title, systemImage: "antenna.radiowaves.left.and.right")
-        }
-        .buttonStyle(.game(.secondary, tint: .first))
+        .buttonStyle(.game(.secondary, tint: .first, size: .large))
         .disabled(!GameCenterManager.shared.isAuthenticated)
     }
 
     /// Devices in the same room, over Wi-Fi and Bluetooth. Needs no Game
     /// Center sign-in and no internet, so it is never disabled.
-    private func nearbyPartyButton(supportsFourPlayerMode: Bool) -> some View {
+    private var nearbyPartyButton: some View {
         Button(action: onNearbyParty) {
-            Label(supportsFourPlayerMode ? "Party offline" : "Duel offline", systemImage: "wifi.slash")
+            Label("Same room", systemImage: "wifi")
         }
-        .buttonStyle(.game(.secondary, tint: .first))
-    }
-
-    @ViewBuilder
-    private var learningButtons: some View {
-        if usesAccessibilityLayout {
-            VStack(spacing: 12) {
-                trainingButton
-                playStyleButton
-            }
-        } else {
-            HStack(spacing: 12) {
-                trainingButton
-                playStyleButton
-            }
-        }
+        .buttonStyle(.game(.secondary, tint: .first, size: .large))
     }
 
     private var trainingButton: some View {
         Button {
             showTraining = true
         } label: {
-            Label(usesAccessibilityLayout ? "Training" : "Is this a set?", systemImage: "questionmark.square.dashed")
+            Label("Is this a set?", systemImage: "graduationcap.fill")
         }
-        .buttonStyle(.game(.quiet, tint: .third, size: .compact))
-    }
-
-    private var playStyleButton: some View {
-        Button {
-            showPlayStyle = true
-        } label: {
-            Label(usesAccessibilityLayout ? "Play style" : "Your play style", systemImage: "chart.bar.xaxis")
-        }
-        .buttonStyle(.game(.quiet, tint: .second, size: .compact))
-    }
-
-    @ViewBuilder
-    private var utilityButtons: some View {
-        if usesAccessibilityLayout {
-            VStack(spacing: 12) {
-                rulesButton
-                leaderboardButton
-                settingsButton
-            }
-        } else {
-            HStack(spacing: 12) {
-                rulesButton
-                leaderboardButton
-                settingsButton
-            }
-        }
-    }
-
-    private var rulesButton: some View {
-        Button {
-            showRules = true
-        } label: {
-            Label("Rules", systemImage: "questionmark.circle")
-        }
-        .buttonStyle(.game(.quiet, size: .compact))
-    }
-
-    private var leaderboardButton: some View {
-        Button {
-            onLeaderboards()
-        } label: {
-            Label("Leaderboard", systemImage: "trophy")
-        }
-        .buttonStyle(.game(.quiet, size: .compact))
-        .disabled(!GameCenterManager.shared.isAuthenticated)
-    }
-
-    private var settingsButton: some View {
-        Button {
-            showSettings = true
-        } label: {
-            Image(systemName: "gearshape")
-        }
-        .buttonStyle(.game(.quiet, size: .icon))
-        .accessibilityLabel("Settings")
+        .buttonStyle(.game(.secondary, tint: .second, size: .large))
     }
 
     /// Always a valid EST, re-rolled on the same beat as the name shuffle.

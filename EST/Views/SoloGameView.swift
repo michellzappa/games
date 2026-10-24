@@ -82,7 +82,10 @@ struct SoloGameView: View {
             PilesView(engine: engine)
                 .padding(.horizontal, 6)
         }
-        .padding()
+        // The game hides the status bar, so the HUD and piles reach the
+        // screen corners. Large rounded displays (iPad, open iPhone Duo)
+        // need a wider margin to keep the corner buttons off the curve.
+        .padding(horizontalSizeClass == .regular ? 28 : 16)
         .coordinateSpace(name: "game")
         .onPreferenceChange(PileFramesKey.self) { pileFrames = $0 }
         .background(Appearance.shared.gameBackground)

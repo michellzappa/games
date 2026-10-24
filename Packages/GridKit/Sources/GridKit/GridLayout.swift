@@ -34,6 +34,22 @@ public struct GridLayout: Equatable {
         return GridLayout(columns: columns, rows: rows, gap: gap, side: max(1, min(bySide, maximumSide)))
     }
 
+    /// The bigger fit of `count` cells in `lines` columns or in `lines` rows.
+    /// A wide window, such as iPad landscape or the open iPhone Duo, gets
+    /// the board on its side. A tie keeps `lines` columns.
+    public static func fitting(
+        count: Int,
+        lines: Int,
+        gap: CGFloat,
+        in size: CGSize,
+        maximumSide: CGFloat = .infinity
+    ) -> GridLayout {
+        let across = rows(for: count, columns: lines)
+        let upright = fitting(columns: lines, rows: across, gap: gap, in: size, maximumSide: maximumSide)
+        let sideways = fitting(columns: across, rows: lines, gap: gap, in: size, maximumSide: maximumSide)
+        return sideways.side > upright.side ? sideways : upright
+    }
+
     /// Rows needed for `count` cells in `columns` columns, at least one.
     public static func rows(for count: Int, columns: Int) -> Int {
         max(1, Int((Double(count) / Double(max(1, columns))).rounded(.up)))

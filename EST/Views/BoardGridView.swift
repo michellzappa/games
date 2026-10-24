@@ -2,7 +2,8 @@ import GameShell
 import GridKit
 import SwiftUI
 
-/// The table: 3 columns, rows grow as the engine deals (12, 15, ...).
+/// The table: 3 columns, rows grow as the engine deals (12, 15, ...). A wide
+/// window turns it on its side: 3 rows, columns grow instead.
 /// Sizes cards to fit both width and height, no scrolling.
 /// Takes plain values so it renders local engines and remote snapshots alike.
 ///
@@ -113,11 +114,11 @@ struct BoardGridView: View {
 
     var body: some View {
         GeometryReader { proxy in
-            let columns = 3
-            let rows = GridLayout.rows(for: table.count, columns: columns)
             let layout = GridLayout.fitting(
-                columns: columns, rows: rows, gap: gap, in: proxy.size, maximumSide: maximumCardSide
+                count: table.count, lines: 3, gap: gap, in: proxy.size, maximumSide: maximumCardSide
             )
+            let columns = layout.columns
+            let rows = layout.rows
             let side = layout.side
             let gridWidth = layout.width
             let gridHeight = layout.height

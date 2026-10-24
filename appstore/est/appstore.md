@@ -28,7 +28,7 @@ THREE WAYS TO PLAY
 
 • Solo 81: clear the whole deck against the clock. Play a run without hints and your best time goes to the Game Center leaderboard.
 • Quick 27: the 27 solid cards, nine on the table, for a shorter round.
-• Duel: race someone on one phone, or on two devices. Play online over Game Center, or offline over Wi-Fi and Bluetooth when you have no signal. On iPad, four players share one table.
+• Duel: race someone on one phone, or on two devices. Play online over Game Center, or offline over Wi-Fi and Bluetooth when you have no signal. On iPad and an open iPhone Duo, four players share one table.
 
 LEARN THE RULE
 
@@ -54,15 +54,13 @@ trio,shapes,symbols,matching,brain,teaser,logic,math,deduction,duel,party,two pl
 
 ### release_notes
 
-Two devices can now play without internet, so a duel works on a plane or on the subway. Tap Duel offline on both. One of you hosts a table and the other joins it. The devices connect over Wi-Fi and Bluetooth, and you don't need a Game Center account.
+EST now runs on iPhone Duo. Open the phone and the game fills the inner screen. In Solo, the deck and the played pile sit beside the board, so the cards get bigger. Closed, it plays like any iPhone.
 
-On iPad, tap Party offline and up to four players can join one table.
+The home screen is simpler. Pick Solo or Together, then pick a game. Rules, stats and settings moved to the top bar, and the leaderboard now lives inside Stats.
 
-The Game Center option is now called Duel online. It works the same as before.
+On iPad in landscape, the board turns on its side and the cards get bigger there too.
 
-New training mode: Is this a set? It shows three cards, you answer, and it explains each trait. Most wrong answers are near misses, where one trait breaks the set. Your best streak is saved.
-
-In a two-device duel, the board now stays put when someone presses SET.
+Duel offline and Party offline are now called Same room.
 
 ### support_url
 

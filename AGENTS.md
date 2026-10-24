@@ -349,16 +349,25 @@ uploads it:
    N --metadata-dir appstore/est/metadata --wait`, then
    `./scripts/appstore.sh est submit`.
 
-iPhone Duo (2026-10-24). App Store Connect accepts Xcode 27.1 release builds
-since 2026-10-15. Only an iOS 27.1 SDK binary fills the Duo inner display:
-a 26.x binary runs in a 375 x 667 phone window with black borders, so the
-mini route above makes a build that is not Duo-ready. This Mac's Xcode 27.1
-(27A9269) was installed 2026-09-16, before the release, and is the build App
-Store Connect refused. Archive Duo-ready builds here only after the Xcode 27.1
-release is installed. The inner display ignores the iPhone portrait lock and
-reports regular width and height, so EST gets its iPad layouts there. Size
-decisions read the window, never `UIScreen.main`, because the window changes
-when the player opens or closes the device.
+iPhone Duo (2026-10-24). Only an iOS 27.1 SDK binary fills the Duo inner
+display: a 26.x binary runs in a 375 x 667 phone window with black borders.
+This Mac now has the Xcode 27.1 release from the App Store (27A9275), and App
+Store Connect accepts its builds. EST 1.2.0 build 179 shipped with
+`./scripts/appstore.sh est publish` straight from this Mac. The mini route
+above is for Xcode 26.x builds only, and those are not Duo-ready.
+
+- The inner display ignores the iPhone portrait lock and reports regular
+  width and height, so EST gets its iPad layouts there. Size decisions read
+  the window, never `UIScreen.main`: the window changes when the player opens
+  or closes the device.
+- Toolbar items move into the Duo side rail on their own. Home puts Rules,
+  Stats and Settings in `.toolbar` for that reason.
+- The Duo simulator needs the iOS 27.1 runtime, and that runtime runs only
+  the Duo; other iPhones use the 27.0 runtime. `simctl` cannot fold or
+  unfold: MZ does it in DeviceHub (`Xcode.app/Contents/Applications`), which
+  replaces the Simulator app in Xcode 27.
+- App Store Connect has an iPhone Duo screenshot type. Apple requires it from
+  April 2027 for 27.1 SDK apps; `appstore/devices.mjs` has no Duo class yet.
 
 Each rule below comes from a failed attempt:
 

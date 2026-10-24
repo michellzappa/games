@@ -44,7 +44,7 @@ struct PartyGameView: View {
                 }
             }
         }
-        .padding()
+        .gameScreenPadding()
         .coordinateSpace(name: "game")
         .onPreferenceChange(PileFramesKey.self) { pileFrames = $0 }
         .background(Appearance.shared.gameBackground)

@@ -82,26 +82,41 @@ struct PilesView: View {
 
     var body: some View {
         HStack(alignment: .pileCardCenter, spacing: 14) {
-            PileStack(
-                label: "deck",
-                count: deckCount,
-                topFace: nil,
-                frameTarget: .draw
-            )
-            DeckProgressBar(
-                deckCount: deckCount,
-                doneCount: doneCount,
-                setsOnTable: setsOnTable,
-                totalCards: totalCards
-            )
-            .frame(maxWidth: .infinity)
-            PileStack(
-                label: "played",
-                count: doneCount,
-                topFace: doneTop,
-                frameTarget: .done
-            )
+            deckPile
+            progressBar
+                .frame(maxWidth: .infinity)
+            playedPile
         }
+    }
+
+    // The three parts on their own, for a wide solo screen that puts the
+    // piles beside the board instead of under it.
+
+    var deckPile: some View {
+        PileStack(
+            label: "deck",
+            count: deckCount,
+            topFace: nil,
+            frameTarget: .draw
+        )
+    }
+
+    var playedPile: some View {
+        PileStack(
+            label: "played",
+            count: doneCount,
+            topFace: doneTop,
+            frameTarget: .done
+        )
+    }
+
+    var progressBar: some View {
+        DeckProgressBar(
+            deckCount: deckCount,
+            doneCount: doneCount,
+            setsOnTable: setsOnTable,
+            totalCards: totalCards
+        )
     }
 }
 

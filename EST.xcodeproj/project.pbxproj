@@ -22,6 +22,7 @@
 		28558ED4125F2898E547E3B6 /* DIGLeaderboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A991875A1F0A73F305C90B8 /* DIGLeaderboardView.swift */; };
 		2BAABEFD4BABA40A79640CD6 /* ScreenshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5F124673A85426DAE3666DC /* ScreenshotTests.swift */; };
 		2C74147F4568340B7D22B01B /* DIGTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45E14C7D29A41838F6EC573 /* DIGTitleView.swift */; };
+		2D4DB4A34C3213A613C99F0B /* GameScreenPadding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BFA4C3B66688401CA08C35C /* GameScreenPadding.swift */; };
 		34D5EEDF027658B338D7B528 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2477202E22AC8D7CB6C56AC /* TitleView.swift */; };
 		396A787E979D4A51A2C4EF31 /* PartyGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A1D2288F1C5BD10CE53315 /* PartyGameView.swift */; };
 		3AABDEB0CEC2DD196C930785 /* NetMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E3799FD9463E030E3027C6 /* NetMessages.swift */; };
@@ -138,6 +139,7 @@
 		349C9476D1BC4C722BC68964 /* MineBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineBoard.swift; sourceTree = "<group>"; };
 		37C7ADDBE35F1CE8D088AA66 /* SEEP.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = SEEP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A991875A1F0A73F305C90B8 /* DIGLeaderboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIGLeaderboardView.swift; sourceTree = "<group>"; };
+		3BFA4C3B66688401CA08C35C /* GameScreenPadding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenPadding.swift; sourceTree = "<group>"; };
 		3F6245A28B44CBA278406DCC /* FloodTutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloodTutorialView.swift; sourceTree = "<group>"; };
 		41A1D2288F1C5BD10CE53315 /* PartyGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartyGameView.swift; sourceTree = "<group>"; };
 		4668A9FEC3F66FFB59730F80 /* SoloGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloGameView.swift; sourceTree = "<group>"; };
@@ -464,6 +466,7 @@
 				472C464CD1AE63569E3EA136 /* CardView.swift */,
 				AF5BB501A834D29F5AC96B7B /* ESTLeaderboardView.swift */,
 				1BDF21CDFB2EE84BEFB88CC4 /* ESTSettingsView.swift */,
+				3BFA4C3B66688401CA08C35C /* GameScreenPadding.swift */,
 				DA14A00FCA84303D9FE935EE /* MatchmakerView.swift */,
 				AAAE8F2196DBE8C0450FFC3A /* NearbyLobbyView.swift */,
 				FAA995D31A2630A3B6953886 /* NetworkPartyGameView.swift */,
@@ -787,6 +790,7 @@
 				173FAD4D384AB24A359FFEBE /* ESTSettingsView.swift in Sources */,
 				A7430579CA5981FECF598754 /* FourDimensionalProjectionView.swift in Sources */,
 				4C0A8911E947E1CE42E9AF30 /* GameEngine.swift in Sources */,
+				2D4DB4A34C3213A613C99F0B /* GameScreenPadding.swift in Sources */,
 				A8D040A4698E0B208BF5D8E7 /* MatchmakerView.swift in Sources */,
 				B05057B7F00E573E83C3769D /* MathVisualizerView.swift in Sources */,
 				FC50C1BFF519F76BB2521111 /* NearbyLobbyView.swift in Sources */,
@@ -1060,7 +1064,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 177;
+				CURRENT_PROJECT_VERSION = 178;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EST/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;
@@ -1142,7 +1146,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = EST/EST.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 177;
+				CURRENT_PROJECT_VERSION = 178;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EST/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = EST;

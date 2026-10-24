@@ -18,6 +18,7 @@ struct SoloGameView: View {
     @State private var lastMatchElapsed: TimeInterval = 0
     /// How the card symbols face. A quarter turn per tap.
     @State private var boardRotation: Angle = .zero
+    @State private var isWide = false
     @Environment(\.scenePhase) private var scenePhase
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @AppStorage("hapticsEnabled") private var hapticsEnabled = true
@@ -41,51 +42,71 @@ struct SoloGameView: View {
         return Set(engine.table.prefix(3).map(\.id))
     }
 
+    private var board: some View {
+        BoardGridView(
+            engine: engine,
+            selectedIDsOverride: screenshotSelectedIDs,
+            hintedIDs: hintedIDs,
+            pileFrames: pileFrames,
+            isInteractive: !engine.isFinished && !engine.isPaused,
+            // Solo gives the board the whole screen, so the ceiling is what
+            // stops a card reaching a third of an iPad's width.
+            maximumCardSide: horizontalSizeClass == .regular
+                ? BoardGridView.regularMaximumCardSide
+                : BoardGridView.compactMaximumCardSide
+        ) { card in
+            select(card)
+        }
+        .overlay(alignment: .bottom) {
+            MismatchExplainer(reasons: engine.mismatchReasons, token: engine.mismatchToken)
+                .padding(.bottom, 6)
+        }
+        .overlay {
+            if engine.isPaused {
+                VStack(spacing: 8) {
+                    Image(systemName: "pause.circle.fill")
+                        .font(.largeTitle)
+                    Text("Paused")
+                        .font(.headline)
+                        .textCase(.uppercase)
+                }
+                .foregroundStyle(.secondary)
+                .padding(28)
+                .glassPanel(cornerRadius: 20)
+                .transition(.scale(scale: 0.9).combined(with: .opacity))
+            }
+        }
+        .animation(.spring(duration: 0.3), value: engine.isPaused)
+        .environment(\.estCardRotation, boardRotation)
+    }
+
     var body: some View {
-        VStack(spacing: 12) {
-            hud
-            BoardGridView(
-                engine: engine,
-                selectedIDsOverride: screenshotSelectedIDs,
-                hintedIDs: hintedIDs,
-                pileFrames: pileFrames,
-                isInteractive: !engine.isFinished && !engine.isPaused,
-                // Solo gives the board the whole screen, so the ceiling is what
-                // stops a card reaching a third of an iPad's width.
-                maximumCardSide: horizontalSizeClass == .regular
-                    ? BoardGridView.regularMaximumCardSide
-                    : BoardGridView.compactMaximumCardSide
-            ) { card in
-                select(card)
-            }
-            .overlay(alignment: .bottom) {
-                MismatchExplainer(reasons: engine.mismatchReasons, token: engine.mismatchToken)
-                    .padding(.bottom, 6)
-            }
-            .overlay {
-                if engine.isPaused {
-                    VStack(spacing: 8) {
-                        Image(systemName: "pause.circle.fill")
-                            .font(.largeTitle)
-                        Text("Paused")
-                            .font(.headline)
-                            .textCase(.uppercase)
+        let piles = PilesView(engine: engine)
+        Group {
+            if isWide {
+                // A wide window gives the height to the board: the piles move
+                // beside it and the progress bar sits under the HUD.
+                VStack(spacing: 12) {
+                    hud
+                    piles.progressBar
+                        .frame(maxWidth: 360)
+                    HStack(spacing: 24) {
+                        piles.deckPile
+                        board
+                        piles.playedPile
                     }
-                    .foregroundStyle(.secondary)
-                    .padding(28)
-                    .glassPanel(cornerRadius: 20)
-                    .transition(.scale(scale: 0.9).combined(with: .opacity))
+                }
+            } else {
+                VStack(spacing: 12) {
+                    hud
+                    board
+                    piles
+                        .padding(.horizontal, 6)
                 }
             }
-            .animation(.spring(duration: 0.3), value: engine.isPaused)
-            .environment(\.estCardRotation, boardRotation)
-            PilesView(engine: engine)
-                .padding(.horizontal, 6)
         }
-        // The game hides the status bar, so the HUD and piles reach the
-        // screen corners. Large rounded displays (iPad, open iPhone Duo)
-        // need a wider margin to keep the corner buttons off the curve.
-        .padding(horizontalSizeClass == .regular ? 28 : 16)
+        .onGeometryChange(for: Bool.self) { $0.size.width > $0.size.height } action: { isWide = $0 }
+        .gameScreenPadding()
         .coordinateSpace(name: "game")
         .onPreferenceChange(PileFramesKey.self) { pileFrames = $0 }
         .background(Appearance.shared.gameBackground)

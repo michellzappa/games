@@ -160,6 +160,9 @@ struct TitleView: View {
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 12)
+            // GeometryReader pins its content top-leading. Once the panel
+            // stops at its maximum width, it must still sit centered.
+            .frame(maxWidth: .infinity)
         }
     }
 

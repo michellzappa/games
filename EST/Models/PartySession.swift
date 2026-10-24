@@ -12,9 +12,11 @@ final class PartySession {
 
     /// iPad always offers the four-seat table, including narrow or rotated
     /// windows. Large, square-ish iPhone windows get the same option when
-    /// their available footprint can support a player on every edge.
-    static var playerCountOptions: [Int] {
-        supportsFourPlayerMode(in: UIScreen.main.bounds.size)
+    /// their available footprint can support a player on every edge. The
+    /// size is the window, never the screen: iPhone Duo changes it when the
+    /// player opens or closes the device.
+    static func playerCountOptions(in size: CGSize) -> [Int] {
+        supportsFourPlayerMode(in: size)
             ? [minimumPlayerCount, maximumPlayerCount]
             : [minimumPlayerCount]
     }
@@ -44,8 +46,8 @@ final class PartySession {
     /// Game Center can fill any match from the minimum to the device's
     /// supported maximum. The protocol and host authority already handle the
     /// whole roster; this is only the matchmaking request's upper bound.
-    static var matchmakingMaximumPlayerCount: Int {
-        playerCountOptions.last ?? minimumPlayerCount
+    static func matchmakingMaximumPlayerCount(in size: CGSize) -> Int {
+        playerCountOptions(in: size).last ?? minimumPlayerCount
     }
 
     struct Player: Identifiable {

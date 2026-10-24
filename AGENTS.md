@@ -349,6 +349,17 @@ uploads it:
    N --metadata-dir appstore/est/metadata --wait`, then
    `./scripts/appstore.sh est submit`.
 
+iPhone Duo (2026-10-24). App Store Connect accepts Xcode 27.1 release builds
+since 2026-10-15. Only an iOS 27.1 SDK binary fills the Duo inner display:
+a 26.x binary runs in a 375 x 667 phone window with black borders, so the
+mini route above makes a build that is not Duo-ready. This Mac's Xcode 27.1
+(27A9269) was installed 2026-09-16, before the release, and is the build App
+Store Connect refused. Archive Duo-ready builds here only after the Xcode 27.1
+release is installed. The inner display ignores the iPhone portrait lock and
+reports regular width and height, so EST gets its iPad layouts there. Size
+decisions read the window, never `UIScreen.main`, because the window changes
+when the player opens or closes the device.
+
 Each rule below comes from a failed attempt:
 
 - Use `ssh -4`. `mini4p.local` also resolves to an IPv6 address that does

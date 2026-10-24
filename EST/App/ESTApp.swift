@@ -43,6 +43,9 @@ struct RootView: View {
     @State private var showLeaderboards = false
     @State private var showSettings = false
     @State private var networkSession: NetworkPartySession?
+    /// The window size, for the matchmaking player cap. TitleView reads the
+    /// same size for its four-player buttons, so the two always agree.
+    @State private var windowSize: CGSize = .zero
     /// First launch opens the tutorial over the title screen. Set once the
     /// learner finishes or skips it; the rules sheet replays it on demand.
     @AppStorage("hasSeenTutorial") private var hasSeenTutorial = false
@@ -128,6 +131,7 @@ struct RootView: View {
         // The child screens all use this same color, so there is no white
         // strip above the title or game board.
         .background(Appearance.shared.gameBackground.ignoresSafeArea())
+        .onGeometryChange(for: CGSize.self) { $0.size } action: { windowSize = $0 }
         .animation(.spring(duration: 0.4), value: screen)
         .environment(\.estReduceMotion, effectiveReduceMotion)
         .environment(\.estHighContrast, effectiveHighContrast)
@@ -147,7 +151,7 @@ struct RootView: View {
             MatchmakerView(
                 configuration: MatchmakerConfiguration(
                     minimumPlayers: PartySession.minimumPlayerCount,
-                    maximumPlayers: PartySession.matchmakingMaximumPlayerCount
+                    maximumPlayers: PartySession.matchmakingMaximumPlayerCount(in: windowSize)
                 ),
                 onMatch: { match in
                     showMatchmaker = false
@@ -160,7 +164,7 @@ struct RootView: View {
         }
         .sheet(isPresented: $showNearby) {
             NearbyLobbyView(
-                maximumPlayers: PartySession.matchmakingMaximumPlayerCount,
+                maximumPlayers: PartySession.matchmakingMaximumPlayerCount(in: windowSize),
                 onStart: { party in
                     showNearby = false
                     networkSession = NetworkPartySession(transport: party)

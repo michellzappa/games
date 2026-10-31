@@ -1,4 +1,5 @@
 import GameShell
+import GridKit
 import SwiftUI
 
 struct SoloGameView: View {
@@ -6,6 +7,12 @@ struct SoloGameView: View {
     /// Set by the title screen's Resume entry. The run is read once, on
     /// appear; the store is the source, not this flag.
     var resumesSavedRun = false
+    /// Today's shared deal: full deck, seeded by the UTC day. Never saved,
+    /// never ranked; it keeps a daily best and a streak in DailyStore.
+    var isDaily = false
+    /// The day the current daily was dealt, so a finish after midnight still
+    /// counts for the deal it played.
+    @State private var dailyDealtOn = Date.now
     @State private var engine = GameEngine()
     @AppStorage("bestSoloTime") private var bestFullTime: Double = 0
     @AppStorage("bestQuickTime") private var bestQuickTime: Double = 0
@@ -36,7 +43,8 @@ struct SoloGameView: View {
     var onExit: () -> Void
 
     private var bestTime: Double {
-        variant == .quick ? bestQuickTime : bestFullTime
+        if isDaily { return DailyStore.best(on: dailyDealtOn) ?? 0 }
+        return variant == .quick ? bestQuickTime : bestFullTime
     }
 
     private var leaderboardID: String {
@@ -122,7 +130,8 @@ struct SoloGameView: View {
         .background(Appearance.shared.gameBackground)
         .confirmationDialog("End this game?", isPresented: $showExitConfirm, titleVisibility: .visible) {
             Button("End game", role: .destructive) {
-                SoloRunStore.clear()
+                // A daily is never saved, so the saved solo run stays.
+                if !isDaily { SoloRunStore.clear() }
                 onExit()
             }
             Button("Keep playing", role: .cancel) {}
@@ -189,6 +198,8 @@ struct SoloGameView: View {
                     hintUsed: hintUsed,
                     runWasPaused: engine.wasPaused,
                     insight: runInsight,
+                    isDaily: isDaily,
+                    dailyStreak: isDaily ? DailyStore.streak() : 0,
                     leaderboardID: leaderboardID,
                     onPlayAgain: {
                         submittedScore = false
@@ -197,12 +208,9 @@ struct SoloGameView: View {
                         hintSet = []
                         runInsight = RunInsight()
                         lastMatchElapsed = 0
-                        engine.start(variant: variant, quickTrait: quickTrait)
+                        startRun()
                         saveRun()
-                        ESTTelemetry.record(.gamesStarted)
-                        ESTTelemetry.record(variant == .quick
-                            ? .quickSoloStarted
-                            : .fullSoloStarted)
+                        recordStart()
                     },
                     onExit: onExit
                 )
@@ -213,16 +221,13 @@ struct SoloGameView: View {
             // The engine advances by itself when a celebration ends. That is
             // the moment the table changes, so it is the moment to save.
             engine.onAutoAdvance = { saveRun() }
-            if resumesSavedRun, let run = SoloRunStore.load() {
+            if !isDaily, resumesSavedRun, let run = SoloRunStore.load() {
                 hintUsed = run.hintUsed
                 engine.restore(run)
             } else {
-                engine.start(variant: variant, quickTrait: quickTrait)
+                startRun()
             }
-            ESTTelemetry.record(.gamesStarted)
-            ESTTelemetry.record(variant == .quick
-                ? .quickSoloStarted
-                : .fullSoloStarted)
+            recordStart()
             saveRun()
         }
         .onDisappear {
@@ -238,13 +243,13 @@ struct SoloGameView: View {
         }
         .onChange(of: engine.isFinished) { _, finished in
             if finished {
-                SoloRunStore.clear()
+                if !isDaily { SoloRunStore.clear() }
                 GameAudio.shared.play(.completion)
                 PlayerStats.shared.recordCompletedRound(variant)
                 ESTTelemetry.record(.gamesCompleted)
-                ESTTelemetry.record(variant == .quick
-                    ? .quickSoloCompleted
-                    : .fullSoloCompleted)
+                ESTTelemetry.record(isDaily
+                    ? .dailyCompleted
+                    : variant == .quick ? .quickSoloCompleted : .fullSoloCompleted)
                 Task {
                     await TelemetryCoordinator.shared.flushCurrentPeriod()
                 }
@@ -252,6 +257,12 @@ struct SoloGameView: View {
             guard finished, !submittedScore else { return }
             submittedScore = true
             let time = engine.elapsed()
+            if isDaily {
+                // A daily can be replayed and learned: it keeps its own best
+                // and streak and never reaches Game Center.
+                DailyStore.recordFinish(time: time, dealtOn: dailyDealtOn)
+                return
+            }
             if bestTime == 0 || time < bestTime {
                 if variant == .quick {
                     bestQuickTime = time
@@ -310,7 +321,7 @@ struct SoloGameView: View {
                 }
                 if variant == .full {
                     Button {
-                        if hintUsed {
+                        if hintUsed || isDaily {
                             revealHint()
                         } else {
                             showHintWarning = true
@@ -335,6 +346,7 @@ struct SoloGameView: View {
     /// running. Without Game Center nothing is ranked, so nothing is marked.
     private var isUnranked: Bool {
         GameCenterManager.shared.isAuthenticated
+            && !isDaily
             && !engine.isFinished
             && (hintUsed || engine.wasPaused)
     }
@@ -357,7 +369,25 @@ struct SoloGameView: View {
     }
 
     private func saveRun() {
+        guard !isDaily else { return }
         SoloRunStore.save(engine.savedRun(hintUsed: hintUsed))
+    }
+
+    private func startRun() {
+        if isDaily {
+            dailyDealtOn = .now
+            var generator = DailyStore.generator(for: dailyDealtOn)
+            engine.start(variant: .full, using: &generator)
+        } else {
+            engine.start(variant: variant, quickTrait: quickTrait)
+        }
+    }
+
+    private func recordStart() {
+        ESTTelemetry.record(.gamesStarted)
+        ESTTelemetry.record(isDaily
+            ? .dailyStarted
+            : variant == .quick ? .quickSoloStarted : .fullSoloStarted)
     }
 
     private func select(_ card: Card) {
@@ -396,6 +426,8 @@ struct SoloGameOverView: View {
     var hintUsed = false
     var runWasPaused = false
     var insight = RunInsight()
+    var isDaily = false
+    var dailyStreak = 0
     var leaderboardID = ESTLeaderboard.soloCompletionTimeID
     let onPlayAgain: () -> Void
     let onExit: () -> Void
@@ -433,7 +465,7 @@ struct SoloGameOverView: View {
     private var card: some View {
         VStack(spacing: 20) {
             VaryingTitleView(fontSize: 40)
-            Text("Complete")
+            Text(isDaily ? "Daily complete" : "Complete")
                 .font(.caption.weight(.semibold))
                 .textCase(.uppercase)
                 .foregroundStyle(.secondary)
@@ -468,12 +500,25 @@ struct SoloGameOverView: View {
             if bestTime > 0 {
                 // A personal best is the good news on the card, so it reads
                 // as a highlight rather than as another gray footnote.
-                Text(time <= bestTime ? "New personal best" : "Best: \(TimeFormat.clock(bestTime))")
+                Text(time <= bestTime
+                    ? (isDaily ? "Today's best" : "New personal best")
+                    : (isDaily ? "Today's best: " : "Best: ") + TimeFormat.clock(bestTime))
                     .font(.subheadline.weight(.bold))
                     .foregroundStyle(time <= bestTime ? Card.Tint.yellow.color : Color.primary.opacity(0.85))
             }
 
-            if hintUsed {
+            if isDaily {
+                Label(
+                    dailyStreak == 1 ? "1 day streak" : "\(dailyStreak) day streak",
+                    systemImage: "flame.fill"
+                )
+                .font(.footnote.weight(.semibold))
+                .foregroundStyle(Card.Tint.red.color)
+                Text("Same deal for everyone today. Dailies stay off the leaderboard.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .multilineTextAlignment(.center)
+            } else if hintUsed {
                 Label("Hint used. This run was not submitted.", systemImage: "lightbulb.fill")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.orange)
@@ -487,7 +532,7 @@ struct SoloGameOverView: View {
                 Button("Play again", action: onPlayAgain)
                     .buttonStyle(.game(.primary, tint: .second, size: .large))
 
-                if GameCenterManager.shared.isAuthenticated {
+                if GameCenterManager.shared.isAuthenticated, !isDaily {
                     Button("Leaderboard") {
                         GameCenterManager.shared.showLeaderboard(id: leaderboardID)
                     }

@@ -190,6 +190,8 @@ public enum ESTTelemetry {
         case leaderboardViewed = "leaderboard_viewed"
         case leaderboardSubmitted = "leaderboard_submitted"
         case leaderboardSubmitFailed = "leaderboard_submit_failed"
+        case dailyStarted = "daily_started"
+        case dailyCompleted = "daily_completed"
     }
 
     private struct ActivityState: Codable {

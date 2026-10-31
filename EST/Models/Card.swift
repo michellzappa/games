@@ -259,14 +259,48 @@ struct Card: Identifiable, Hashable {
         return [a, b, broken].shuffled()
     }
 
+    /// A near miss that breaks exactly `trait`. Builds a set that holds the
+    /// trait constant, then nudges the third card on it: the trait becomes a
+    /// two-and-one split and the other three stay valid.
+    static func nearMissTrio(breaking trait: Trait) -> [Card] {
+        let index = trait.rawValue
+        let a = fullDeck.randomElement()!
+        let partners = fullDeck.filter { $0 != a && $0.trits[index] == a.trits[index] }
+        let b = partners.randomElement()!
+        var trits = completing(a, b).trits
+        trits[index] = (trits[index] + 1) % 3
+        let broken = Card(
+            count: trits[0] + 1,
+            tint: Tint(rawValue: trits[1])!,
+            symbol: Symbol(rawValue: trits[2])!,
+            fill: Fill(rawValue: trits[3])!
+        )
+        return [a, b, broken].shuffled()
+    }
+
     /// One question for the training drill. Half are sets. Of the rest, most
     /// are near misses with exactly one broken trait, because those teach the
     /// eye; the others are any three cards that fail.
-    static func trainingTrio() -> (cards: [Card], isSet: Bool) {
+    ///
+    /// `missesByTrait` (Card.audit order) leans the near misses toward the
+    /// traits the player gets wrong in play. Every trait keeps a weight of at
+    /// least one, so none disappears from the drill.
+    static func trainingTrio(missesByTrait: [Int] = []) -> (cards: [Card], isSet: Bool) {
         if Bool.random() {
             return (randomValidSet(), true)
         }
         if Int.random(in: 0..<4) > 0 {
+            guard missesByTrait.count == Trait.allCases.count,
+                  missesByTrait.contains(where: { $0 > 0 })
+            else { return (nearMissTrio(), false) }
+            let weights = missesByTrait.map { max(0, $0) + 1 }
+            var pick = Int.random(in: 0..<weights.reduce(0, +))
+            for trait in Trait.allCases {
+                pick -= weights[trait.rawValue]
+                if pick < 0 {
+                    return (nearMissTrio(breaking: trait), false)
+                }
+            }
             return (nearMissTrio(), false)
         }
         while true {

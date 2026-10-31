@@ -45,4 +45,26 @@ final class CardTests: XCTestCase {
 
         XCTAssertEqual(card.accessibilityDescription, "three blue solid triangles")
     }
+
+    func testNearMissBreaksOnlyTheChosenTrait() {
+        for trait in Card.Trait.allCases {
+            for _ in 0..<50 {
+                let trio = Card.nearMissTrio(breaking: trait)
+                XCTAssertEqual(Set(trio).count, 3)
+                let broken = Card.audit(trio[0], trio[1], trio[2])
+                    .enumerated()
+                    .filter { !$0.element.isValid }
+                    .map { $0.offset }
+                XCTAssertEqual(broken, [trait.rawValue])
+            }
+        }
+    }
+
+    func testTrainingNeverOffersAFalseNonSet() {
+        for _ in 0..<200 {
+            let question = Card.trainingTrio(missesByTrait: [0, 9, 0, 0])
+            let cards = question.cards
+            XCTAssertEqual(Card.isValidSet(cards[0], cards[1], cards[2]), question.isSet)
+        }
+    }
 }

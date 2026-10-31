@@ -183,7 +183,8 @@ iPhone and iPad are both mandatory while TARGETED_DEVICE_FAMILY is "1,2".
 - Leaderboards go live only when they are added to an app version in App
   Store Connect (version page, Game Center section) and that version is
   submitted. `scripts/appstore.sh setup` creates them but does not attach
-  them.
+  them, so `submit` stops until `LEADERBOARDS_ATTACHED=1` says someone
+  checked.
 - Game Center leaderboard IDs: `est.solo.completion.time` (full 81-card solo)
   and `est.quick.completion.time` (Quick 27). Scores are centiseconds
   (elapsed-time format, ascending). Both must be created in App Store Connect

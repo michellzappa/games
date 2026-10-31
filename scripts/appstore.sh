@@ -297,6 +297,17 @@ submit_app() {
   local build_id
   build_id="$(asc builds info --app "$app_id" --latest --version "$VERSION" --platform IOS --output json | jq -r '.data.id // empty')"
   [ -n "$build_id" ] || { echo "No processed build found for $VERSION"; exit 1; }
+  # Leaderboards go live only with a version that includes them (version
+  # page, Game Center section). setup creates them but cannot attach them.
+  # Stop until someone has checked that section.
+  local leaderboard_count
+  leaderboard_count="$(app_json '.leaderboards | length')"
+  if [ "$leaderboard_count" -gt 0 ] && [ "${LEADERBOARDS_ATTACHED:-}" != "1" ]; then
+    echo "✗ In App Store Connect, open $VERSION, Game Center section, and add:" >&2
+    app_json '.leaderboards[].vendorId' | sed 's/^/    /' >&2
+    echo "  Then rerun with LEADERBOARDS_ATTACHED=1." >&2
+    exit 1
+  fi
   asc review submit \
     --app "$app_id" \
     --version "$VERSION" \

@@ -21,6 +21,7 @@ const PRODUCTS = {
       "local_duel_started", "local_duel_completed",
       "network_duel_started", "network_duel_completed",
       "leaderboard_submitted", "leaderboard_submit_failed",
+      "daily_started", "daily_completed",
     ]),
     features: new Set([
       ...CORE_FEATURES,

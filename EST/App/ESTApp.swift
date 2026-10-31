@@ -33,6 +33,7 @@ struct RootView: View {
         case title
         case solo(GameEngine.Variant)
         case resumeSolo(GameEngine.Variant)
+        case daily
         case party(Int)
         case networkParty
     }
@@ -69,7 +70,7 @@ struct RootView: View {
     private var isGameScreen: Bool {
         switch screen {
         case .title: false
-        case .solo, .resumeSolo, .party, .networkParty: true
+        case .solo, .resumeSolo, .daily, .party, .networkParty: true
         }
     }
 
@@ -96,6 +97,7 @@ struct RootView: View {
                 TitleView(
                     onSolo: { screen = .solo(.full) },
                     onQuickSolo: { screen = .solo(.quick) },
+                    onDaily: { screen = .daily },
                     onParty: { screen = .party($0) },
                     onOnlineParty: { showMatchmaker = true },
                     onNearbyParty: { showNearby = true },
@@ -114,6 +116,9 @@ struct RootView: View {
                     onExit: { screen = .title }
                 )
                 .transition(.move(edge: .trailing).combined(with: .opacity))
+            case .daily:
+                SoloGameView(isDaily: true, onExit: { screen = .title })
+                    .transition(.move(edge: .trailing).combined(with: .opacity))
             case .party(let count):
                 PartyGameView(playerCount: count, onExit: { screen = .title })
                     .transition(.move(edge: .trailing).combined(with: .opacity))

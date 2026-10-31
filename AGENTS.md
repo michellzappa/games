@@ -199,6 +199,12 @@ iPhone and iPad are both mandatory while TARGETED_DEVICE_FAMILY is "1,2".
   `RunInsight` holds one run's numbers for the game-over card.
 - `GameEngine.start(variant:using:)` takes a generator; `GameEngineTests`
   seeds it so every table-rule test reproduces.
+- The daily deal (`RootView.Screen.daily`, `SoloGameView(isDaily:)`) is the
+  full deck shuffled by `Seed.daily(salt: "est")` on the UTC day. It is never
+  saved (the saved solo run stays untouched), never ranked, and skips the
+  hint warning. `DailyStore` keeps today's best and a streak of consecutive
+  UTC days with a finished daily. Changing the salt or the shuffle changes
+  every player's daily.
 - Trait explanations come from `Card.audit(_:_:_:)`, which returns one
   `TraitVerdict` per trait. `violationDescriptions` and the tutorial's
   `TraitAuditView` both read it; do not restate the rule in a view.

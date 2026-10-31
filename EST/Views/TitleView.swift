@@ -47,6 +47,7 @@ struct VaryingTitleView: View {
 struct TitleView: View {
     var onSolo: () -> Void
     var onQuickSolo: () -> Void
+    var onDaily: () -> Void = {}
     var onParty: (Int) -> Void
     var onOnlineParty: () -> Void
     var onNearbyParty: () -> Void
@@ -258,6 +259,7 @@ struct TitleView: View {
                     quickSoloButton
                 }
                 quickTraitPicker
+                dailyButton
                 trainingButton
             case .together:
                 menuSection("This device") {
@@ -384,6 +386,19 @@ struct TitleView: View {
             Label("Same room", systemImage: "wifi")
         }
         .buttonStyle(.game(.secondary, tint: .first, size: .large))
+    }
+
+    /// Today's shared deal. Shows the streak, and a check once today's is
+    /// finished; it can still be replayed for a better time.
+    private var dailyButton: some View {
+        let streak = DailyStore.streak()
+        let title = DailyStore.isDone()
+            ? (streak > 1 ? "Daily done, \(streak) days" : "Daily done")
+            : (streak > 0 ? "Daily, \(streak) day streak" : "Daily deal")
+        return Button(action: onDaily) {
+            Label(title, systemImage: DailyStore.isDone() ? "checkmark.seal.fill" : "calendar")
+        }
+        .buttonStyle(.game(.secondary, tint: .third, size: .large))
     }
 
     private var trainingButton: some View {

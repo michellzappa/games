@@ -24,10 +24,11 @@ Twelve cards sit on the table. Three of them fit together. Your job is to see wh
 
 EST is a free card game about patterns. The deck has 81 cards, and every card combines a count, a color, a shape, and a fill. Three cards make a set when each trait is the same on all three or different on all three. If one trait splits two-and-one, they are not a set.
 
-THREE WAYS TO PLAY
+WAYS TO PLAY
 
 • Solo 81: clear the whole deck against the clock. Play a run without hints and your best time goes to the Game Center leaderboard.
 • Quick 27: 27 cards that share one trait (you choose which), nine on the table, for a shorter round.
+• Daily deal: the same shuffle for everyone each day, with a streak to keep.
 • Duel: race someone on one phone, or on two devices. Play online over Game Center, or offline over Wi-Fi and Bluetooth when you have no signal. On iPad and an open iPhone Duo, four players share one table.
 
 LEARN THE RULE
@@ -54,13 +55,15 @@ trio,shapes,symbols,matching,brain,teaser,logic,math,deduction,duel,party,two pl
 
 ### release_notes
 
-EST now runs on iPhone Duo. Open the phone and the game fills the inner screen. In Solo, the deck and the played pile sit beside the board, so the cards get bigger. Closed, it plays like any iPhone.
+New Daily deal: the same 81-card shuffle for everyone, every day. Your best time for the day and your streak are kept on your device.
 
-The home screen is simpler. Pick Solo or Together, then pick a game. Rules, stats and settings moved to the top bar, and the leaderboard now lives inside Stats.
+Quick 27 lets you choose which trait the deck holds: number, color, shape, or fill.
 
-On iPad in landscape, the board turns on its side and the cards get bigger there too.
+Leaderboard fixes. Checking Control Center, opening a menu, or tapping a dialog no longer takes a run off the leaderboard; only leaving the app does. A small mark beside the timer shows when a run won't count. Leaderboards now open from the top bar, and the Game Center button no longer covers the screen.
 
-Duel offline and Party offline are now called Same room.
+A second hint tap shows a second card of the same set.
+
+At the end of a run you see your fastest and slowest set and the trait you missed most. Stats adds your fastest set and your longest run without a miss. The Is this a set? drill now practices the trait you miss most.
 
 ### support_url
 

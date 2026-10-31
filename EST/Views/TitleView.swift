@@ -65,6 +65,7 @@ struct TitleView: View {
     /// Set by the Stats sheet's Leaderboard button. The app root presents
     /// the leaderboard, so it opens only after the Stats sheet is gone.
     @State private var opensLeaderboardsAfterStats = false
+    @AppStorage("quickTrait") private var quickTraitRaw = Card.Trait.fill.rawValue
 
     private enum HomeMenu {
         case root, solo, together
@@ -256,6 +257,7 @@ struct TitleView: View {
                     soloButton
                     quickSoloButton
                 }
+                quickTraitPicker
                 trainingButton
             case .together:
                 menuSection("This device") {
@@ -326,6 +328,24 @@ struct TitleView: View {
                 Label("Resume, \(found) of \(total)", systemImage: "play.fill")
             }
             .buttonStyle(.game(.primary, tint: .first, size: .large))
+        }
+    }
+
+    /// Quick 27 holds one trait constant. Every choice is the same game
+    /// underneath, but each looks different: one-symbol cards, one color,
+    /// one shape, or one fill.
+    private var quickTraitPicker: some View {
+        VStack(spacing: 6) {
+            Text("Quick 27 holds one trait")
+                .font(.footnote.weight(.semibold))
+                .textCase(.uppercase)
+                .foregroundStyle(.secondary)
+            Picker("Quick 27 holds", selection: $quickTraitRaw) {
+                ForEach(Card.Trait.allCases) { trait in
+                    Text(trait.name.capitalized).tag(trait.rawValue)
+                }
+            }
+            .pickerStyle(.segmented)
         }
     }
 
@@ -515,7 +535,7 @@ struct RulesView: View {
                         ruleRow(
                             "bolt.fill",
                             "Quick 27",
-                            "Play the 27 solid cards for a shorter, faster round."
+                            "Play 27 cards that share one trait, for a shorter, faster round. Pick which trait from the Solo menu."
                         )
                         ruleRow(
                             "person.2.fill",

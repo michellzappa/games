@@ -11,14 +11,16 @@ final class GameEngine {
         case mismatched([Card])
     }
 
-    /// Full: all 81 cards, 12 on the table. Quick: the 27 solid cards (the
-    /// fill trait is constant, so it drops out of the set logic), 9 on the
-    /// table. Same rules otherwise.
+    /// Full: all 81 cards, 12 on the table. Quick: 27 cards that hold one
+    /// trait constant (fill by default, the player can pick another), so it
+    /// drops out of the set logic; 9 on the table. Same rules otherwise.
     enum Variant: Int, Equatable {
         case full, quick
     }
 
     private(set) var variant: Variant = .full
+    /// The trait a Quick round holds constant. Ignored by a full round.
+    private(set) var quickTrait: Card.Trait = .fill
 
     var totalCards: Int { variant == .quick ? 27 : 81 }
     var setsTotal: Int { totalCards / 3 }
@@ -93,15 +95,20 @@ final class GameEngine {
 
     var setsFound: Int { done.count / 3 }
 
-    func start(variant: Variant = .full) {
+    func start(variant: Variant = .full, quickTrait: Card.Trait = .fill) {
         var generator = SystemRandomNumberGenerator()
-        start(variant: variant, using: &generator)
+        start(variant: variant, quickTrait: quickTrait, using: &generator)
     }
 
     /// The same generator state deals the same deck, so a test (or a future
     /// daily deal) can reproduce a run exactly.
-    func start<G: RandomNumberGenerator>(variant: Variant = .full, using generator: inout G) {
+    func start<G: RandomNumberGenerator>(
+        variant: Variant = .full,
+        quickTrait: Card.Trait = .fill,
+        using generator: inout G
+    ) {
         self.variant = variant
+        self.quickTrait = quickTrait
         celebrationTask?.cancel()
         celebrationIDs = []
         lastMatchInstant = nil
@@ -112,7 +119,7 @@ final class GameEngine {
         pausedTotal = .zero
         wasPaused = false
         let source = variant == .quick
-            ? Card.fullDeck.filter { $0.fill == .solid }
+            ? Card.quickDeck(holding: quickTrait)
             : Card.fullDeck
         deck = source.shuffled(using: &generator)
         table = []
@@ -135,6 +142,8 @@ final class GameEngine {
         var elapsed: TimeInterval
         var hintUsed: Bool
         var savedAt: Date
+        /// Added after 1.2.0; nil in an older save means fill.
+        var quickTrait: Int?
     }
 
     /// A run worth restoring. A finished run and a run that never started
@@ -148,7 +157,8 @@ final class GameEngine {
             done: done.map(\.id),
             elapsed: elapsed(),
             hintUsed: hintUsed,
-            savedAt: .now
+            savedAt: .now,
+            quickTrait: quickTrait.rawValue
         )
     }
 
@@ -164,6 +174,7 @@ final class GameEngine {
         lastMismatch = []
         mismatchReasons = []
         variant = Variant(rawValue: run.variant) ?? .full
+        quickTrait = run.quickTrait.flatMap(Card.Trait.init(rawValue:)) ?? .fill
         deck = run.deck.map(Card.init(id:))
         table = run.table.map(Card.init(id:))
         done = run.done.map(Card.init(id:))

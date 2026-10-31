@@ -27,6 +27,12 @@ struct SoloGameView: View {
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @AppStorage("hapticsEnabled") private var hapticsEnabled = true
     @AppStorage("showSoloTimer") private var showSoloTimer = true
+    /// Which trait Quick 27 holds constant, chosen on the Solo menu.
+    @AppStorage("quickTrait") private var quickTraitRaw = Card.Trait.fill.rawValue
+
+    private var quickTrait: Card.Trait {
+        Card.Trait(rawValue: quickTraitRaw) ?? .fill
+    }
     var onExit: () -> Void
 
     private var bestTime: Double {
@@ -191,7 +197,7 @@ struct SoloGameView: View {
                         hintSet = []
                         runInsight = RunInsight()
                         lastMatchElapsed = 0
-                        engine.start(variant: variant)
+                        engine.start(variant: variant, quickTrait: quickTrait)
                         saveRun()
                         ESTTelemetry.record(.gamesStarted)
                         ESTTelemetry.record(variant == .quick
@@ -211,7 +217,7 @@ struct SoloGameView: View {
                 hintUsed = run.hintUsed
                 engine.restore(run)
             } else {
-                engine.start(variant: variant)
+                engine.start(variant: variant, quickTrait: quickTrait)
             }
             ESTTelemetry.record(.gamesStarted)
             ESTTelemetry.record(variant == .quick

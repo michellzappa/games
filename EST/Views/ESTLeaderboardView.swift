@@ -18,7 +18,7 @@ struct ESTLeaderboardView: View {
             LeaderboardBoard(
                 id: ESTLeaderboard.leaderboardID(for: .quick),
                 title: "Quick 27",
-                description: "Clear the 27 solid cards in a shorter round.",
+                description: "Clear 27 cards that share one trait in a shorter round.",
                 personalBest: bestQuickTime > 0 ? TimeFormat.clock(bestQuickTime) : nil
             ),
         ]

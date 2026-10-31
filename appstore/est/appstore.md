@@ -27,7 +27,7 @@ EST is a free card game about patterns. The deck has 81 cards, and every card co
 THREE WAYS TO PLAY
 
 • Solo 81: clear the whole deck against the clock. Play a run without hints and your best time goes to the Game Center leaderboard.
-• Quick 27: the 27 solid cards, nine on the table, for a shorter round.
+• Quick 27: 27 cards that share one trait (you choose which), nine on the table, for a shorter round.
 • Duel: race someone on one phone, or on two devices. Play online over Game Center, or offline over Wi-Fi and Bluetooth when you have no signal. On iPad and an open iPhone Duo, four players share one table.
 
 LEARN THE RULE

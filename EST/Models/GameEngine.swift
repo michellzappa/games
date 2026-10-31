@@ -94,6 +94,13 @@ final class GameEngine {
     var setsFound: Int { done.count / 3 }
 
     func start(variant: Variant = .full) {
+        var generator = SystemRandomNumberGenerator()
+        start(variant: variant, using: &generator)
+    }
+
+    /// The same generator state deals the same deck, so a test (or a future
+    /// daily deal) can reproduce a run exactly.
+    func start<G: RandomNumberGenerator>(variant: Variant = .full, using generator: inout G) {
         self.variant = variant
         celebrationTask?.cancel()
         celebrationIDs = []
@@ -107,7 +114,7 @@ final class GameEngine {
         let source = variant == .quick
             ? Card.fullDeck.filter { $0.fill == .solid }
             : Card.fullDeck
-        deck = source.shuffled()
+        deck = source.shuffled(using: &generator)
         table = []
         done = []
         selection = []

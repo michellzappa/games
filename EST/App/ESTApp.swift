@@ -187,7 +187,6 @@ struct RootView: View {
         }
         .onAppear {
             ESTTelemetry.migrateConsentIfNeeded()
-            updateGameCenterAccessPoint()
             updateIdleTimer()
             if !isScreenshotMode {
                 GameCenterManager.shared.authenticate()
@@ -195,15 +194,6 @@ struct RootView: View {
             if !isScreenshotMode && !hasSeenTutorial {
                 showTutorial = true
             }
-        }
-        .onChange(of: screen) { _, _ in
-            updateGameCenterAccessPoint()
-        }
-        .onChange(of: showSettings) { _, _ in
-            updateGameCenterAccessPoint()
-        }
-        .onChange(of: immersiveGameMode) { _, _ in
-            updateGameCenterAccessPoint()
         }
         .onChange(of: keepScreenAwake) { _, _ in
             updateIdleTimer()
@@ -214,12 +204,6 @@ struct RootView: View {
         .onDisappear {
             UIApplication.shared.isIdleTimerDisabled = false
         }
-    }
-
-    private func updateGameCenterAccessPoint() {
-        GameCenterManager.shared.setAccessPointVisible(
-            screen == .title && !shouldHideGameChrome && !showSettings
-        )
     }
 
     @MainActor

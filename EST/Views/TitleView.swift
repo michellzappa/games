@@ -98,7 +98,11 @@ struct TitleView: View {
             .background(Appearance.shared.gameBackground)
             .toolbarBackground(.hidden, for: .navigationBar)
             .toolbar {
+                // Game Center's floating access point sat over this corner of
+                // the screen whatever the layout, so EST opens its
+                // leaderboards from here instead.
                 ToolbarItemGroup(placement: .topBarTrailing) {
+                    Button("Leaderboards", systemImage: "trophy", action: onLeaderboards)
                     Button("Rules", systemImage: "questionmark.circle") { showRules = true }
                     Button("Stats", systemImage: "chart.bar.xaxis") { showPlayStyle = true }
                     Button("Settings", systemImage: "gearshape") { showSettings = true }

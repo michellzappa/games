@@ -8,7 +8,7 @@ struct PlayStyleView: View {
     @AppStorage("bestSoloTime") private var bestSoloTime: Double = 0
     @AppStorage("bestQuickTime") private var bestQuickTime: Double = 0
 
-    private let traitNames = ["number", "color", "shape", "fill"]
+    private let traitNames = PlayerStats.traitNames
 
     /// Opens the Game Center leaderboards. The caller closes this sheet
     /// first, because the app root presents the leaderboard.
@@ -116,6 +116,27 @@ struct PlayStyleView: View {
                 metric("Sets", value: "\(stats.correctSets)", tint: .blue)
                 metric("Accuracy", value: percentage(stats.accuracy), tint: .yellow)
                 metric("Rounds", value: "\(stats.completedSoloRounds)", tint: .red)
+            }
+
+            // Records start counting from this version, so an older player
+            // sees them fill in rather than a row of zeros.
+            if stats.fastestSet != nil || stats.longestStreak > 0 {
+                Divider()
+                LazyVGrid(
+                    columns: [GridItem(.flexible()), GridItem(.flexible())],
+                    spacing: 10
+                ) {
+                    metric(
+                        "Fastest set",
+                        value: stats.fastestSet.map(TimeFormat.shortSeconds) ?? "—",
+                        tint: .yellow
+                    )
+                    metric(
+                        "Sets without a miss",
+                        value: "\(stats.longestStreak)",
+                        tint: .blue
+                    )
+                }
             }
 
             // Personal bests live here too. They were only visible on the

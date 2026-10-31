@@ -206,7 +206,7 @@ struct TutorialView: View {
             TutorialText.ruleRow("square.grid.3x3", "Start with 12 cards", "Tap three that make a set. Replacements take their place.")
             TutorialText.ruleRow("plus.rectangle.on.rectangle", "No set on the table?", "The game deals three more cards until a set appears.")
             TutorialText.ruleRow("timer", "Solo 81", "Clear the deck against the clock. Hints keep the run off the leaderboard.")
-            TutorialText.ruleRow("bolt.fill", "Quick 27", "Play the 27 solid cards. The fill never changes, so you check three traits.")
+            TutorialText.ruleRow("bolt.fill", "Quick 27", "Play 27 cards that share one trait, solid fill unless you pick another. You check the other three.")
             TutorialText.ruleRow("person.2.fill", "Duel", "On one phone or two, buzz first and then tap the three cards within \(Int(ClaimRace<Int>.Configuration.standard.claimWindow)) seconds. Miss and you lose a point and sit out briefly.")
 
             TutorialText.paragraph("At the end, the remaining cards are simply the ones nobody claimed.")

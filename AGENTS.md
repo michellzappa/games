@@ -188,8 +188,11 @@ iPhone and iPad are both mandatory while TARGETED_DEVICE_FAMILY is "1,2".
   and `est.quick.completion.time` (Quick 27). Scores are centiseconds
   (elapsed-time format, ascending). Both must be created in App Store Connect
   with exactly these IDs before submission works.
-- Quick 27 is `GameEngine.Variant.quick`: the 27 solid-fill cards, 9 on the
-  table. The fill trait is constant there, so the set math is untouched.
+- Quick 27 is `GameEngine.Variant.quick`: 27 cards that hold one trait at
+  its first value (`Card.quickDeck(holding:)`), 9 on the table. The player
+  picks the trait on the Solo menu (`quickTrait` UserDefaults key, fill by
+  default). Every choice shares the one Quick leaderboard and personal best:
+  the decks are the same game under a relabeling.
 - `PlayerStats` adds `fastestSet`, `longestStreak` and `currentStreak` as
   optionals, so a snapshot from an older build still decodes. Never add a
   non-optional field to `Snapshot`: a failed decode resets every stat.

@@ -102,6 +102,20 @@ final class GameEngineTests: XCTestCase {
         XCTAssertNotNil(Card.findSet(in: engine.table))
     }
 
+    func testEveryQuickTraitDealsTwentySevenCardsHoldingIt() {
+        for trait in Card.Trait.allCases {
+            let engine = GameEngine()
+            var generator = Generator(state: 9)
+            engine.start(variant: .quick, quickTrait: trait, using: &generator)
+            let cards = engine.table + engine.deck
+
+            XCTAssertEqual(cards.count, 27, "\(trait)")
+            XCTAssertEqual(Set(cards.map { $0.trits[trait.rawValue] }), [0], "\(trait)")
+            XCTAssertNotNil(Card.findSet(in: engine.table), "\(trait)")
+            XCTAssertEqual(engine.savedRun(hintUsed: false)?.quickTrait, trait.rawValue)
+        }
+    }
+
     // MARK: Selecting
 
     func testSelectingACardTwiceDeselectsIt() {

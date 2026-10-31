@@ -100,6 +100,28 @@ struct Card: Identifiable, Hashable {
         [count - 1, tint.rawValue, symbol.rawValue, fill.rawValue]
     }
 
+    /// The four traits, in `trits` and `audit` order.
+    enum Trait: Int, CaseIterable, Identifiable {
+        case number, color, shape, fill
+
+        var id: Int { rawValue }
+        var name: String {
+            switch self {
+            case .number: "number"
+            case .color: "color"
+            case .shape: "shape"
+            case .fill: "fill"
+            }
+        }
+    }
+
+    /// The 27 cards that hold `trait` at its first value: one symbol, red,
+    /// circles, or solid. The other three traits vary freely, so the set
+    /// math is unchanged.
+    static func quickDeck(holding trait: Trait) -> [Card] {
+        fullDeck.filter { $0.trits[trait.rawValue] == 0 }
+    }
+
     static var fullDeck: [Card] {
         var deck: [Card] = []
         for count in 1...3 {

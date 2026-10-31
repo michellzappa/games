@@ -11,6 +11,10 @@ struct SoloGameView: View {
     @AppStorage("bestQuickTime") private var bestQuickTime: Double = 0
     @State private var submittedScore = false
     @State private var hintedIDs: Set<Int> = []
+    /// The set the hint is pointing at. The second hint reveals its second
+    /// card; it is never re-chosen while it is still on the table.
+    @State private var hintSet: [Card] = []
+    @State private var runInsight = RunInsight()
     @State private var hintUsed = false
     @State private var pileFrames = PileFrames()
     @State private var showExitConfirm = false
@@ -127,26 +131,18 @@ struct SoloGameView: View {
         } message: {
             Text("If you use a hint, this run will not appear on the Game Center leaderboard. Your time can still become a personal best.")
         }
-        .onChange(of: showExitConfirm) { _, showing in
-            if showing {
-                engine.pause()
-            } else if !showHintWarning {
-                engine.resume()
-            }
-        }
-        .onChange(of: showHintWarning) { _, showing in
-            if showing {
-                engine.pause()
-            } else if !showExitConfirm {
-                engine.resume()
-            }
-        }
+        // Only leaving the app pauses the clock, and only a pause takes a
+        // run off the leaderboard. The exit and hint dialogs, Control Center
+        // and Notification Center leave the clock running: the player loses
+        // a few seconds but keeps a ranked run. They used to pause, which
+        // quietly disqualified most full-deck runs.
         .onChange(of: scenePhase) { _, phase in
-            if phase == .active {
-                if !showExitConfirm && !showHintWarning {
-                    engine.resume()
-                }
-            } else {
+            switch phase {
+            case .active:
+                engine.resume()
+            case .inactive:
+                saveRun()
+            default:
                 engine.pause()
                 saveRun()
             }
@@ -186,11 +182,14 @@ struct SoloGameView: View {
                     totalCards: engine.totalCards,
                     hintUsed: hintUsed,
                     runWasPaused: engine.wasPaused,
+                    insight: runInsight,
                     leaderboardID: leaderboardID,
                     onPlayAgain: {
                         submittedScore = false
                         hintUsed = false
                         hintedIDs = []
+                        hintSet = []
+                        runInsight = RunInsight()
                         lastMatchElapsed = 0
                         engine.start(variant: variant)
                         saveRun()
@@ -225,6 +224,7 @@ struct SoloGameView: View {
         }
         .onChange(of: engine.table) {
             hintedIDs = []
+            hintSet = []
         }
         .onChange(of: engine.matchToken) { oldToken, newToken in
             guard newToken > oldToken else { return }
@@ -260,7 +260,11 @@ struct SoloGameView: View {
                    variant: variant,
                    wasPaused: engine.wasPaused
                ) {
-                GameCenterManager.shared.submit(score)
+                GameCenterManager.shared.submit(score) { error in
+                    ESTTelemetry.record(error == nil
+                        ? .leaderboardSubmitted
+                        : .leaderboardSubmitFailed)
+                }
             }
         }
     }
@@ -274,6 +278,16 @@ struct SoloGameView: View {
                     Text(TimeFormat.clock(engine.elapsed()))
                         .font(.system(.title, design: .rounded, weight: .bold))
                         .monospacedDigit()
+                }
+                // An overlay, so the timer stays centered when it appears.
+                .overlay(alignment: .trailing) {
+                    if isUnranked {
+                        Image(systemName: "nosign")
+                            .font(.footnote.weight(.bold))
+                            .foregroundStyle(.secondary)
+                            .alignmentGuide(.trailing) { $0[.leading] - 6 }
+                            .accessibilityLabel("Unranked. This run will not reach the leaderboard.")
+                    }
                 }
             }
             HStack {
@@ -299,21 +313,38 @@ struct SoloGameView: View {
                         Image(systemName: hintUsed ? "lightbulb.fill" : "lightbulb")
                     }
                     .buttonStyle(.game(.quiet, tint: .third, size: .icon))
-                    .disabled(engine.isFinished)
+                    .disabled(engine.isFinished || hintedIDs.count >= 2)
                     .accessibilityLabel("Hint")
-                    .accessibilityHint(hintUsed
-                        ? "Reveal a card from a set"
-                        : "Ask for a hint. This run will not appear on the leaderboard")
+                    .accessibilityHint(!hintUsed
+                        ? "Ask for a hint. This run will not appear on the leaderboard"
+                        : hintedIDs.count == 1
+                            ? "Reveal a second card of the same set"
+                            : "Reveal a card from a set")
                 }
             }
         }
     }
 
-    /// Reveals one card of a valid set. Marks the run: it will not submit
-    /// to the leaderboard.
+    /// A run that will not reach the leaderboard, shown while it is still
+    /// running. Without Game Center nothing is ranked, so nothing is marked.
+    private var isUnranked: Bool {
+        GameCenterManager.shared.isAuthenticated
+            && !engine.isFinished
+            && (hintUsed || engine.wasPaused)
+    }
+
+    /// The first hint shows one card of a valid set, the second shows another
+    /// card of the same set. The third card stays for the player to find.
+    /// Marks the run: it will not submit to the leaderboard.
     private func revealHint() {
-        guard let set = Card.findSet(in: engine.table) else { return }
-        hintedIDs = [set[0].id]
+        let onTable = Set(engine.table)
+        if hintSet.isEmpty || !hintSet.allSatisfy(onTable.contains) {
+            guard let set = Card.findSet(in: engine.table) else { return }
+            hintSet = set
+            hintedIDs = []
+        }
+        guard hintedIDs.count < 2 else { return }
+        hintedIDs.insert(hintSet[hintedIDs.count].id)
         hintUsed = true
         ESTTelemetry.record(.hintUsed)
         GameAudio.shared.play(.hint)
@@ -330,14 +361,18 @@ struct SoloGameView: View {
         case .pending:
             break
         case .matched(let cards):
+            let seconds = elapsed - lastMatchElapsed
             PlayerStats.shared.recordMatch(
                 cards,
                 boardSetCount: boardSetCount,
-                timeSincePreviousMatch: elapsed - lastMatchElapsed
+                timeSincePreviousMatch: seconds,
+                hinted: cards.contains { hintedIDs.contains($0.id) }
             )
+            runInsight.recordMatch(cards, seconds: seconds)
             lastMatchElapsed = elapsed
         case .mismatched(let cards):
             PlayerStats.shared.recordMismatch(cards, boardSetCount: boardSetCount)
+            runInsight.recordMismatch(cards)
         }
     }
 }
@@ -354,6 +389,7 @@ struct SoloGameOverView: View {
     var totalCards = 81
     var hintUsed = false
     var runWasPaused = false
+    var insight = RunInsight()
     var leaderboardID = ESTLeaderboard.soloCompletionTimeID
     let onPlayAgain: () -> Void
     let onExit: () -> Void
@@ -366,6 +402,26 @@ struct SoloGameOverView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .transition(.scale(scale: 0.85).combined(with: .opacity))
+    }
+
+    /// Where this run went fast and slow. Each line appears only when the
+    /// run has the data for it.
+    private var insightLines: [String] {
+        var lines: [String] = []
+        if let fastest = insight.fastest, let slowest = insight.slowest, setsFound > 1 {
+            lines.append("Fastest set \(TimeFormat.shortSeconds(fastest)), slowest \(TimeFormat.shortSeconds(slowest))")
+        }
+        if let kind = insight.slowestKind {
+            let traits = kind.differences == 1 ? "1 trait differs" : "\(kind.differences) traits differ"
+            lines.append("Slowest when \(traits): \(TimeFormat.shortSeconds(kind.average)) on average")
+        }
+        if let missed = insight.mostMissedTrait {
+            let misses = insight.mismatches == 1 ? "1 miss" : "\(insight.mismatches) misses"
+            lines.append("\(misses), most often on \(missed.name)")
+        } else if setsFound > 0 {
+            lines.append("No misses")
+        }
+        return lines
     }
 
     private var card: some View {
@@ -392,6 +448,17 @@ struct SoloGameOverView: View {
                 .font(.footnote)
                 .foregroundStyle(.secondary)
 
+            if !insightLines.isEmpty {
+                VStack(spacing: 4) {
+                    ForEach(insightLines, id: \.self) { line in
+                        Text(line)
+                    }
+                }
+                .font(.footnote)
+                .foregroundStyle(Color.primary.opacity(0.85))
+                .multilineTextAlignment(.center)
+            }
+
             if bestTime > 0 {
                 // A personal best is the good news on the card, so it reads
                 // as a highlight rather than as another gray footnote.
@@ -405,7 +472,7 @@ struct SoloGameOverView: View {
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.orange)
             } else if runWasPaused {
-                Label("Paused or interrupted. This run was not submitted.", systemImage: "pause.circle.fill")
+                Label("You left the app during this run, so it was not submitted.", systemImage: "pause.circle.fill")
                     .font(.footnote.weight(.semibold))
                     .foregroundStyle(.secondary)
             }

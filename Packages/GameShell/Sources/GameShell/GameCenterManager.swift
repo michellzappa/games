@@ -1,4 +1,5 @@
 import GameKit
+import OSLog
 import Observation
 import UIKit
 
@@ -51,23 +52,38 @@ public final class GameCenterManager {
     }
 
     /// Submits a score that the calling game has already validated.
+    /// `completion` runs on the main actor with nil on success or the error
+    /// Game Center returned. A rejected score used to vanish without a trace:
+    /// a leaderboard that is not live looks exactly like a success otherwise.
     @discardableResult
-    public func submit(_ score: GameCenterScore) -> Bool {
+    public func submit(
+        _ score: GameCenterScore,
+        completion: (@MainActor (Error?) -> Void)? = nil
+    ) -> Bool {
         guard isAuthenticated,
               !score.leaderboardID.isEmpty,
               score.value >= 0
         else { return false }
 
         Task {
-            try? await GKLeaderboard.submitScore(
-                score.value,
-                context: score.context,
-                player: GKLocalPlayer.local,
-                leaderboardIDs: [score.leaderboardID]
-            )
+            do {
+                try await GKLeaderboard.submitScore(
+                    score.value,
+                    context: score.context,
+                    player: GKLocalPlayer.local,
+                    leaderboardIDs: [score.leaderboardID]
+                )
+                Self.log.info("Submitted \(score.value) to \(score.leaderboardID, privacy: .public)")
+                await completion?(nil)
+            } catch {
+                Self.log.error("Submit to \(score.leaderboardID, privacy: .public) failed: \(error.localizedDescription, privacy: .public)")
+                await completion?(error)
+            }
         }
         return true
     }
+
+    private static let log = Logger(subsystem: "GameShell", category: "GameCenter")
 
     public func showLeaderboard(id: String) {
         guard isAuthenticated else { return }

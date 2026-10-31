@@ -165,12 +165,37 @@ iPhone and iPad are both mandatory while TARGETED_DEVICE_FAMILY is "1,2".
 - Real matchmaking needs the app record + Game Center capability live in App
   Store Connect; two signed-in devices (or device + simulator) are needed to
   test it.
+- Only leaving the app pauses a solo run, and only a paused run (or a
+  restored one, or a hinted one) stays off the leaderboard. The exit and
+  hint dialogs and `.inactive` (Control Center, Notification Center) keep
+  the clock running. They used to pause, which silently disqualified most
+  full-deck runs. The HUD shows a `nosign` mark beside the timer once a run
+  is unranked.
+- The solo hint has two steps: one card of a set, then a second card of the
+  same set. The third is never shown. `hintSet` resets when the table
+  changes.
+- EST does not show `GKAccessPoint`: it floated over the top-leading corner
+  whatever the layout. The title toolbar has a Leaderboards button instead.
+- `GameCenterManager.submit(_:completion:)` reports the Game Center error.
+  EST counts `leaderboard_submitted` and `leaderboard_submit_failed` in
+  telemetry; a failure count with no successes means the leaderboards are
+  not live.
+- Leaderboards go live only when they are added to an app version in App
+  Store Connect (version page, Game Center section) and that version is
+  submitted. `scripts/appstore.sh setup` creates them but does not attach
+  them.
 - Game Center leaderboard IDs: `est.solo.completion.time` (full 81-card solo)
   and `est.quick.completion.time` (Quick 27). Scores are centiseconds
   (elapsed-time format, ascending). Both must be created in App Store Connect
   with exactly these IDs before submission works.
 - Quick 27 is `GameEngine.Variant.quick`: the 27 solid-fill cards, 9 on the
   table. The fill trait is constant there, so the set math is untouched.
+- `PlayerStats` adds `fastestSet`, `longestStreak` and `currentStreak` as
+  optionals, so a snapshot from an older build still decodes. Never add a
+  non-optional field to `Snapshot`: a failed decode resets every stat.
+  `RunInsight` holds one run's numbers for the game-over card.
+- `GameEngine.start(variant:using:)` takes a generator; `GameEngineTests`
+  seeds it so every table-rule test reproduces.
 - Trait explanations come from `Card.audit(_:_:_:)`, which returns one
   `TraitVerdict` per trait. `violationDescriptions` and the tutorial's
   `TraitAuditView` both read it; do not restate the rule in a view.

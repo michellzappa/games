@@ -20,6 +20,7 @@ const PRODUCTS = {
       "quick_solo_started", "quick_solo_completed",
       "local_duel_started", "local_duel_completed",
       "network_duel_started", "network_duel_completed",
+      "leaderboard_submitted", "leaderboard_submit_failed",
     ]),
     features: new Set([
       ...CORE_FEATURES,

@@ -29,11 +29,11 @@ final class PlayerStats {
     }
 
     /// Trait names in Card.audit order, as the stats screens say them.
-    static let traitNames = ["number", "color", "shape", "fill"]
+    nonisolated static let traitNames = ["number", "color", "shape", "fill"]
 
     /// How many traits are all different across a valid set, 1...4. Read
     /// from Card.audit so the set math stays in Card.
-    static func differenceCount(_ cards: [Card]) -> Int {
+    nonisolated static func differenceCount(_ cards: [Card]) -> Int {
         guard cards.count == 3 else { return 0 }
         return Card.audit(cards[0], cards[1], cards[2])
             .filter {
@@ -44,7 +44,7 @@ final class PlayerStats {
     }
 
     /// Indices (Card.audit order) of the traits a trio breaks.
-    static func brokenTraits(_ cards: [Card]) -> [Int] {
+    nonisolated static func brokenTraits(_ cards: [Card]) -> [Int] {
         guard cards.count == 3 else { return [] }
         return Card.audit(cards[0], cards[1], cards[2])
             .enumerated()

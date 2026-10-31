@@ -205,6 +205,9 @@ iPhone and iPad are both mandatory while TARGETED_DEVICE_FAMILY is "1,2".
 - `TrainingView` is the "Is this a set?" drill, opened from the title
   screen. Questions come from `Card.trainingTrio()`: half sets, most of the
   rest near misses from `nearMissTrio()`. The answer reads `TraitAuditView`.
+  Near misses lean toward the traits missed in play
+  (`PlayerStats.mismatchesByTrait`, through `nearMissTrio(breaking:)`); every
+  trait keeps a weight of at least one.
   The best streak is the `trainingBestStreak` UserDefaults key.
 - `TutorialView` is the guided tour (goal, traits, worked set, worked non-set,
   practice board, table rules). First launch shows it over the title screen,

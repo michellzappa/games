@@ -10,6 +10,7 @@ struct TrainingView: View {
     @State private var answer: Bool?
     @State private var streak = 0
     @State private var round = 0
+    @State private var stats = PlayerStats.shared
 
     /// Fixed cells, as in the tutorial: a card inside a ScrollView has no
     /// reliable height to grow into.
@@ -25,6 +26,13 @@ struct TrainingView: View {
             ScrollView {
                 VStack(spacing: 20) {
                     streakRow
+
+                    if let focus = stats.trainingFocus {
+                        Text("Extra practice on \(focus.name), the trait you miss most in play.")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
 
                     HStack(spacing: Self.cardGap) {
                         ForEach(trio.cards) { card in
@@ -58,6 +66,12 @@ struct TrainingView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Done") { dismiss() }
                 }
+            }
+        }
+        .onAppear {
+            // The first question is drawn before the stats are at hand.
+            if round == 0, answer == nil {
+                trio = Card.trainingTrio(missesByTrait: stats.mismatchesByTrait)
             }
         }
     }
@@ -129,7 +143,7 @@ struct TrainingView: View {
 
     private func next() {
         answer = nil
-        trio = Card.trainingTrio()
+        trio = Card.trainingTrio(missesByTrait: stats.mismatchesByTrait)
         round += 1
     }
 }

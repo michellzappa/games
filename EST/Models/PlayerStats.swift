@@ -79,6 +79,16 @@ final class PlayerStats {
     var mismatchesByTrait: [Int] { snapshot.mismatchesByTrait }
     var boardSetBuckets: [Int] { snapshot.boardSetBuckets }
     var fastestSet: TimeInterval? { snapshot.fastestSet }
+
+    /// The trait missed most in play, once there are enough misses to mean
+    /// something. The training drill leans toward it.
+    var trainingFocus: Card.Trait? {
+        let misses = snapshot.mismatchesByTrait
+        guard misses.reduce(0, +) >= 3,
+              let index = misses.indices.max(by: { misses[$0] < misses[$1] })
+        else { return nil }
+        return Card.Trait(rawValue: index)
+    }
     var longestStreak: Int { snapshot.longestStreak ?? 0 }
 
     var accuracy: Double {

@@ -154,3 +154,12 @@ license does not grant rights to the SET trademark.
 SET is a registered trademark of Cannei, LLC, and the game is published by
 PlayMonster LLC. EST is not affiliated with, sponsored by, or endorsed by
 either company.
+
+## Android
+
+The offline Kotlin/Jetpack Compose port is in [`android/`](android/README.md).
+Version 1.3.0 (185) follows the latest iOS home and ports Solo 81, configurable
+Quick 27, Daily Deal, tutorials, training, hints, saved games, themes,
+local personal bests, play-style statistics, the mathematics explorer, and
+shared-device multiplayer from the iOS sources. See the [Android spec](docs/android.md) for scope and
+the Google rankings follow-up.

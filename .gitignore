@@ -15,3 +15,7 @@ build/
 
 # Local Wrangler config holding the real D1 database id
 telemetry/wrangler.local.toml
+
+# SwiftPM build output
+.build/
+.swiftpm/

@@ -214,9 +214,11 @@ create_leaderboard() {
   score_range_end="$(app_json ".leaderboards[$index].scoreRangeEnd")"
 
   load_asc_credentials
-  if asc game-center leaderboards list --app "$app_id" --output json \
-    | jq -e --arg vendor "$vendor_id" '.data[]? | select(.attributes.vendorIdentifier == $vendor)' >/dev/null; then
+  local leaderboard_id
+  leaderboard_id="$(leaderboard_id_for "$app_id" "$vendor_id")"
+  if [ -n "$leaderboard_id" ]; then
     echo "· Game Center leaderboard exists: $vendor_id"
+    ensure_leaderboard_localization "$leaderboard_id" "$reference_name"
     return
   fi
 
@@ -238,6 +240,34 @@ create_leaderboard() {
     --score-range-end "$score_range_end" \
     --sort ASC \
     --submission-type BEST_SCORE
+  leaderboard_id="$(leaderboard_id_for "$app_id" "$vendor_id")"
+  [ -n "$leaderboard_id" ] || { echo "✗ Could not find $vendor_id after creating it" >&2; return 1; }
+  ensure_leaderboard_localization "$leaderboard_id" "$reference_name"
+}
+
+leaderboard_id_for() {
+  asc game-center leaderboards list --app "$1" --output json \
+    | jq -r --arg vendor "$2" '.data[]? | select(.attributes.vendorIdentifier == $vendor) | .id' \
+    | head -n 1
+}
+
+# A leaderboard needs at least one localization before it can go to review:
+# "Leaderboards must have at least one localization." Without one it stays in
+# Prepare for Submission, and the game reports scores to a board that is not
+# live. EST shipped 1.0.0 to 1.2.0 that way. The display name is the
+# reference name, which is also the mode name players see in the app.
+ensure_leaderboard_localization() {
+  local leaderboard_id="$1"
+  local name="$2"
+  if asc game-center leaderboards localizations list --leaderboard-id "$leaderboard_id" --output json \
+    | jq -e '.data | length > 0' >/dev/null; then
+    return
+  fi
+  asc game-center leaderboards localizations create \
+    --leaderboard-id "$leaderboard_id" \
+    --locale en-US \
+    --name "$name" >/dev/null
+  echo "· en-US localization created: $name"
 }
 
 upload_screenshots() {
@@ -297,13 +327,16 @@ submit_app() {
   local build_id
   build_id="$(asc builds info --app "$app_id" --latest --version "$VERSION" --platform IOS --output json | jq -r '.data.id // empty')"
   [ -n "$build_id" ] || { echo "No processed build found for $VERSION"; exit 1; }
-  # Leaderboards go live only with a version that includes them (version
-  # page, Game Center section). setup creates them but cannot attach them.
-  # Stop until someone has checked that section.
+  # A new leaderboard goes live only inside a review submission. setup
+  # creates it but cannot add it: in App Store Connect, open Game Center,
+  # open each leaderboard, and use Add for Review on the draft submission.
+  # The version page's Game Center section does not list them. Stop until
+  # someone has done that.
   local leaderboard_count
   leaderboard_count="$(app_json '.leaderboards | length')"
   if [ "$leaderboard_count" -gt 0 ] && [ "${LEADERBOARDS_ATTACHED:-}" != "1" ]; then
-    echo "✗ In App Store Connect, open $VERSION, Game Center section, and add:" >&2
+    echo "✗ Leaderboards not yet live must go to review with $VERSION. In App Store Connect," >&2
+    echo "  open Game Center, open each one below, and use Add for Review. Skip any already live:" >&2
     app_json '.leaderboards[].vendorId' | sed 's/^/    /' >&2
     echo "  Then rerun with LEADERBOARDS_ATTACHED=1." >&2
     exit 1

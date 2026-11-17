@@ -431,6 +431,18 @@ Each rule below comes from a failed attempt:
 - An ad hoc archive (`CODE_SIGN_IDENTITY=-`) fails: the Game Center
   entitlement requires a provisioning profile.
 
+Leaderboards (1.3.0, 2026-11-17). EST's two leaderboards were never live
+before 1.3.0: they had no localization, and Apple refuses a leaderboard with
+none ("Leaderboards must have at least one localization"). `setup` now
+creates an en-US localization named after `referenceName`, also for a board
+that exists already. A new leaderboard goes live only inside a review
+submission, and the version page's Game Center section does not list it: open
+Game Center, open each leaderboard, and use Add for Review on the draft
+submission. Then add the version with `asc review items-add` and submit the
+submission (the commands below). An outdated Paid Applications Agreement
+blocks Add for Review with an "Agreement Update" dialog; MZ accepts it under
+Business.
+
 An in-app purchase is a separate review item with its own readiness rules.
 `est.support` stays MISSING_METADATA until all three exist:
 

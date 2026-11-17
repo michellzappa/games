@@ -200,6 +200,12 @@ struct RootView: View {
                 showTutorial = true
             }
         }
+        .onChange(of: screen) { _, _ in
+            updateIdleTimer()
+        }
+        .onChange(of: showNearby) { _, _ in
+            updateIdleTimer()
+        }
         .onChange(of: keepScreenAwake) { _, _ in
             updateIdleTimer()
         }
@@ -213,6 +219,10 @@ struct RootView: View {
 
     @MainActor
     private func updateIdleTimer() {
-        UIApplication.shared.isIdleTimerDisabled = keepScreenAwake && scenePhase == .active
+        // A locked screen sends the app to the background, and the system
+        // then drops every MultipeerConnectivity and Game Center link. A
+        // multi-device game and its lobby always keep the screen on.
+        let playsWithOthers = screen == .networkParty || showNearby
+        UIApplication.shared.isIdleTimerDisabled = (keepScreenAwake || playsWithOthers) && scenePhase == .active
     }
 }

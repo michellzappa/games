@@ -76,6 +76,9 @@ final class NetworkPartySession {
         transport.onPlayerLeft = { [weak self] playerID in
             self?.playerLeft(playerID)
         }
+        transport.onPlayerReturned = { [weak self] _ in
+            self?.playerReturned()
+        }
         transport.onData = { [weak self] data, playerID in
             self?.receive(data, from: playerID)
         }
@@ -349,6 +352,13 @@ final class NetworkPartySession {
         } else {
             adoptHost(remaining)
         }
+    }
+
+    /// A device reconnected inside the transport's grace window. Its seat
+    /// never left the roster, so the host only sends the current state.
+    private func playerReturned() {
+        guard isHost, !isFinished else { return }
+        publishAndBroadcast()
     }
 
     /// Host: a player left. Their cards stay out of play, so the deck math is

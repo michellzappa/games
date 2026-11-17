@@ -65,6 +65,8 @@ A second hint tap shows a second card of the same set.
 
 At the end of a run you see your fastest and slowest set and the trait you missed most. Stats adds your fastest set and your longest run without a miss. The Is this a set? drill now practices the trait you miss most.
 
+Playing on two devices in the same room is more reliable. Joining a table works on the first try more often, and the screen stays on during the game. If a phone drops out for a moment, it has 15 seconds to reconnect, and play picks up where it stopped. Hosting and joining now share one page: pick a table from the list, or tap Host a table under it.
+
 ### support_url
 
 https://github.com/michellzappa/games/issues

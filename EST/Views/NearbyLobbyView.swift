@@ -2,8 +2,9 @@ import GameKit
 import GameShell
 import SwiftUI
 
-/// The lobby for a party with no internet. One device hosts a table, the
-/// others join it, and the host starts when everyone is in.
+/// The lobby for a party with no internet. One page lists the tables nearby
+/// and has a Host button under the list. The list always keeps room for one
+/// row, so the button stays in place unless two or more tables show up.
 struct NearbyLobbyView: View {
     let maximumPlayers: Int
     var onStart: (NearbyParty) -> Void
@@ -12,17 +13,18 @@ struct NearbyLobbyView: View {
     @AppStorage("nearbyPlayerName") private var name = ""
     @State private var party: NearbyParty?
 
+    private static let rowHeight: CGFloat = 50
+
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
                     if let party {
                         switch party.role {
+                        case .lobby: lobbyContent(party)
                         case .hosting: hostingContent(party)
                         case .joining: joiningContent(party)
                         }
-                    } else {
-                        chooseRole
                     }
                 }
                 .frame(maxWidth: 480)
@@ -44,6 +46,9 @@ struct NearbyLobbyView: View {
             if name.isEmpty, GKLocalPlayer.local.isAuthenticated {
                 name = GKLocalPlayer.local.displayName
             }
+            if party == nil {
+                open()
+            }
         }
         .onDisappear {
             if let party, !party.isStarted {
@@ -52,9 +57,9 @@ struct NearbyLobbyView: View {
         }
     }
 
-    // MARK: - Choose
+    // MARK: - Lobby
 
-    private var chooseRole: some View {
+    private func lobbyContent(_ party: NearbyParty) -> some View {
         VStack(spacing: 16) {
             Image(systemName: "wifi.slash")
                 .font(.system(size: 40, weight: .semibold))
@@ -69,23 +74,61 @@ struct NearbyLobbyView: View {
                 .autocorrectionDisabled()
                 .submitLabel(.done)
                 .padding(.horizontal, 16)
-                .frame(height: 50)
+                .frame(height: Self.rowHeight)
                 .background(.quaternary, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
 
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Tables nearby")
+                    .font(.footnote.weight(.semibold))
+                    .foregroundStyle(.secondary)
+                    .padding(.horizontal, 4)
+                if party.hosts.isEmpty {
+                    HStack(spacing: 10) {
+                        ProgressView()
+                        Text("Looking for tables")
+                            .foregroundStyle(.secondary)
+                        Spacer()
+                    }
+                    .padding(.horizontal, 16)
+                    .frame(height: Self.rowHeight)
+                    .background(.quaternary.opacity(0.5), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                } else {
+                    ForEach(party.hosts) { host in
+                        tableRow(host, in: party)
+                    }
+                }
+            }
+
             Button {
-                open(.hosting)
+                party.host(name: name)
             } label: {
                 Label("Host a table", systemImage: "person.3.fill")
             }
             .buttonStyle(.game(.primary, tint: .first, size: .large))
-
-            Button {
-                open(.joining)
-            } label: {
-                Label("Join a table", systemImage: "arrow.right.circle.fill")
-            }
-            .buttonStyle(.game(.secondary, tint: .second, size: .large))
         }
+        .animation(.default, value: party.hosts)
+    }
+
+    private func tableRow(_ host: NearbyParty.FoundHost, in party: NearbyParty) -> some View {
+        Button {
+            party.join(host, name: name)
+        } label: {
+            HStack {
+                Image(systemName: "person.fill")
+                    .foregroundStyle(GameAccent.first.color)
+                Text(host.name)
+                    .font(.body.weight(.semibold))
+                    .foregroundStyle(.primary)
+                Spacer()
+                Image(systemName: "arrow.right.circle.fill")
+                    .foregroundStyle(GameAccent.second.color)
+            }
+            .padding(.horizontal, 16)
+            .frame(height: Self.rowHeight)
+            .contentShape(Rectangle())
+            .background(.quaternary, in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - Host
@@ -94,7 +137,7 @@ struct NearbyLobbyView: View {
         VStack(spacing: 16) {
             Text("Your table is open")
                 .font(.title3.weight(.bold))
-            Text("Other players open Play nearby, tap Join a table, and pick \(party.localName).")
+            Text("Other players open Play nearby and pick \(party.localName).")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
@@ -123,6 +166,11 @@ struct NearbyLobbyView: View {
             }
             .buttonStyle(.game(.primary, tint: .first, size: .large))
             .disabled(!party.canStart)
+
+            Button("Close table") {
+                party.closeTable()
+            }
+            .font(.subheadline.weight(.semibold))
         }
     }
 
@@ -132,30 +180,7 @@ struct NearbyLobbyView: View {
     private func joiningContent(_ party: NearbyParty) -> some View {
         switch party.joinState {
         case .browsing:
-            VStack(spacing: 16) {
-                Text("Pick a table")
-                    .font(.title3.weight(.bold))
-                if party.hosts.isEmpty {
-                    HStack(spacing: 10) {
-                        ProgressView()
-                        Text("Looking for tables nearby")
-                            .foregroundStyle(.secondary)
-                    }
-                    .frame(height: 50)
-                    Text("Ask the host to tap Host a table.")
-                        .font(.footnote)
-                        .foregroundStyle(.secondary)
-                } else {
-                    ForEach(party.hosts) { host in
-                        Button {
-                            party.join(host)
-                        } label: {
-                            Label(host.name, systemImage: "person.fill")
-                        }
-                        .buttonStyle(.game(.secondary, tint: .first, size: .medium))
-                    }
-                }
-            }
+            EmptyView()
         case .connecting(let hostName):
             statusContent(title: "Joining \(hostName)", showsProgress: true)
         case .waiting(let hostName):
@@ -173,6 +198,11 @@ struct NearbyLobbyView: View {
                     Label("Try again", systemImage: "arrow.clockwise")
                 }
                 .buttonStyle(.game(.primary, tint: .first, size: .large))
+
+                Button("Tables nearby") {
+                    party.backToTables()
+                }
+                .font(.subheadline.weight(.semibold))
             }
         }
     }
@@ -212,8 +242,8 @@ struct NearbyLobbyView: View {
 
     // MARK: - Actions
 
-    private func open(_ role: NearbyParty.Role) {
-        let party = NearbyParty(role: role, name: name, maximumPlayers: maximumPlayers)
+    private func open() {
+        let party = NearbyParty(name: name, maximumPlayers: maximumPlayers)
         party.onStart = { [weak party] in
             guard let party else { return }
             onStart(party)

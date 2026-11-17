@@ -17,6 +17,9 @@ protocol PartyTransport: AnyObject {
     var onData: ((Data, String) -> Void)? { get set }
     /// Called on the main queue when a remote device disconnects.
     var onPlayerLeft: ((String) -> Void)? { get set }
+    /// Called on the main queue when a device that dropped comes back before
+    /// the transport gave up on it. The host answers with a full snapshot.
+    var onPlayerReturned: ((String) -> Void)? { get set }
     func sendToAll(_ data: Data)
     func send(_ data: Data, to playerID: String)
     func disconnect()
@@ -29,6 +32,8 @@ final class GameCenterTransport: NSObject, PartyTransport, GKMatchDelegate {
     let localName = GKLocalPlayer.local.displayName
     var onData: ((Data, String) -> Void)?
     var onPlayerLeft: ((String) -> Void)?
+    /// Game Center does not reconnect a player, so this never fires.
+    var onPlayerReturned: ((String) -> Void)?
 
     init(match: GKMatch) {
         self.match = match
